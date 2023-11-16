@@ -8,6 +8,9 @@ const userSchema = new Schema({
         required: true,
         unique: true,
     },
+    originalPassword: {
+        String
+    },
     password: {
         type: String,
         required: true,
@@ -15,7 +18,9 @@ const userSchema = new Schema({
     admin: {
         type: Boolean,
     },
-});
+},
+{ timestamps: true }
+);
 
 const User = mongoose.models.User||mongoose.model('User', userSchema);
 export default User;

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from '../src/socialMedia.css'
 library.add(fab);
 
-const socialMedia = () => {
+const SocialMedia = () => {
   return (
     <footer>
     <div className="sm">
@@ -41,4 +41,4 @@ const socialMedia = () => {
   )
 }
 
-export default socialMedia
+export default SocialMedia

@@ -1,8 +1,9 @@
+'use client'
 import SocialMedia from "../(icons)/SocialMedia"
 import PeopleCircle from "../(icons)/ionIcons/PeopleCircle"
 import Chatbubbles from "../(icons)/ionIcons/chatbubbles"
 import styles from '../src/contact.css'
-const contact = () => {
+const Contact = () => {
   return (
     <>
   <title>Contact</title>
@@ -45,11 +46,10 @@ const contact = () => {
   </section>
   <br />
   <br />
-  <br />
-  <SocialMedia/>
-</>
+  <SocialMedia />
 
+</>
   )
 }
 
-export default contact
+export default Contact
