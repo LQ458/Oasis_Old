@@ -9,7 +9,8 @@ const userSchema = new Schema({
         unique: true,
     },
     originalPassword: {
-        String
+        type: String,
+        required: true,
     },
     password: {
         type: String,
@@ -17,9 +18,9 @@ const userSchema = new Schema({
     },
     admin: {
         type: Boolean,
+        required: true
     },
 },
-{ timestamps: true }
 );
 
 const User = mongoose.models.User||mongoose.model('User', userSchema);

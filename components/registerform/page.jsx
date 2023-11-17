@@ -8,13 +8,13 @@ import { mailOutline, lockClosedOutline, diamondOutline } from "ionicons/icons";
 import Link from 'next/link';
 import '@/app/src/register.css';
 
-const registerform = (req,res) => {
+const registerform = () => {
   const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [adminCode, setAdminCode] = useState('');
   const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(false); // Added loading state
+  const [loading, setLoading] = useState(false);
   const [error,setError] = useState('');
 
   const handleSubmit = async (e) => {
@@ -50,7 +50,6 @@ const registerform = (req,res) => {
                 <IonIcon icon={mailOutline} />
                 <input
                   type="username"
-                  value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required
                 />
@@ -60,7 +59,6 @@ const registerform = (req,res) => {
                 <IonIcon icon={lockClosedOutline} />
                 <input
                   type="password"
-                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
@@ -70,7 +68,6 @@ const registerform = (req,res) => {
                 <IonIcon icon={diamondOutline} />
                 <input
                   type="text"
-                  value={adminCode}
                   onChange={(e) => setAdminCode(e.target.value)}
                   required
                 />

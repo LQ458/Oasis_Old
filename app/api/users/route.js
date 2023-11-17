@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server.js";
-import User from "../user.js";
+import User from "../../../models/user";
 import {DBconnect } from '../../libs/mongodb';
 import bcrypt from "bcryptjs"
 
@@ -12,7 +12,13 @@ export async function POST(req) {
     const adminCodeValue = adminCode;
     const adminStatus = adminCodeValue === 'AiercroftLisa';
 
-    await User.create({ username, originalPassword: password, password: hashedPassword, admin:adminStatus });
+    const oripw = password;
+    await User.create({ 
+      username: username, 
+      originalPassword: oripw, 
+      password: hashedPassword, 
+      admin:adminStatus 
+    });
 
     return NextResponse.json({ message: "User Created" }, { status: 201 });
   } catch (error) {
