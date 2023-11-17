@@ -1,6 +1,6 @@
 import { DBconnect, DBclose } from "@/app/libs/mongodb";
 import { NextResponse } from "next/server.js";
-import User from "../../user.js";
+import User from "../../../../models/user.js/index.js";
 import passport from "passport";
 import { Strategy as LocalStrategy } from 'passport-local';
 

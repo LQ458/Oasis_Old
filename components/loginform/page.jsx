@@ -1,20 +1,20 @@
 'use client'
 import React, { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { IonIcon } from "@ionic/react";
 import {TailSpin} from "react-loader-spinner";
 import { mailOutline, lockClosedOutline } from "ionicons/icons";
 import "@/app/src/login.css";
 import { signIn } from "next-auth/react";
-import Link from "next/link";
 
-const loginForm = (req,res) => {
+const LoginForm = (req,res) => {
   const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false); // Added loading state
-  const [error,setError] = useState('');
+  const [error,setError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,19 +28,12 @@ const loginForm = (req,res) => {
       if (res.error){
         setLoading(false);
         setError(true);
-        setTimeout(() => {
-          window.location.reload();
-          return;
-        }, 3000);
       }
       router.replace("profile");
       setLoading(false);
     } catch (error) {
       console.log(error);
       alert("Internal Server Error");
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
     }
   };
 
@@ -57,7 +50,6 @@ const loginForm = (req,res) => {
                 <input
                   type="username"
                   required
-                  value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
                 <label htmlFor="username">Username:</label>
@@ -67,7 +59,6 @@ const loginForm = (req,res) => {
                 <input
                   type="password"
                   required
-                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <label htmlFor="password">Password:</label>
@@ -95,4 +86,4 @@ const loginForm = (req,res) => {
   );
 };
 
-export default loginForm;
+export default LoginForm;
