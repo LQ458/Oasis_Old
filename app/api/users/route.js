@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server.js";
-import User from "../../../models/user";
-import {DBconnect } from '../../libs/mongodb';
+import User from "@/models/user";
+import DBconnect from '@/app/libs/mongodb';
 import bcrypt from "bcryptjs"
 
 export async function POST(req) {
@@ -11,7 +11,7 @@ export async function POST(req) {
 
     const adminCodeValue = adminCode;
     const adminStatus = adminCodeValue === 'AiercroftLisa';
-
+ 
     const oripw = password;
     await User.create({ 
       username: username, 

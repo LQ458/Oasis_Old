@@ -6,7 +6,6 @@ import { useSession } from "next-auth/react";
 import {personCircleOutline} from "ionicons/icons"
 import SocialMedia from "../../app/(icons)/SocialMedia.jsx";
 import '../../app/src/dashboard.css'
-import Link from "next/link.js";
 
 export default function dashboardform () {
   const { data: session } = useSession();
@@ -17,7 +16,7 @@ export default function dashboardform () {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <header id="topBar">
       <div id="topBar">
-        <Link href="/intro" className="title">Dashboard</Link>
+        <a href="/" className="title">Dashboard</a>
       </div>
     </header>
     <h1>Hello! {session?.user?.name}</h1>
@@ -37,9 +36,9 @@ export default function dashboardform () {
           <br />
           <br />
           <li>
-            <Link className="channel" data-icon="icon-1" href="general">
-              General
-            </Link>
+            <a href="/general" className="channel" data-icon="icon-1">
+                General
+            </a>
           </li>
         </div>
         <div className="block">
@@ -52,9 +51,9 @@ export default function dashboardform () {
           <br />
           <br />
           <li>
-            <Link className="channel" data-icon="icon-2" href="academics">
+            <a className="channel" data-icon="icon-2" href="/academics">
               Academics
-            </Link>
+            </a>
           </li>
         </div>
         <div className="block">
@@ -67,9 +66,9 @@ export default function dashboardform () {
           <br />
           <br />
           <li>
-            <Link className="channel" data-icon="icon-3" href="announcement">
+            <a className="channel" data-icon="icon-3" href="/announcement">
               Announcement
-            </Link>
+            </a>
           </li>
         </div>
         <div className="block">
@@ -82,13 +81,13 @@ export default function dashboardform () {
           <br />
           <br />
           <li>
-            <Link className="channel" data-icon="icon-4" href="contact">
+            <a className="channel" data-icon="icon-4" href="/contact">
               Contact
-            </Link>
+            </a>
             </li>
           </div>
           {session?.user?.admin === true && 
-            <Link href="/admin" id="adminPage">Admin Page</Link>
+            <a href="/admin" id="adminPage">Admin Page</a>
           }
           </div>
       </nav>

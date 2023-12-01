@@ -1,9 +1,9 @@
-import sharp from 'sharp';
-import fs from 'fs';
-import path from 'path';
+const sharp = require('sharp');
+const fs = require('fs');
+const path = require('path');
 
-function compressImages (inputFiles, outputFolderPath) {
-  inputFiles.forEach(inputFile => {
+function compressImages(inputFiles, outputFolderPath) {
+  inputFiles.forEach((inputFile) => {
     const fileName = path.basename(inputFile);
     const ext = path.extname(inputFile).toLowerCase();
     const outputFilePath = `${outputFolderPath}${fileName}`;
@@ -22,15 +22,17 @@ function compressImages (inputFiles, outputFolderPath) {
     }
 
     compressImage()
-      .then(data => {
-        fs.promises.writeFile(outputFilePath, data)
-          .then(() => {
-            console.log('Output file successfully written:', outputFilePath);
-          })
-          .catch(err => console.error('Error writing output file:', err));
+      .then((data) => {
+        fs.writeFile(outputFilePath, data, (err) => {
+          if (err) {
+            console.error('Error writing output file:', err);
+            return;
+          }
+          console.log('Output file successfully written:', outputFilePath);
+        });
       })
-      .catch(err => console.error('Error processing image:', err));
+      .catch((err) => console.error('Error processing image:', err));
   });
-};
+}
 
-export { compressImages };
+module.exports = { compressImages };
