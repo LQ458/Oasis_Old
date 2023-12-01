@@ -1,4 +1,5 @@
 'use client'
+import styles from '@/app/src/register.css';
 import axios from 'axios';
 import { IonIcon } from "@ionic/react";
 import {TailSpin} from "react-loader-spinner";
@@ -6,7 +7,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { mailOutline, lockClosedOutline, diamondOutline } from "ionicons/icons";
 import Link from 'next/link';
-import '@/app/src/register.css';
 
 const registerform = () => {
   const router = useRouter();

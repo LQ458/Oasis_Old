@@ -1,14 +1,14 @@
 'use client'
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { IonIcon } from "@ionic/react";
 import {TailSpin} from "react-loader-spinner";
 import { mailOutline, lockClosedOutline } from "ionicons/icons";
-import "@/app/src/login.css";
+import styles from "@/app/src/login.css";
 import { signIn } from "next-auth/react";
 
-const LoginForm = (req,res) => {
+const loginForm = () => {
   const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -28,9 +28,10 @@ const LoginForm = (req,res) => {
       if (res.error){
         setLoading(false);
         setError(true);
+        alert("Incorrect Username or Password");
       }
-      router.replace("profile");
-      setLoading(false);
+        router.replace("profile");
+        setLoading(false);
     } catch (error) {
       console.log(error);
       alert("Internal Server Error");
@@ -38,9 +39,9 @@ const LoginForm = (req,res) => {
   };
 
   return (
-    <div>
+    <>
       <title>Login</title>
-      <section>
+      <body>
         <div className="form-box">
           <div className="form-value">
             <form onSubmit={handleSubmit} id="loginForm">
@@ -72,8 +73,8 @@ const LoginForm = (req,res) => {
   )}
   {!loading && 'Login'}
               </button>
-              <div className="register">
-              {error && (<p className='error'>Incorrect Username or Password</p>)}
+              <div className="login">
+              {error && (<p className='logerror'>Incorrect Username or Password</p>)}
               {!error && (<p>Do not have an account? <Link href="/register">Register</Link></p>)}
                 <br />
                 <p>© 2023 Oasis. All rights reserved.</p>
@@ -81,9 +82,9 @@ const LoginForm = (req,res) => {
             </form>
           </div>
         </div>
-      </section>
-    </div>
+      </body>
+    </>
   );
 };
 
-export default LoginForm;
+export default loginForm;

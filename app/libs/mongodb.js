@@ -1,9 +1,13 @@
-const mongoose = require('mongoose')
+import mongoose from "mongoose";
 
-const DBconnect = async () => {
+export default async function DBconnect () {
   try {
-    await mongoose.connect(process.env.MONGODB_URL);
-    console.log('Connected to MongoDB');
+    if (mongoose.connection.readyState !== 1) {
+      await mongoose.connect(process.env.MONGODB_URL);
+      console.log('Connected to MongoDB');
+    } else {
+      console.log('Already connected to MongoDB');
+    }
   } catch (error) {
     console.error('Error connecting to MongoDB:', error);
   }
@@ -17,5 +21,3 @@ const DBclose = async () => {
     console.error('Error disconnecting from MongoDB:', error);
   }
 };
-
-module.exports= { DBconnect, DBclose };

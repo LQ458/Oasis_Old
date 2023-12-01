@@ -1,4 +1,5 @@
 'use client'
+
 import SocialMedia from "../(icons)/SocialMedia"
 import PeopleCircle from "../(icons)/ionIcons/PeopleCircle"
 import Chatbubbles from "../(icons)/ionIcons/chatbubbles"
