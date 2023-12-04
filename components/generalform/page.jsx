@@ -7,17 +7,17 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 
-const generalform = () =>{
+const generalform = () => {
   const [posts, setPosts] = useState([]);
 
   const getPosts = async () => {
     try {
       const res = await axios.get('/api/general');
-  
+
       if (res.status !== 200) {
         throw new Error('Failed to fetch posts');
       }
-  
+
       setPosts(res.data.posts);
     } catch (error) {
       console.log('Error loading posts', error);
@@ -37,40 +37,40 @@ const generalform = () =>{
 
   const handleFileChange = (e) => {
     setFiles(e.target.files)
-}
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-      if (files.length === 0 && !title && !content) {
-        console.warn('No files, title, or content. Please provide at least one of them.');
-        return;
-      }
-  
-      const formData = new FormData();
-      formData.append('title', title);
-      formData.append('content', content);
-      formData.append('postAnonymous', postAnonymous);
-      formData.append('group', 'general');
-      formData.append('username', 'Admin');
-  
-      if (files) {
-        for(let i = 0; i< files.length; i++){
-            formData.append('files', files[i]);
-        }
+
+    if (files.length === 0 && !title && !content) {
+      console.warn('No files, title, or content. Please provide at least one of them.');
+      return;
     }
-      try{
-        const response = await axios.post('http://localhost:3000/api/general', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('content', content);
+    formData.append('postAnonymous', postAnonymous);
+    formData.append('group', 'general');
+    formData.append('username', 'Admin');
+
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        formData.append('files', files[i]);
+      }
+    }
+    try {
+      const response = await axios.post('http://localhost:3001/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
       console.log('Post uploaded:', response.data);
     } catch (error) {
       console.error('Error uploading post:', error);
     }
   };
-  
+
   const handleAddPostClick = () => {
     setInputBoxHidden(false);
   };
@@ -81,18 +81,18 @@ const generalform = () =>{
 
   return (
     <>
-  <title>General</title>
-  <div id="topBar">
-    <a href="intro" className="title">
-      General
-    </a>
-  </div>
-  <br />
-  <br />
-  <a href="dashboard" id="backButton">
-    Back to Dashboard
-  </a>
-  <div>
+      <title>General</title>
+      <div id="topBar">
+        <a href="intro" className="title">
+          General
+        </a>
+      </div>
+      <br />
+      <br />
+      <a href="dashboard" id="backButton">
+        Back to Dashboard
+      </a>
+      <div>
         <button id="addPostBtn" onClick={handleAddPostClick}>
           <span>Write a post</span>
         </button>
@@ -129,7 +129,7 @@ const generalform = () =>{
             name="files"
             id="input-files"
             className="form-control-file border"
-            onChange={handleFileChange} 
+            onChange={handleFileChange}
             multiple
           />
           <br />
@@ -162,22 +162,22 @@ const generalform = () =>{
           </div>
         </div>
       </div>
-  <div className="bg">
-    <div id="posts" className="word-box">
-      {posts.map((post) => (
-        <>
-      <div className="posts">
-        <h3>{post.title}</h3>
-        <p>{post.content}</p>
+      <div className="bg">
+        <div id="posts" className="word-box">
+          {posts.map((post) => (
+            <>
+              <div className="posts">
+                <h3>{post.title}</h3>
+                <p>{post.content}</p>
+              </div>
+            </>
+          ))}
         </div>
-      </>
-      ))}
-    </div>
-  </div>
-  <div id="spacing" />
-  <br />
-  {/* <SocialMedia /> */}
-</>
+      </div>
+      <div id="spacing" />
+      <br />
+      {/* <SocialMedia /> */}
+    </>
 
   )
 }

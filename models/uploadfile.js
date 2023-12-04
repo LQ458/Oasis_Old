@@ -1,9 +1,11 @@
-import { NextResponse } from 'next/server';
-import multer from 'multer';
+const multer = require('multer');
+const path = require('path');
+
+var fileCount = 0; // Initialize a variable to keep track of the file count
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '@/app/public/uploads/'); // Set the destination folder for uploaded files
+    cb(null, path.join(process.cwd(), '/app/public/uploads/')); // Set the destination folder for uploaded files
   },
   filename: function (req, file, cb) {
     const fileExtension = file.originalname.split('.').pop().toLowerCase();
@@ -14,24 +16,30 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage
-}).array('files', 10);
+}).array('files',9);
 
-export async function middleware(req, res) {
-  if (req.method === 'POST') {
-    upload(req, res, function (err) {
-      if (err instanceof multer.MulterError) {
-        // Handle Multer error
-        return NextResponse.error(err, 500);
-      } else if (err) {
-        // Handle any other errors
-        return NextResponse.error(err, 500);
-      }
-      // If no error, proceed with your logic
-      // For example, you might want to return a success message
-      return NextResponse.next();
-    });
-  } else {
-    // Handle any other HTTP method
-    return NextResponse.error('Method not allowed', 405);
-  }
-}
+const middleware = function(req, res, next) {
+  upload(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      // A Multer error occurred during file upload
+      return res.status(500).json({ message: 'File upload error' });
+    } else if (err) {
+      // An unknown error occurred during file upload
+      return res.status(500).json({ message: 'Unknown error occurred' });
+    }
+
+    // Set the file count to the number of uploaded files at the moment
+    fileCount = req.files ? req.files.length : 0; // Check if req.files exist before getting the length
+
+    next();
+  });
+};
+
+const getFileCount = function () {
+  return fileCount; // Return the file count
+};
+
+module.exports = {
+  middleware,
+  getFileCount
+};
