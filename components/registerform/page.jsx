@@ -1,41 +1,41 @@
-'use client'
-import styles from '@/app/src/register.css';
-import axios from 'axios';
+"use client";
+import styles from "@/app/src/register.css";
+import axios from "axios";
 import { IonIcon } from "@ionic/react";
-import {TailSpin} from "react-loader-spinner";
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { TailSpin } from "react-loader-spinner";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { mailOutline, lockClosedOutline, diamondOutline } from "ionicons/icons";
-import Link from 'next/link';
+import Link from "next/link";
 
 const registerform = () => {
   const router = useRouter();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [adminCode, setAdminCode] = useState('');
-  const [message, setMessage] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [adminCode, setAdminCode] = useState("");
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error,setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        setLoading(true);
-      const response = await axios.post('/api/users', {
+      setLoading(true);
+      const response = await axios.post("/api/users", {
         username: username,
         password: password,
-        adminCode: adminCode
+        adminCode: adminCode,
       });
-        router.replace('/login');
+      router.replace("/login");
       setMessage(response.data.message);
       setLoading(false);
     } catch (error) {
       setMessage(error.response.data.error);
-        setLoading(false);
-        setError(true);
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
+      setLoading(false);
+      setError(true);
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     }
   };
   return (
@@ -73,18 +73,28 @@ const registerform = () => {
                 />
                 <label htmlFor="adminCode">Code (Pi first three digits):</label>
               </div>
-              <button type="submit" className='reg1' disabled={loading}>
-              {loading && (
-    <>
-      <TailSpin type="ThreeDots" color="black" height={20} width={40} style={{ marginRight: '5px' }} />
-      <span>Loading...</span>
-    </>
-  )}
-  {!loading && 'Register'}
-                </button>
+              <button type="submit" className="reg1" disabled={loading}>
+                {loading && (
+                  <>
+                    <TailSpin
+                      type="ThreeDots"
+                      color="black"
+                      height={20}
+                      width={40}
+                      style={{ marginRight: "5px" }}
+                    />
+                    <span>Loading...</span>
+                  </>
+                )}
+                {!loading && "Register"}
+              </button>
               <div className="register">
-                {error && (<p className='error'>Username has been registered</p>)}
-                {!error && (<p>Already have an account? <Link href="/login">Login</Link></p>)}
+                {error && <p className="error">Username has been registered</p>}
+                {!error && (
+                  <p>
+                    Already have an account? <Link href="/login">Login</Link>
+                  </p>
+                )}
                 <br />
                 <p>© 2023 Oasis. All rights reserved.</p>
               </div>

@@ -38,6 +38,7 @@
     "react-dom": "^18",
     "react-icons": "^4.12.0",
     "react-loader-spinner": "^5.4.5",
+    "react-loading-skeleton": "^3.3.1",
     "react-spring": "^9.7.3",
     "session": "^0.1.0",
     "sharp": "^0.32.6"

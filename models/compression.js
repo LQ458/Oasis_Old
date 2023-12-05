@@ -1,6 +1,6 @@
-const sharp = require('sharp');
-const fs = require('fs');
-const path = require('path');
+const sharp = require("sharp");
+const fs = require("fs");
+const path = require("path");
 
 function compressImages(inputFiles, outputFolderPath) {
   inputFiles.forEach((inputFile) => {
@@ -10,14 +10,18 @@ function compressImages(inputFiles, outputFolderPath) {
 
     let compressImage;
 
-    if (ext === '.jpg' || ext === '.jpeg') {
+    if (ext === ".jpg" || ext === ".jpeg") {
       compressImage = () => sharp(inputFile).jpeg({ quality: 60 }).toBuffer();
-    } else if (ext === '.webp') {
-      compressImage = () => sharp(inputFile).webp({ quality: 60, lossless: false }).toBuffer();
-    } else if (ext === '.png') {
-      compressImage = () => sharp(inputFile).png({ compressionLevel: 5 }).toBuffer();
+    } else if (ext === ".webp") {
+      compressImage = () =>
+        sharp(inputFile).webp({ quality: 60, lossless: false }).toBuffer();
+    } else if (ext === ".png") {
+      compressImage = () =>
+        sharp(inputFile).png({ compressionLevel: 5 }).toBuffer();
     } else {
-      console.error(`Invalid format for input image "${inputFile}", only PNG, JPG/JPEG, or WEBP are supported. Skipping this file.`);
+      console.error(
+        `Invalid format for input image "${inputFile}", only PNG, JPG/JPEG, or WEBP are supported. Skipping this file.`,
+      );
       return;
     }
 
@@ -25,13 +29,13 @@ function compressImages(inputFiles, outputFolderPath) {
       .then((data) => {
         fs.writeFile(outputFilePath, data, (err) => {
           if (err) {
-            console.error('Error writing output file:', err);
+            console.error("Error writing output file:", err);
             return;
           }
-          console.log('Output file successfully written:', outputFilePath);
+          console.log("Output file successfully written:", outputFilePath);
         });
       })
-      .catch((err) => console.error('Error processing image:', err));
+      .catch((err) => console.error("Error processing image:", err));
   });
 }
 
