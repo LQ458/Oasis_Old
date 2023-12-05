@@ -5,12 +5,11 @@ import { authOptions } from "../api/auth/[...nextauth]/route.js";
 export default async function Home() {
   const session = await getServerSession(authOptions);
 
-  if (session){
-
-  return (
-    <main>
-      <Dashboardform />
-    </main>
-  );
+  if (session) {
+    return (
+      <main>
+        <Dashboardform />
+      </main>
+    );
   }
 }

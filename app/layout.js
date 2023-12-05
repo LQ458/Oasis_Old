@@ -1,6 +1,5 @@
-import './globals.css'
-import { AuthProvider } from './Providers';
-
+import "./globals.css";
+import { AuthProvider } from "./Providers";
 
 export const metadata = {
   title: "Oasis",
@@ -14,5 +13,5 @@ export default function RootLayout({ children }) {
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
-  )
+  );
 }

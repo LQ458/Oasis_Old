@@ -1,6 +1,6 @@
 import DBconnect from "@/app/libs/mongodb";
 import Post from "@/models/post";
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
@@ -9,18 +9,24 @@ export async function POST(req) {
     const post = new Post({
       title: title,
       content: content,
-      group: 'announcement'
-    })
+      group: "announcement",
+    });
 
-    return NextResponse.json({ message: 'Announcement Created' }, { status: 201 });
+    return NextResponse.json(
+      { message: "Announcement Created" },
+      { status: 201 },
+    );
   } catch (error) {
-    console.error('Error in POST:', error);
-    return NextResponse.json({ message: 'Internal Server Error' }, {status: 500});
+    console.error("Error in POST:", error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 },
+    );
   }
 }
 
 export async function GET() {
-    await DBconnect();
-    const posts = await Post.find({ group: 'announcement' });
-    return NextResponse.json({ posts });
+  await DBconnect();
+  const posts = await Post.find({ group: "announcement" });
+  return NextResponse.json({ posts });
 }

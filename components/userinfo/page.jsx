@@ -1,7 +1,7 @@
-'use client'
-import { signOut } from 'next-auth/react';
-import { useSession } from 'next-auth/react';
-import styles from "@/app/src/userinfo.css"; // Import your CSS file
+"use client";
+import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import "@/app/src/userinfo.css";
 
 const UserInfo = () => {
   const { data: session } = useSession();
@@ -12,7 +12,6 @@ const UserInfo = () => {
 
   return (
     <main className="background">
-
       <div className="card">
         <div>
           <p className="card-text">
@@ -20,10 +19,7 @@ const UserInfo = () => {
           </p>
         </div>
 
-        <button
-          onClick={() => signOut()}
-          className="logout-btn"
-        >
+        <button onClick={() => signOut()} className="logout-btn">
           Log Out
         </button>
       </div>
