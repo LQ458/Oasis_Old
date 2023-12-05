@@ -25,16 +25,14 @@ const loginForm = () => {
         password,
         redirect: false,
       })
-      if (res.error){
-        setLoading(false);
-        setError(true);
-        alert("Incorrect Username or Password");
-      }
-        router.replace("profile");
-        setLoading(false);
+      router.replace("profile");
     } catch (error) {
-      console.log(error);
-      alert("Internal Server Error");
+        setError(true);
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+    } finally{
+      setLoading(false);
     }
   };
 
