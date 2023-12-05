@@ -3,13 +3,14 @@ import '@/app/src/channels.css';
 import SocialMedia from '@/app/(icons)/SocialMedia';
 import Router, { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useSession } from 'next-auth/react';
 
 const generalform = () => {
+  const { data: session } = useSession();
   const [posts, setPosts] = useState([]);
-
+  
   const getPosts = async () => {
     try {
       const res = await axios.get('/api/general');
@@ -34,6 +35,7 @@ const generalform = () => {
   const [files, setFiles] = useState([]);
   const [postAnonymous, setPostAnonymous] = useState(false);
   const [inputBoxHidden, setInputBoxHidden] = useState(true);
+  const username = session?.user?.name;
 
   const handleFileChange = (e) => {
     setFiles(e.target.files)
@@ -52,7 +54,7 @@ const generalform = () => {
     formData.append('content', content);
     formData.append('postAnonymous', postAnonymous);
     formData.append('group', 'general');
-    formData.append('username', 'Admin');
+    formData.append('username', username);
 
     if (files) {
       for (let i = 0; i < files.length; i++) {
