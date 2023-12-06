@@ -19,6 +19,9 @@ export default function dashboardform() {
           <a href="/" className="title">
             Dashboard
           </a>
+          <a href="profile" className="profile">
+            <IonIcon icon={personCircleOutline} style={{ fontSize: "3.3rem" }} />
+          </a>
         </div>
       </header>
       <h1>Hello! {session?.user?.name}</h1>
