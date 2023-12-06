@@ -66,17 +66,17 @@ body {
 
 .posts {
   border: white solid 2px;
-  padding-left: 20px;
-  padding-right: 0px;
-  padding-bottom: 20px;
-  width: 600px;
-  margin: 10px;
+  padding-left: 1.2rem;
+  padding: 1rem;
+  width: 40rem;
+  margin: 1rem;
+  margin-bottom: 3rem;
   border-radius: 26px;
   background-color: white;
   color: black;
   opacity: 1;
   position: relative;
-  left: 30px;
+  left: 1.7rem;
 }
 
 #spacing {
@@ -452,4 +452,18 @@ img {
 .skeleton {
   background-color: white;
   padding: 1rem;
+}
+.borderClass {
+  border: white solid 2px;
+  padding-left: 1.2rem;
+  padding: 1rem;
+  width: 40rem;
+  margin: 1rem;
+  margin-bottom: 3rem;
+  border-radius: 26px;
+  background-color: white;
+  color: black;
+  opacity: 1;
+  position: relative;
+  left: 1.7rem;
 }

@@ -1,9 +1,10 @@
 "use client";
+import React from "react";
 import "@/app/src/channels.css";
 import SocialMedia from "@/app/(icons)/SocialMedia";
 import Router, { useRouter } from "next/navigation";
 import axios from "axios";
-import Skeleton from "react-loading-skeleton";
+import Skeleton from "../skeletons/Skeleton";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -24,7 +25,7 @@ const generalform = () => {
       }
 
       setPosts(res.data.posts);
-      // setLoading(false);
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       setError(true);
@@ -179,38 +180,35 @@ const generalform = () => {
           </div>
         </div>
       </div>
-      {loading ? (
-        // Render the skeleton loader when loading is true
-        <div className="loading-container">
-          {[...Array(10)].map((_, index) => (
-            <Skeleton
-              key={index}
-              height={70}
-              width={"40%"}
-              duration={2}
-              color={"#e0e0e0"}
-              highlightColor={"#f0f0f0"}
-              className="skeleton"
-            />
-          ))}
-        </div>
-      ) : error ? (
-        // If there was an error, render an error message
-        <div>Error loading posts</div>
-      ) : (
-        <div className="bg">
-          <div id="posts" className="word-box">
-            {posts.map((post) => (
-              <>
-                <div className="posts">
+      <div className="bg">
+        <div id="posts" className="word-box">
+          {loading
+            ? Array.from({ length: 15 }).map((_, i) => (
+                <div className="borderClass" key={i}>
+                  <React.Fragment>
+                    <Skeleton classes="title width-40" />
+                    <Skeleton classes="text width-70" />
+                    <Skeleton classes="text width-70" />
+                    <Skeleton classes="text width-70" />
+                    <br />
+                    <Skeleton classes="text width-pic" />
+                    <br />
+                    <Skeleton classes="text width-user" />
+                    <br />
+                    <Skeleton classes="text width-40" />
+                    <Skeleton classes="text width-delete" />
+                    <br />
+                  </React.Fragment>
+                </div>
+              ))
+            : posts.map((post) => (
+                <div className="posts" key={post.id}>
                   <h3>{post.title}</h3>
                   <p>{post.content}</p>
                 </div>
-              </>
-            ))}
-          </div>
+              ))}
         </div>
-      )}
+      </div>
       <div id="spacing" />
       <br />
       <SocialMedia />

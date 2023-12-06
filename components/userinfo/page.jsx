@@ -18,7 +18,9 @@ const UserInfo = () => {
           <p className="card-text">
             Username: <span className="blue-text">{session?.user?.name}</span>
           </p>
-          <a href="dashboard" className="redi">To Dashboard</a>
+          <a href="dashboard" className="redi">
+            To Dashboard
+          </a>
         </div>
 
         <button onClick={() => signOut()} className="logout-btn">

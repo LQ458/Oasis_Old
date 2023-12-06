@@ -20,7 +20,10 @@ export default function dashboardform() {
             Dashboard
           </a>
           <a href="profile" className="profile">
-            <IonIcon icon={personCircleOutline} style={{ fontSize: "3.3rem" }} />
+            <IonIcon
+              icon={personCircleOutline}
+              style={{ fontSize: "3.3rem" }}
+            />
           </a>
         </div>
       </header>
