@@ -52,3 +52,17 @@
   outline: none;
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.5);
 }
+
+.redi{
+  color: #f4a896;
+  font-weight: 800;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.redi:hover{
+  color: rgb(240, 122, 142);
+  text-decoration: underline;
+}
