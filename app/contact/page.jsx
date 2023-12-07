@@ -2,7 +2,7 @@
 
 import SocialMedia from "../(icons)/SocialMedia";
 import PeopleCircle from "../(icons)/ionIcons/PeopleCircle";
-import Chatbubbles from "../(icons)/ionIcons/chatbubbles";
+import Chatbubbles from "../(icons)/ionIcons/Chatbubbles";
 import styles from "../src/contact.css";
 const Contact = () => {
   return (
