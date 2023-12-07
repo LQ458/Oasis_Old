@@ -1,14 +1,34 @@
-"use client";
+'use client'
 import { IonIcon } from "@ionic/react";
 import { earthOutline } from "ionicons/icons";
 import { bookOutline } from "ionicons/icons";
+import { useEffect } from "react";
+import $ from "jquery";
 import { useSession } from "next-auth/react";
 import { personCircleOutline } from "ionicons/icons";
-import SocialMedia from "../../app/(icons)/SocialMedia.jsx";
 import "../../app/src/dashboard.css";
+
 
 export default function dashboardform() {
   const { data: session } = useSession();
+  useEffect(() => {
+    var channels = $(".channel");
+    for (var i = 0; i < channels.length; i++) {
+      $(channels[i]).css('animation-delay', (i * 0.2) + "s");
+    }
+
+    $(function() {
+      $('.channel').hover(function() {
+        var iconClass = $(this).data('icon');
+        $('.icon').removeClass('lift');
+        $('.' + iconClass).addClass('lift');
+        $('.' + iconClass).addClass('grad');
+      }, function() {
+        $('.icon').removeClass('lift');
+        $('.icon').removeClass('grad');
+      });
+    });
+  }, []);
   return (
     <div>
       <title>Dashboard</title>
@@ -95,7 +115,6 @@ export default function dashboardform() {
           )}
         </div>
       </nav>
-      <SocialMedia />
     </div>
   );
 }
