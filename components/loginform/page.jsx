@@ -20,9 +20,7 @@ const loginForm = () => {
 
   useEffect(() => {
     window.onload = function () {
-      setTimeout(() => {
-        setLoad(false);
-      }, 1000);
+      setLoad(false)
     };
   });
 
@@ -87,7 +85,7 @@ const loginForm = () => {
                 <label htmlFor="password">Password:</label>
               </div>
               <button type="submit" className="reg1" disabled={loading && load}>
-                {(loading || load) && (
+                {loading && (
                   <>
                     <TailSpin
                       type="ThreeDots"
@@ -99,6 +97,7 @@ const loginForm = () => {
                     <span>Loading...</span>
                   </>
                 )}
+                {load && <span>Loading...</span>}
                 {(!loading && !load) && "Login"}
               </button>
               <div className="login">
