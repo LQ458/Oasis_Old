@@ -22,7 +22,7 @@ const loginForm = () => {
     window.onload = function () {
       setTimeout(() => {
         setLoad(false);
-      }, 3000);
+      }, 1000);
     };
   });
 
@@ -99,7 +99,7 @@ const loginForm = () => {
                     <span>Loading...</span>
                   </>
                 )}
-                {!loading && "Login"}
+                {(!loading && !load) && "Login"}
               </button>
               <div className="login">
                 {errorMessage && <div className="logerror">{errorMessage}</div>}
