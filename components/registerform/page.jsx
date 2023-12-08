@@ -23,7 +23,7 @@ const registerform = () => {
     window.onload = function () {
       setTimeout(() => {
         setLoad(false);
-      }, 1500);
+      }, 4000);
     };
   });
 
