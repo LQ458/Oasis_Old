@@ -23,7 +23,7 @@ const registerform = () => {
     window.onload = function () {
       setTimeout(() => {
         setLoad(false);
-      }, 3000);
+      }, 1000);
     };
   });
 
@@ -96,7 +96,7 @@ const registerform = () => {
                     <span>Loading...</span>
                   </>
                 )}
-                {!loading && "Register"}
+                {(!loading && load) && "Register"}
               </button>
               <div className="register">
                 {error && <p className="error">Username has been registered</p>}
