@@ -15,6 +15,7 @@ const loginForm = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false); // Added loading state
   const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,15 +26,33 @@ const loginForm = () => {
         password,
         redirect: false,
       });
-      router.replace("profile");
+      if (res.error) {
+        setErrorMessage("Invalid username or password");
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 3000);
+      } else {
+        router.replace("profile");
+      }
     } catch (error) {
-      setError(true);
+      setErrorMessage(error.message);
       setTimeout(() => {
-        setError(false);
+        setErrorMessage(null);
       }, 3000);
     } finally {
       setLoading(false);
     }
+  };
+
+  const ErrorNotification = () => {
+    if (errorMessage) {
+      return (
+        <div className="error-notification">
+          {errorMessage}
+        </div>
+      );
+    }
+    return null;
   };
 
   return (
@@ -78,18 +97,18 @@ const loginForm = () => {
                 {!loading && "Login"}
               </button>
               <div className="login">
-                {error && (
-                  <p className="logerror">Incorrect Username or Password</p>
-                )}
-                {!error && (
-                  <p>
-                    Do not have an account?{" "}
-                    <Link className="regww" href="/register">Register</Link>
-                  </p>
-                )}
-                <br />
-                <p>© 2023 Oasis. All rights reserved.</p>
-              </div>
+              {errorMessage && (
+                <div className="logerror">{errorMessage}</div>
+              )}
+              {!errorMessage && (
+                <p>
+                  Do not have an account?{" "}
+                  <Link className="regww" href="/register">Register</Link>
+                </p>
+              )}
+              <br />
+              <p>© 2023 Oasis. All rights reserved.</p>
+            </div>
             </form>
           </div>
         </div>
