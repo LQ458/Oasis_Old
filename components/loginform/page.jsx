@@ -19,9 +19,11 @@ const loginForm = () => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    window.onload = function() {
-      setLoad(false); // Set load to false when page is ready
-    }
+    window.onload = function () {
+      setTimeout(() => {
+        setLoad(false);
+      }, 1500);
+    };
   });
 
   const handleSubmit = async (e) => {
