@@ -7,9 +7,7 @@ export default async function Home() {
 
   if (session) {
     return (
-      <main>
         <Dashboardform />
-      </main>
     );
   }
 }
