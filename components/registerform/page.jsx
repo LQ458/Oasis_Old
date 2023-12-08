@@ -20,11 +20,8 @@ const registerform = () => {
   const [load, setLoad] = useState(true);
 
   useEffect(() => {
-    window.onload = function () {
-      setTimeout(() => {
-        setLoad(false);
-      }, 1000);
-    };
+    window.onload = function () {};
+    setLoad(false);
   });
 
   const handleSubmit = async (e) => {
@@ -84,7 +81,7 @@ const registerform = () => {
                 <label htmlFor="adminCode">Code (Pi first three digits):</label>
               </div> */}
               <button type="submit" className="reg1" disabled={loading && load}>
-                {(loading || load) && (
+                {loading && (
                   <>
                     <TailSpin
                       type="ThreeDots"
@@ -96,7 +93,8 @@ const registerform = () => {
                     <span>Loading...</span>
                   </>
                 )}
-                {(!loading && load) && "Register"}
+                {load && <span>Loading...</span>}
+                {!loading && !load && "Register"}
               </button>
               <div className="register">
                 {error && <p className="error">Username has been registered</p>}
