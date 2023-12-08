@@ -19,9 +19,8 @@ const loginForm = () => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    window.onload = function () {
-    };
-    setLoad(false)
+    window.onload = function () {};
+    setLoad(false);
   });
 
   const handleSubmit = async (e) => {
@@ -98,7 +97,7 @@ const loginForm = () => {
                   </>
                 )}
                 {load && <span>Loading...</span>}
-                {(!loading && !load) && "Login"}
+                {!loading && !load && "Login"}
               </button>
               <div className="login">
                 {errorMessage && <div className="logerror">{errorMessage}</div>}
