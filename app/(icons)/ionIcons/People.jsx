@@ -1,8 +1,7 @@
-"use client";
-import { IonIcon } from "@ionic/react";
-import { peopleOutline } from "ionicons/icons";
-const people = () => {
-  return <IonIcon icon={peopleOutline} style={{ fontSize: "3rem" }} />;
+import Image from 'next/image'
+
+const People = () => {
+  return <Image src="/people-outline.svg" width="50" height="50" />;
 };
 
-export default people;
+export default People;

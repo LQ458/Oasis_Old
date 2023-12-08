@@ -135,3 +135,7 @@ p.logerror {
   background-color: #af325c;
   border-radius: 10px;
 }
+
+.regww:hover{
+  text-decoration: underline;
+}

@@ -64,7 +64,7 @@ const registerform = () => {
                 />
                 <label htmlFor="password">Password:</label>
               </div>
-              <div className="inputbox">
+              {/* <div className="inputbox">
                 <IonIcon icon={diamondOutline} />
                 <input
                   type="text"
@@ -72,7 +72,7 @@ const registerform = () => {
                   required
                 />
                 <label htmlFor="adminCode">Code (Pi first three digits):</label>
-              </div>
+              </div> */}
               <button type="submit" className="reg1" disabled={loading}>
                 {loading && (
                   <>
