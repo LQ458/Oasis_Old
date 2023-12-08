@@ -20,8 +20,8 @@ const loginForm = () => {
 
   useEffect(() => {
     window.onload = function () {
-      setLoad(false)
     };
+    setLoad(false)
   });
 
   const handleSubmit = async (e) => {
