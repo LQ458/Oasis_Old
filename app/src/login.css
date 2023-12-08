@@ -129,9 +129,11 @@ button {
 .register p a:hover {
   text-decoration: underline;
 }
-p.logerror {
+.logerror {
   padding: 0.5rem;
   font-size: 1rem;
+  border: 2px solid transparent;
+  padding: 0.5rem;
   background-color: #af325c;
   border-radius: 10px;
 }
