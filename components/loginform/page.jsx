@@ -29,7 +29,7 @@ const loginForm = () => {
     } catch (error) {
       setError(true);
       setTimeout(() => {
-        window.location.reload();
+        setError(false);
       }, 3000);
     } finally {
       setLoading(false);

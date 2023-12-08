@@ -34,7 +34,7 @@ const registerform = () => {
       setLoading(false);
       setError(true);
       setTimeout(() => {
-        window.location.reload();
+        setError(false);
       }, 3000);
     }
   };
