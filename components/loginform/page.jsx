@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { IonIcon } from "@ionic/react";
@@ -13,9 +13,16 @@ const loginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [load, setLoad] = useState(true);
   const [loading, setLoading] = useState(false); // Added loading state
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoad(false); // Set load to false when page is ready
+    }, 2000);
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,11 +53,7 @@ const loginForm = () => {
 
   const ErrorNotification = () => {
     if (errorMessage) {
-      return (
-        <div className="error-notification">
-          {errorMessage}
-        </div>
-      );
+      return <div className="error-notification">{errorMessage}</div>;
     }
     return null;
   };
@@ -81,7 +84,7 @@ const loginForm = () => {
                 />
                 <label htmlFor="password">Password:</label>
               </div>
-              <button type="submit" className="reg1" disabled={loading}>
+              <button type="submit" className="reg1" disabled={loading && load}>
                 {loading && (
                   <>
                     <TailSpin
@@ -97,18 +100,18 @@ const loginForm = () => {
                 {!loading && "Login"}
               </button>
               <div className="login">
-              {errorMessage && (
-                <div className="logerror">{errorMessage}</div>
-              )}
-              {!errorMessage && (
-                <p>
-                  Do not have an account?{" "}
-                  <Link className="regww" href="/register">Register</Link>
-                </p>
-              )}
-              <br />
-              <p>© 2023 Oasis. All rights reserved.</p>
-            </div>
+                {errorMessage && <div className="logerror">{errorMessage}</div>}
+                {!errorMessage && (
+                  <p>
+                    Do not have an account?{" "}
+                    <Link className="regww" href="/register">
+                      Register
+                    </Link>
+                  </p>
+                )}
+                <br />
+                <p>© 2023 Oasis. All rights reserved.</p>
+              </div>
             </form>
           </div>
         </div>

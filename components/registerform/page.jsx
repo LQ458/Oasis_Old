@@ -16,6 +16,13 @@ const registerform = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [load, setLoad] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoad(false); // Set load to false when page is ready
+    }, 2000);
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,7 +80,7 @@ const registerform = () => {
                 />
                 <label htmlFor="adminCode">Code (Pi first three digits):</label>
               </div> */}
-              <button type="submit" className="reg1" disabled={loading}>
+              <button type="submit" className="reg1" disabled={loading && load}>
                 {loading && (
                   <>
                     <TailSpin
