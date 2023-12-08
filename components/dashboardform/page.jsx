@@ -1,12 +1,8 @@
-"use client";
-import { IonIcon } from "@ionic/react";
-import { earthOutline } from "ionicons/icons";
+"use client"
 import Image from "next/image";
-import { bookOutline } from "ionicons/icons";
 import { useEffect } from "react";
 import $ from "jquery";
 import { useSession } from "next-auth/react";
-import { personCircleOutline } from "ionicons/icons";
 import "../../app/src/dashboard.css";
 
 export default function dashboardform() {
@@ -33,12 +29,12 @@ export default function dashboardform() {
     });
   }, []);
   return (
-    <div>
+    <body className="dash">
       <title>Dashboard</title>
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <header id="topBar">
-        <div id="topBar">
+      <header id="topBardash">
+        <div id="topBardash">
           <a href="/" className="title">
             Dashboard
           </a>
@@ -47,12 +43,12 @@ export default function dashboardform() {
           </a>
         </div>
       </header>
-      <h1>Hello! {session?.user?.name}</h1>
+      <h1 className="h11">Hello! {session?.user?.name}</h1>
       <br />
       <br />
       <br />
       <br />
-      <nav>
+      <nav className="dash">
         <div className="container">
           <div className="block">
             <div className="icon icon-1">
@@ -109,6 +105,6 @@ export default function dashboardform() {
           )}
         </div>
       </nav>
-    </div>
+    </body>
   );
 }

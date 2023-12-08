@@ -38,7 +38,7 @@ const loginForm = () => {
           setErrorMessage(null);
         }, 3000);
       } else {
-        router.replace("profile");
+        router.replace("dashboard");
       }
     } catch (error) {
       setErrorMessage(error.message);
@@ -60,7 +60,7 @@ const loginForm = () => {
   return (
     <>
       <title>Login</title>
-      <body>
+      <body className="loginbd">
         <div className="form-box">
           <div className="form-value">
             <form onSubmit={handleSubmit} id="loginForm">
