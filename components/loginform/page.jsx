@@ -19,9 +19,9 @@ const loginForm = () => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    setTimeout(() => {
+    window.onload = function() {
       setLoad(false); // Set load to false when page is ready
-    }, 2000);
+    }
   });
 
   const handleSubmit = async (e) => {
