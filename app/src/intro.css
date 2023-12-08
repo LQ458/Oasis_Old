@@ -263,11 +263,13 @@ li {
   width: 600px;
   height: 150px;
   margin: 10px;
+  color: #f4a896;
 }
 .icon {
   display: inline-block;
   border: 2px solid #358597;
   border-radius: 10px;
+  color: #f4a896;
   padding: 7px;
   background-color: #358597;
 }

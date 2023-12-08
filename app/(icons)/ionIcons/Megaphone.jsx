@@ -1,8 +1,7 @@
-"use client";
-import { IonIcon } from "@ionic/react";
-import { megaphoneOutline } from "ionicons/icons";
-const megaphone = () => {
-  return <IonIcon icon={megaphoneOutline} style={{ fontSize: "3rem" }} />;
+import Image from 'next/image'
+
+const Megaphone = () => {
+  return <Image src="/megaphone-outline.svg" width="50" height="50" />;
 };
 
-export default megaphone;
+export default Megaphone;

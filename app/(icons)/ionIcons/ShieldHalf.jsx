@@ -1,8 +1,7 @@
-"use client";
-import { IonIcon } from "@ionic/react";
-import { shieldHalfOutline } from "ionicons/icons";
-const shieldHalf = () => {
-  return <IonIcon icon={shieldHalfOutline} style={{ fontSize: "3rem" }} />;
+import Image from 'next/image'
+
+const ShieldHalf = () => {
+  return <Image src="/shield-half-outline.svg" width="50" height="50" />;
 };
 
-export default shieldHalf;
+export default ShieldHalf;

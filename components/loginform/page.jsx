@@ -84,7 +84,7 @@ const loginForm = () => {
                 {!error && (
                   <p>
                     Do not have an account?{" "}
-                    <Link href="/register">Register</Link>
+                    <Link className="regww" href="/register">Register</Link>
                   </p>
                 )}
                 <br />

@@ -1,8 +1,7 @@
-"use client";
-import { IonIcon } from "@ionic/react";
-import { constructOutline } from "ionicons/icons";
-const construct = () => {
-  return <IonIcon icon={constructOutline} style={{ fontSize: "3rem" }} />;
+import Image from 'next/image'
+
+const Construct = () => {
+  return <Image src="/construct-outline.svg" width="50" height="50" />;
 };
 
-export default construct;
+export default Construct;

@@ -1,8 +1,7 @@
-"use client";
-import { IonIcon } from "@ionic/react";
-import { alertCircleOutline } from "ionicons/icons";
-const alertCircle = () => {
-  return <IonIcon icon={alertCircleOutline} style={{ fontSize: "3rem" }} />;
+import Image from 'next/image'
+
+const AlertCircle = () => {
+  return <Image src="/alert-circle-outline.svg" width="50" height="50" />;
 };
 
-export default alertCircle;
+export default AlertCircle;

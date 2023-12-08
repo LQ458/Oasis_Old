@@ -1,6 +1,7 @@
 'use client'
 import { IonIcon } from "@ionic/react";
 import { earthOutline } from "ionicons/icons";
+import Image from "next/image";
 import { bookOutline } from "ionicons/icons";
 import { useEffect } from "react";
 import $ from "jquery";
@@ -40,10 +41,7 @@ export default function dashboardform() {
             Dashboard
           </a>
           <a href="profile" className="profile">
-            <IonIcon
-              icon={personCircleOutline}
-              style={{ fontSize: "3.3rem" }}
-            />
+            <Image src="/person-circle-outline.svg" width="65" height="65" />
           </a>
         </div>
       </header>
@@ -56,7 +54,7 @@ export default function dashboardform() {
         <div className="container">
           <div className="block">
             <div className="icon icon-1">
-              <IonIcon icon={earthOutline} style={{ fontSize: "4rem" }} />
+            <Image src="/earth-outline.svg" width="70" height="70" />
             </div>
             <br />
             <br />
@@ -68,7 +66,7 @@ export default function dashboardform() {
           </div>
           <div className="block">
             <div className="icon icon-2">
-              <IonIcon icon={bookOutline} style={{ fontSize: "4rem" }} />
+            <Image src="/book-outline.svg" width="70" height="70" />
             </div>
             <br />
             <br />
@@ -80,10 +78,7 @@ export default function dashboardform() {
           </div>
           <div className="block">
             <div className="icon icon-3">
-              <IonIcon
-                icon={personCircleOutline}
-                style={{ fontSize: "4rem" }}
-              />
+            <Image src="/person-circle-outline.svg" width="70" height="70" />
             </div>
             <br />
             <br />
@@ -95,10 +90,7 @@ export default function dashboardform() {
           </div>
           <div className="block">
             <div className="icon icon-4">
-              <IonIcon
-                icon={personCircleOutline}
-                style={{ fontSize: "4rem" }}
-              />
+            <Image src="/person-circle-outline.svg" width="70" height="70" />
             </div>
             <br />
             <br />

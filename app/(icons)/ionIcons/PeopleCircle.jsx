@@ -1,8 +1,7 @@
-"use client";
-import { IonIcon } from "@ionic/react";
-import { peopleCircleOutline } from "ionicons/icons";
+import Image from 'next/image'
+
 const PeopleCircle = () => {
-  return <IonIcon icon={peopleCircleOutline} style={{ fontSize: "4rem" }} />;
+  return <Image src="/people-circle-outline.svg" width="50" height="50" />;
 };
 
 export default PeopleCircle;
