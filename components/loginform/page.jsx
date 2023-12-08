@@ -22,7 +22,7 @@ const loginForm = () => {
     window.onload = function () {
       setTimeout(() => {
         setLoad(false);
-      }, 4000);
+      }, 3000);
     };
   });
 
@@ -87,7 +87,7 @@ const loginForm = () => {
                 <label htmlFor="password">Password:</label>
               </div>
               <button type="submit" className="reg1" disabled={loading && load}>
-                {loading && (
+                {(loading || load) && (
                   <>
                     <TailSpin
                       type="ThreeDots"

@@ -23,7 +23,7 @@ const registerform = () => {
     window.onload = function () {
       setTimeout(() => {
         setLoad(false);
-      }, 4000);
+      }, 3000);
     };
   });
 
@@ -84,7 +84,7 @@ const registerform = () => {
                 <label htmlFor="adminCode">Code (Pi first three digits):</label>
               </div> */}
               <button type="submit" className="reg1" disabled={loading && load}>
-                {loading && (
+                {(loading || load) && (
                   <>
                     <TailSpin
                       type="ThreeDots"
