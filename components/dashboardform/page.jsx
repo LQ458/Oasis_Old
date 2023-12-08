@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { IonIcon } from "@ionic/react";
 import { earthOutline } from "ionicons/icons";
 import Image from "next/image";
@@ -9,25 +9,27 @@ import { useSession } from "next-auth/react";
 import { personCircleOutline } from "ionicons/icons";
 import "../../app/src/dashboard.css";
 
-
 export default function dashboardform() {
   const { data: session } = useSession();
   useEffect(() => {
     var channels = $(".channel");
     for (var i = 0; i < channels.length; i++) {
-      $(channels[i]).css('animation-delay', (i * 0.2) + "s");
+      $(channels[i]).css("animation-delay", i * 0.2 + "s");
     }
 
-    $(function() {
-      $('.channel').hover(function() {
-        var iconClass = $(this).data('icon');
-        $('.icon').removeClass('lift');
-        $('.' + iconClass).addClass('lift');
-        $('.' + iconClass).addClass('grad');
-      }, function() {
-        $('.icon').removeClass('lift');
-        $('.icon').removeClass('grad');
-      });
+    $(function () {
+      $(".channel").hover(
+        function () {
+          var iconClass = $(this).data("icon");
+          $(".icon").removeClass("lift");
+          $("." + iconClass).addClass("lift");
+          $("." + iconClass).addClass("grad");
+        },
+        function () {
+          $(".icon").removeClass("lift");
+          $(".icon").removeClass("grad");
+        },
+      );
     });
   }, []);
   return (
@@ -54,7 +56,7 @@ export default function dashboardform() {
         <div className="container">
           <div className="block">
             <div className="icon icon-1">
-            <Image src="/earth-outline.svg" width="70" height="70" />
+              <Image src="/earth-outline.svg" width="70" height="70" />
             </div>
             <br />
             <br />
@@ -66,7 +68,7 @@ export default function dashboardform() {
           </div>
           <div className="block">
             <div className="icon icon-2">
-            <Image src="/book-outline.svg" width="70" height="70" />
+              <Image src="/book-outline.svg" width="70" height="70" />
             </div>
             <br />
             <br />
@@ -78,7 +80,7 @@ export default function dashboardform() {
           </div>
           <div className="block">
             <div className="icon icon-3">
-            <Image src="/person-circle-outline.svg" width="70" height="70" />
+              <Image src="/person-circle-outline.svg" width="70" height="70" />
             </div>
             <br />
             <br />
@@ -90,7 +92,7 @@ export default function dashboardform() {
           </div>
           <div className="block">
             <div className="icon icon-4">
-            <Image src="/person-circle-outline.svg" width="70" height="70" />
+              <Image src="/person-circle-outline.svg" width="70" height="70" />
             </div>
             <br />
             <br />
