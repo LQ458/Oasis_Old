@@ -11,20 +11,22 @@ const UserInfo = () => {
   const [load, setLoad] = useState(true);
 
   useEffect(() => {
-    if(session){
+    if (session) {
       setLoad(false);
     }
-  })
+  });
 
   return (
     <main className="background">
       <div className="card">
         <div>
           <p className="card-text">
-            Username: {
-              load ?  <span className="blue-text">Loading...</span> :
+            Username:{" "}
+            {load ? (
+              <span className="blue-text">Loading...</span>
+            ) : (
               <span className="blue-text">{session?.user?.name}</span>
-              }
+            )}
           </p>
           <a href="dashboard" className="redi">
             To Dashboard

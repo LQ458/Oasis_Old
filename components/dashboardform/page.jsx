@@ -1,7 +1,8 @@
-"use client"
+"use client";
 import Image from "next/image";
 import { useEffect } from "react";
 import $ from "jquery";
+import Link from "next/link";
 import { useSession } from "next-auth/react";
 import "../../app/src/dashboard.css";
 
@@ -19,11 +20,9 @@ export default function dashboardform() {
           var iconClass = $(this).data("icon");
           $(".icon").removeClass("lift");
           $("." + iconClass).addClass("lift");
-          $("." + iconClass).addClass("grad");
         },
         function () {
           $(".icon").removeClass("lift");
-          $(".icon").removeClass("grad");
         },
       );
     });
@@ -33,76 +32,53 @@ export default function dashboardform() {
       <title>Dashboard</title>
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <header id="topBardash">
-        <div id="topBardash">
-          <a href="/" className="title">
-            Dashboard
-          </a>
-          <a href="profile" className="profile">
-            <Image src="/person-circle-outline.svg" width="65" height="65" />
-          </a>
-        </div>
-      </header>
-      <h1 className="h11">Hello! {session?.user?.name}</h1>
-      <br />
-      <br />
-      <br />
-      <br />
       <nav className="dash">
         <div className="container">
           <div className="block">
-            <div className="icon icon-1">
-              <Image src="/earth-outline.svg" width="70" height="70" />
-            </div>
-            <br />
-            <br />
-            <li>
-              <a href="/general" className="channel" data-icon="icon-1">
-                General
-              </a>
-            </li>
+              <Link href="/profile" className="icon">
+                <Image src="/person-circle-outline.svg" width="70" height="70" />
+              </Link>
           </div>
           <div className="block">
             <div className="icon icon-2">
-              <Image src="/book-outline.svg" width="70" height="70" />
+              <Image src="/earth-outline.svg" width="60" height="60" />
             </div>
-            <br />
-            <br />
             <li>
-              <a className="channel" data-icon="icon-2" href="/academics">
-                Academics
-              </a>
+              <Link className="channel" data-icon="icon-2" href="/general">
+                General
+              </Link>
             </li>
           </div>
           <div className="block">
             <div className="icon icon-3">
-              <Image src="/person-circle-outline.svg" width="70" height="70" />
+              <Image src="/person-circle-outline.svg" width="60" height="60" />
             </div>
-            <br />
-            <br />
             <li>
-              <a className="channel" data-icon="icon-3" href="/announcement">
-                Announcement
-              </a>
+              <Link className="channel" data-icon="icon-3" href="/announcement">
+                News
+              </Link>
             </li>
           </div>
           <div className="block">
             <div className="icon icon-4">
-              <Image src="/person-circle-outline.svg" width="70" height="70" />
+              <Image src="/heart.svg" width="60" height="60" />
             </div>
-            <br />
-            <br />
             <li>
-              <a className="channel" data-icon="icon-4" href="/contact">
-                Contact
-              </a>
+              <Link className="channel" data-icon="icon-4" href="/confession">
+                Confession
+              </Link>
             </li>
           </div>
-          {session?.user?.admin === true && (
-            <a href="/admin" id="adminPage">
-              Admin Page
-            </a>
-          )}
+          <div className="block">
+            <div className="icon icon-5">
+              <Image src="/book-outline.svg" width="60" height="60" />
+            </div>
+            <li>
+              <Link href="/academics" className="channel" data-icon="icon-5">
+                Academics
+              </Link>
+            </li>
+          </div>
         </div>
       </nav>
     </body>
