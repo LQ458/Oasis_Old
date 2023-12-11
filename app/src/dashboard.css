@@ -2,18 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
-h1 {
-  font-size: 28px;
-  position: fixed;
-  background: linear-gradient(to left, #04a2f1, #f4a896);
-  left: 50px;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  /* For Firefox */
-  -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
-  -webkit-text-stroke: 0.5px goldenrod; /* For Chrome, Safari, and Opera */
-  text-stroke: 0.5px goldenrod; /* For other browsers */
+h1.h11 {
+  font-size: 2rem;
+  position: relative;
+  font-weight: 600;
 }
 body.dash,
 h1,
@@ -22,25 +14,33 @@ p {
   padding: 0;
   font-family: "poppins", sans-serif;
 }
-body.dash{
-  background: url("../public/dashboard.webp") no-repeat;
-  background-position: auto;
-  background-size: cover;
-  background-attachment: fixed;
+body.dash {
   overflow-y: hidden;
-  margin-top: 50px;
-  width: 100%;
   font-family: Arial, sans-serif;
-  height: 170%;
-  position: relative;
-  top: 80px;
+  height: 100vh;
+  background: linear-gradient(-55deg, #ee7752, #e73c7e, rgb(180, 180, 36), #257fa0, #1d9f80);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
 }
 #topBardash {
   padding: 5px 0;
   width: 100%;
   height: 4.5rem;
-  background-color: #282828;
-  position: fixed;
+  background-color: transparent;
+  position: absolute;
+  display: flex;
   top: 0;
   left: 0;
   z-index: 2;
@@ -49,45 +49,17 @@ body.dash{
   display: flex;
   align-items: center;
 }
-
-.gradient-text {
-  color: #fcb2c9;
-  margin-left: 20px;
-}
-
 .channel {
   text-decoration: none;
   position: relative;
-  left: 40px;
-  padding: 5px 10px;
-  border-radius: 5px;
   transition:
-    background-color 0.3s,
-    color 0.3s;
+    color 0.5s;
   font-weight: 600;
-  background: linear-gradient(to left, #f07f66, #57d9f6);
-  font-size: 30px;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  /* For Firefox */
-  -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
-  -webkit-text-stroke: 0.5px goldenrod; /* For Chrome, Safari, and Opera */
-  text-stroke: 0.5px goldenrod; /* For other browsers */
+  font-size: 1.05rem;
 }
 
 .channel:hover {
-  background: linear-gradient(45deg, #f07f66, #57d9f6);
-  -webkit-background-clip: unset;
-  -moz-background-clip: unset;
-  background-clip: unset;
-  -webkit-text-fill-color: aliceblue;
-  -webkit-text-stroke: #f76917;
-  -moz-text-fill-color: aliceblue;
-  -moz-text-stroke: #f76917;
-  text-fill-color: aliceblue;
-  text-stroke: #f76917;
-  background-color: rgba(300, 300, 300, 0.2);
+  text-decoration: none;
   color: #fff;
 }
 
@@ -120,7 +92,14 @@ ul li {
 }
 .container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+  background-color: rgba(200, 200, 200, 0.3);
+  border-right: 1.5px solid #fff;
+  color: black;
+  justify-content: left;
+  width: 8vw;
 }
 .icon-container {
   position: relative;
@@ -140,52 +119,37 @@ p {
 }
 
 .index .icon-container {
-  margin-right: 10px;
+  margin-right: 1rem;
 }
 
-.gradient-text {
-  background: linear-gradient(to right, #f4a896, #04a2f1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  /* For Firefox */
-  -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
-}
 .block {
-  width: 500px;
-  height: 150px;
-  margin: 10px;
+  position: relative;
+  top: 5rem;
+  text-align: center;
+  height: 10rem;
+  color: black;
 }
 .icon {
   display: inline-block;
   position: relative;
-  background-color: rgba(120, 120, 120, 0.5);
-  border: 0px solid transparent;
-  border-radius: 10px;
-  padding: 8px;
   font-weight: 50;
-  color: #5cb7e5;
+  color: black;
   transition: transform 0.2s ease-in-out;
-  left: 50px;
 }
 .lift {
   transform: translateY(-15px);
+  color: white;
   transition: transform 0.2s ease-in-out;
 }
-.grad {
-  background: linear-gradient(-45deg, #f4a896, #04a2f1);
-  color: aliceblue;
-}
-.title {
-  font-size: 1.5rem;
+a.title {
+  font-size: 2rem;
   position: relative;
-  left: 1.2rem;
+  left: 2rem;
   top: 0.7rem;
   font-weight: 600;
+  font-weight: 550;
   color: aliceblue;
   text-decoration: none;
-  -webkit-text-stroke: 0.5px goldenrod; /* For Chrome, Safari, and Opera */
-  text-stroke: 0.5px goldenrod; /* For other browsers */
 }
 #adminPage {
   text-align: center;
@@ -200,6 +164,6 @@ p {
 .profile {
   position: relative;
   color: white;
-  left: 95rem;
-  bottom: 2.2rem;
+  left: 70rem;
+  bottom: 0;
 }
