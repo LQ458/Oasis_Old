@@ -183,24 +183,24 @@ section.dashsec {
   height: 100vh;
   width: 94vw;
 }
-h1.dashh1{
+h1.dashh1 {
   font-size: 2rem;
   position: relative;
   font-weight: 550;
   color: white;
 }
-div.comments{
+div.comments {
   padding: 3rem;
 }
-div.posts{
+div.posts {
   padding: 3rem;
 }
-div.likes{
+div.likes {
   padding: 3rem;
 }
-div.like{
+div.like {
   padding: 3rem;
 }
-h2.dashh2{
+h2.dashh2 {
   position: relative;
 }
