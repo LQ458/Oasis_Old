@@ -35,13 +35,13 @@ export default function dashboardform() {
       <nav className="dash">
         <div className="container">
           <div className="block">
-              <Link href="/profile" className="icon">
-                <Image src="/person-circle-outline.svg" width="70" height="70" />
-              </Link>
+            <Link href="/profile" className="icon">
+              <Image src="/person-circle-outline.svg" width="60" height="60" />
+            </Link>
           </div>
           <div className="block">
             <div className="icon icon-2">
-              <Image src="/earth-outline.svg" width="60" height="60" />
+              <Image src="/earth-outline.svg" width="40" height="40" />
             </div>
             <li>
               <Link className="channel" data-icon="icon-2" href="/general">
@@ -51,7 +51,7 @@ export default function dashboardform() {
           </div>
           <div className="block">
             <div className="icon icon-3">
-              <Image src="/person-circle-outline.svg" width="60" height="60" />
+              <Image src="/person-circle-outline.svg" width="40" height="40" />
             </div>
             <li>
               <Link className="channel" data-icon="icon-3" href="/announcement">
@@ -61,7 +61,7 @@ export default function dashboardform() {
           </div>
           <div className="block">
             <div className="icon icon-4">
-              <Image src="/heart.svg" width="60" height="60" />
+              <Image src="/heart.svg" width="40" height="40" />
             </div>
             <li>
               <Link className="channel" data-icon="icon-4" href="/confession">
@@ -71,7 +71,7 @@ export default function dashboardform() {
           </div>
           <div className="block">
             <div className="icon icon-5">
-              <Image src="/book-outline.svg" width="60" height="60" />
+              <Image src="/book-outline.svg" width="40" height="40" />
             </div>
             <li>
               <Link href="/academics" className="channel" data-icon="icon-5">
@@ -81,6 +81,8 @@ export default function dashboardform() {
           </div>
         </div>
       </nav>
+      <br />
+      <section className="dashsec"></section>
     </body>
   );
 }
