@@ -99,11 +99,9 @@ a.titleg {
   transition: background-color 0.3s ease-in-out;
 }
 
-
 #addPostBtn:hover {
   background-color: #ccc;
 }
-
 
 .postLikes {
   color: black;
@@ -338,19 +336,19 @@ img {
   position: relative;
   left: 1.7rem;
 }
-#title{
+#title {
   border: 1px solid rgb(148, 148, 148);
   border-radius: 2px;
 }
-#title:focus{
+#title:focus {
   border: 1px solid black;
   border-radius: 2px;
 }
-#content{
+#content {
   border: 1px solid rgb(148, 148, 148);
   border-radius: 2px;
 }
-button.postBtn{
+button.postBtn {
   border: 1px solid transparent;
   border-radius: 25px;
   padding: 0.5rem;
@@ -358,7 +356,7 @@ button.postBtn{
   padding-right: 1rem;
   background-color: #ec3da0;
 }
-button.postBtn:hover{
+button.postBtn:hover {
   transition: 0.3s;
   background-color: rgb(253, 141, 159);
 }

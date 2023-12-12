@@ -83,7 +83,9 @@ export default function dashboardform() {
       </nav>
       <br />
       <section className="dashsec">
-        <h1 className="dashh1">Welcome to {session?.user?.name}'s Dashboard!</h1>
+        <h1 className="dashh1">
+          Welcome to {session?.user?.name}'s Dashboard!
+        </h1>
         <div className="comments">
           <h2 className="dashh2">Comments</h2>
           <div className="dashcomment">
