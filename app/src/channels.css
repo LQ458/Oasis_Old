@@ -6,15 +6,15 @@ html {
   width: 100%;
 }
 h1 {
-  font-size: 30px;
+  font-size: 1rem;
   position: relative;
-  left: 10px;
+  left: 1rem;
   color: aliceblue;
 }
 
 body {
   margin: 0;
-  margin-top: 50px;
+
   padding: 0;
   width: 100%;
   height: 100%;
@@ -32,20 +32,20 @@ body {
   display: none;
 }
 
-.title {
-  font-size: 18px;
+a.titleg {
+  font-size: 1rem;
   position: relative;
-  left: 20px;
-  top: 12.5px;
+  left: 1.5rem;
+  bottom: 0.1rem;
   font-weight: 600;
   color: aliceblue;
   text-decoration: none;
 }
 
 #topBar {
-  padding: 5px 0; /* Adjust the padding */
+  padding: 1rem 0; /* Adjust the padding */
   width: 100%;
-  height: 50px;
+  height: 6vh;
   background-color: #282828;
   position: fixed;
   top: 0;
@@ -60,7 +60,6 @@ body {
   width: 60%;
   background-color: rgb(216, 207, 207);
   padding: 40rem;
-  box-shadow: 0px -2px 5px black;
   border-radius: 20px;
 }
 
@@ -80,7 +79,7 @@ body {
 }
 
 #spacing {
-  height: 200px;
+  height: 10vh;
 }
 
 #addPostBtn {
@@ -90,29 +89,21 @@ body {
   justify-content: center;
   background-color: #f2f2f2;
   border: none;
-  left: 800px;
-  top: 55px;
+  left: 50rem;
+  top: 3.2rem;
   border-radius: 12px;
-  padding: 10px;
+  padding: 0.7rem;
   color: #333;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease-in-out;
 }
 
-/* Adjust icon and text spacing */
-#addPostBtn ion-icon {
-  margin-right: 5px;
-}
+
 #addPostBtn:hover {
   background-color: #ccc;
 }
 
-#closeForm {
-  position: relative;
-  left: 550px;
-}
 
 .postLikes {
   color: black;
@@ -178,8 +169,9 @@ body {
   font-size: 40px;
 }
 #inputBox {
-  width: 300px;
-  padding: 40px;
+  max-width: 28vw;
+  padding: 3rem;
+  height: 62vh;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
@@ -188,14 +180,14 @@ body {
 
 #closeForm {
   color: black;
-  left: 280px;
-  bottom: 50px;
-  border: none;
-  padding: none;
-  background-color: transparent;
+  font-size: 2rem;
+  left: 18rem;
+  top: -2rem;
   position: relative;
-  font-size: 20px;
-  cursor: pointer;
+}
+#closeForm:hover {
+  color: #ec3da0;
+  transition: 0.3s;
 }
 
 #postForm {
@@ -238,10 +230,10 @@ br {
 .switch {
   position: relative;
   display: inline-block;
-  right: 80px;
-  bottom: 20px;
-  width: 60px;
-  height: 34px;
+  width: 3.8rem;
+  bottom: 2.1rem;
+  right: 2rem;
+  height: 2.2rem;
 }
 
 /* Hide default HTML checkbox */
@@ -267,8 +259,8 @@ br {
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: 1.6rem;
+  width: 1.6rem;
   left: 4px;
   bottom: 4px;
   background-color: white;
@@ -301,138 +293,17 @@ input:checked + .slider:before {
 
 .posta {
   position: relative;
-  left: 70px;
-  bottom: 45px;
   white-space: nowrap;
-  font-size: 20px;
+  top: 0.1rem;
+  left: 5rem;
+  font-weight: 550;
+  font-size: 1.2rem;
   display: inline-block;
 }
 .switchForm {
   position: relative;
   left: 150px;
   top: 80px;
-}
-.sm a {
-  display: inline-flex;
-  text-decoration: none;
-  font-size: 36px;
-  width: 60px;
-  height: 60px;
-  color: #f0f0f0;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  margin: 0 7px;
-}
-.sm a::before {
-  content: "";
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  border-radius: 25%;
-  z-index: -1;
-  transition: transform 0.3s ease-in;
-}
-.sm a:nth-child(1)::before {
-  background: #38529a;
-}
-.sm a:nth-child(2)::before {
-  background: linear-gradient(
-    45deg,
-    #f09433 0%,
-    #e6683c 25%,
-    #dc2743 50%,
-    #cc2366 75%,
-    #bc1888 100%
-  );
-}
-.sm a:nth-child(3)::before {
-  background: #1c96e9;
-}
-.sm a:nth-child(4)::before {
-  background: #f70000;
-}
-.sm a:nth-child(5)::before {
-  background: #046596;
-}
-.sm a:hover::before {
-  transform: scale(0);
-}
-.sm a i {
-  transition: transform 0.3s ease-in;
-}
-.sm a:nth-child(1):hover i {
-  background: #38529a;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
-  -ms-background-clip: text;
-  -ms-text-fill-color: transparent;
-  -o-background-clip: text;
-  -o-text-fill-color: transparent;
-  transform: scale(1.5);
-}
-.sm a:nth-child(2):hover i {
-  background: linear-gradient(
-    45deg,
-    #f09433 0%,
-    #e6683c 25%,
-    #dc2743 50%,
-    #cc2366 75%,
-    #bc1888 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
-  -ms-background-clip: text;
-  -ms-text-fill-color: transparent;
-  -o-background-clip: text;
-  -o-text-fill-color: transparent;
-  transform: scale(1.5);
-}
-.sm a:nth-child(3):hover i {
-  background: #1c96e9;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
-  -ms-background-clip: text;
-  -ms-text-fill-color: transparent;
-  -o-background-clip: text;
-  -o-text-fill-color: transparent;
-  transform: scale(1.5);
-}
-.sm a:nth-child(4):hover i {
-  background: #f70000;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
-  -ms-background-clip: text;
-  -ms-text-fill-color: transparent;
-  -o-background-clip: text;
-  -o-text-fill-color: transparent;
-  transform: scale(1.5);
-}
-.sm a:nth-child(5):hover i {
-  background: #046596;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
-  -ms-background-clip: text;
-  -ms-text-fill-color: transparent;
-  -o-background-clip: text;
-  -o-text-fill-color: transparent;
-  transform: scale(1.5);
-}
-footer {
-  background-color: rgba(51, 51, 51, 0.2);
-  padding: 20px;
-  color: #f4a896;
-  text-align: center;
 }
 div.preview-images > img {
   width: 30%;
@@ -466,4 +337,28 @@ img {
   opacity: 1;
   position: relative;
   left: 1.7rem;
+}
+#title{
+  border: 1px solid rgb(148, 148, 148);
+  border-radius: 2px;
+}
+#title:focus{
+  border: 1px solid black;
+  border-radius: 2px;
+}
+#content{
+  border: 1px solid rgb(148, 148, 148);
+  border-radius: 2px;
+}
+button.postBtn{
+  border: 1px solid transparent;
+  border-radius: 25px;
+  padding: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: #ec3da0;
+}
+button.postBtn:hover{
+  transition: 0.3s;
+  background-color: rgb(253, 141, 159);
 }

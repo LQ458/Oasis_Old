@@ -1,10 +1,13 @@
 "use client";
-import React from "react";
 import "@/app/src/channels.css";
-import SocialMedia from "@/app/(icons)/SocialMedia";
+import React from "react";
+import { IonIcon } from '@ionic/react';
+import { useRef } from "react";
+import { closeCircleOutline } from 'ionicons/icons';
 import Router, { useRouter } from "next/navigation";
 import axios from "axios";
 import Skeleton from "../skeletons/Skeleton";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -95,11 +98,45 @@ const generalform = () => {
     setInputBoxHidden(true);
   };
 
+//   useEffect(() => {
+//     const imagesPreview = (input, placeToInsertImagePreview) => {
+//       if (input.files) {
+//         const filesAmount = input.files.length;
+//         for (let i = 0; i < filesAmount; i++) {
+//           const reader = new FileReader();
+//           reader.onload = function(event) {
+//             const img = document.createElement('img');
+//             img.src = event.target.result;
+//             img.style.width = '100px'; // Set the image width
+//             img.style.height = '100px'; // Set the image height
+//             img.style.objectFit = 'cover'; // Set the object-fit property
+//             img.style.margin = '10px'; // Set the margin
+//             placeToInsertImagePreview.appendChild(img);
+//           };
+//           reader.readAsDataURL(input.files[i]);
+//         }
+//       }
+//     };
+  
+//     const inputFilesElement = document.getElementById('input-files');
+//     const previewImagesElement = document.querySelector('div.preview-images');
+  
+//     if (inputFilesElement) {
+//       inputFilesElement.addEventListener('change', () => imagesPreview(inputFilesElement, previewImagesElement));
+//     }
+//     // Cleanup function
+//   return () => {
+//     if (inputFilesElement) {
+//       inputFilesElement.removeEventListener('change', () => imagesPreview(inputFilesElement, previewImagesElement));
+//     }
+//   };
+// }, []);
+
   return (
     <>
       <title>General</title>
       <div id="topBar">
-        <a href="intro" className="title">
+        <a href="intro" className="titleg">
           General
         </a>
       </div>
@@ -120,7 +157,7 @@ const generalform = () => {
           encType="multipart/form-data"
         >
           <button id="closeForm" onClick={handleCloseFormClick}>
-            x
+            <IonIcon icon={closeCircleOutline} />
           </button>
           <label htmlFor="title">Title:</label>
           <input
@@ -152,7 +189,6 @@ const generalform = () => {
             onChange={handleFileChange}
             multiple
           />
-          <br />
           <div className="switchForm">
             <label className="switch">
               <input
@@ -169,10 +205,7 @@ const generalform = () => {
               </span>
             </label>
           </div>
-          <div id="uploadPostStatus" />
-          <br />
-          <br />
-          <button type="submit">Post</button>
+          <button type="submit" className="postBtn">Post</button>
         </form>
         <div className="row">
           <div className="col-sm-12">
@@ -184,34 +217,38 @@ const generalform = () => {
         <div id="posts" className="word-box">
           {loading
             ? Array.from({ length: 15 }).map((_, i) => (
-                <div className="borderClass" key={i}>
-                  <React.Fragment>
-                    <Skeleton classes="title width-40" />
-                    <Skeleton classes="text width-70" />
-                    <Skeleton classes="text width-70" />
-                    <Skeleton classes="text width-70" />
-                    <br />
-                    <Skeleton classes="text width-pic" />
-                    <br />
-                    <Skeleton classes="text width-user" />
-                    <br />
-                    <Skeleton classes="text width-40" />
-                    <Skeleton classes="text width-delete" />
-                    <br />
-                  </React.Fragment>
-                </div>
-              ))
+              <div className="borderClass" key={i}>
+                <React.Fragment>
+                  <Skeleton classes="title width-40" />
+                  <Skeleton classes="text width-70" />
+                  <Skeleton classes="text width-70" />
+                  <Skeleton classes="text width-70" />
+                  <br />
+                  <Skeleton classes="text width-pic" />
+                  <br />
+                  <Skeleton classes="text width-user" />
+                  <br />
+                  <Skeleton classes="text width-40" />
+                  <Skeleton classes="text width-delete" />
+                  <br />
+                </React.Fragment>
+              </div>
+            ))
             : posts.map((post) => (
-                <div className="posts" key={post.id}>
-                  <h3>{post.title}</h3>
-                  <p>{post.content}</p>
-                </div>
-              ))}
+              <div className="posts" key={post.id}>
+                <h3>{post.title}</h3>
+                <p>{post.content}</p>
+                {post.pictureUrl.map((image) => (
+                  <div className="imgs">
+                    <Image src={`/${image.filename}`} width="300" height="300"/>
+                  </div>
+                ))}
+              </div>
+            ))}
         </div>
       </div>
       <div id="spacing" />
       <br />
-      <SocialMedia />
     </>
   );
 };
