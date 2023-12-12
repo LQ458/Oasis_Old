@@ -26,7 +26,7 @@ mongoose
 app.post("/upload", uploadmiddleware, async function (req, res) {
   const fileNumbers = req.files ? req.files.length : 0;
   const inputFiles = [];
-  const outputFolderPath = path.join(process.cwd(), "/app/public/postspic/");
+  const outputFolderPath = path.join(process.cwd(), "/public/");
   const outputFolderPath1 = path.join(process.cwd(), "/app/public/uploads/");
   const post = new Post({
     title: req.body.title,
