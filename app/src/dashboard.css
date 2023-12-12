@@ -68,7 +68,7 @@ body.dash {
 
 .channel:hover {
   text-decoration: none;
-  color: #fff;
+  color: rgb(15, 185, 185);
 }
 
 .channel:active {
@@ -103,9 +103,9 @@ ul li {
   flex-direction: column;
   position: relative;
   height: 100vh;
-  background-color: rgba(200, 200, 200, 0.5);
+  background-color: rgba(0, 0, 0, 0.75);
   border-right: 1.5px solid #fff;
-  color: black;
+  color: white;
   justify-content: left;
   width: 6vw;
 }
@@ -135,13 +135,12 @@ p {
   top: 5rem;
   text-align: center;
   height: 10rem;
-  color: black;
+  color: white;
 }
 .icon {
   display: inline-block;
   position: relative;
   font-weight: 50;
-  color: black;
   transition: transform 0.2s ease-in-out;
 }
 .lift {
@@ -178,7 +177,27 @@ a.title {
 section.dashsec {
   position: relative;
   padding: 2rem;
-  background-color: rgba(90, 90, 90, 0.45);
+  color: white;
+  font-size: 1.2rem;
+  background-color: rgba(120, 120, 120, 0.5);
   height: 100vh;
   width: 94vw;
+}
+h1.dashh1{
+  font-size: 2rem;
+  position: relative;
+  font-weight: 550;
+  color: white;
+}
+div.comments{
+  padding: 3rem;
+}
+div.posts{
+  padding: 3rem;
+}
+div.likes{
+  padding: 3rem;
+}
+div.like{
+  padding: 3rem;
 }

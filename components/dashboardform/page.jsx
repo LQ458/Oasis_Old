@@ -51,7 +51,7 @@ export default function dashboardform() {
           </div>
           <div className="block">
             <div className="icon icon-3">
-              <Image src="/person-circle-outline.svg" width="40" height="40" />
+              <Image src="/chatbox-outline.svg" width="40" height="40" />
             </div>
             <li>
               <Link className="channel" data-icon="icon-3" href="/announcement">
@@ -82,7 +82,33 @@ export default function dashboardform() {
         </div>
       </nav>
       <br />
-      <section className="dashsec"></section>
+      <section className="dashsec">
+        <h1 className="dashh1">Welcome to {session?.user?.name}'s Dashboard!</h1>
+        <div className="comments">
+          <h2 className="dashh2">Comments</h2>
+          <div className="dashcomment">
+            <p className="dashp">You have no comments yet!</p>
+          </div>
+        </div>
+        <div className="posts">
+          <h2 className="dashh2">Posts</h2>
+          <div className="dashpost">
+            <p className="dashp">You have no posts yet!</p>
+          </div>
+        </div>
+        <div className="likes">
+          <h2 className="dashh2">Liked Posts</h2>
+          <div className="dashlike">
+            <p className="dashp">You have no liked posts yet!</p>
+          </div>
+        </div>
+        <div className="like">
+          <h2 className="dashh2">Liked Comments</h2>
+          <div className="dashlike">
+            <p className="dashp">You have no liked comments yet!</p>
+          </div>
+        </div>
+      </section>
     </body>
   );
 }
