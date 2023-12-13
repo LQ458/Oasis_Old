@@ -53,13 +53,13 @@ a.titleg {
   z-index: 2;
 }
 
-#inputBox {
-  position: fixed;
-  top: 14rem;
-  left: 50rem;
-  width: 60%;
-  background-color: rgb(216, 207, 207);
-  padding: 40rem;
+#inputBoxGeneral {
+  position: absolute;
+  top: 32vh;
+  left: 61vw;
+  width: 36vw;
+  background-color: white;
+  padding: 3rem;
   border-radius: 20px;
 }
 
@@ -67,9 +67,9 @@ a.titleg {
   border: white solid 2px;
   padding-left: 1.2rem;
   padding: 1rem;
-  width: 40rem;
+  width: 40vw;
   margin: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 3vh;
   border-radius: 26px;
   background-color: white;
   color: black;
@@ -82,14 +82,14 @@ a.titleg {
   height: 10vh;
 }
 
-#addPostBtn {
+#GaddPostBtn {
   display: flex;
   position: relative;
   align-items: center;
   justify-content: center;
   background-color: #f2f2f2;
   border: none;
-  left: 50rem;
+  left: 61vw;
   top: 3.2rem;
   border-radius: 12px;
   padding: 0.7rem;
@@ -99,7 +99,7 @@ a.titleg {
   transition: background-color 0.3s ease-in-out;
 }
 
-#addPostBtn:hover {
+#GaddPostBtn:hover {
   background-color: #ccc;
 }
 
@@ -167,7 +167,7 @@ a.titleg {
   font-size: 40px;
 }
 #inputBox {
-  max-width: 28vw;
+  width: 28vw;
   padding: 3rem;
   height: 62vh;
   border: 1px solid #ccc;
@@ -179,8 +179,8 @@ a.titleg {
 #closeForm {
   color: black;
   font-size: 2rem;
-  left: 18rem;
-  top: -2rem;
+  left: 22vw;
+  top: -2vh;
   position: relative;
 }
 #closeForm:hover {
@@ -229,8 +229,8 @@ br {
   position: relative;
   display: inline-block;
   width: 3.8rem;
-  bottom: 2.1rem;
-  right: -3rem;
+  bottom: 5.5vh;
+  right: 1vw;
   height: 2.2rem;
 }
 
@@ -326,7 +326,7 @@ img {
   border: white solid 2px;
   padding-left: 1.2rem;
   padding: 1rem;
-  width: 40rem;
+  width: 40vw;
   margin: 1rem;
   margin-bottom: 3rem;
   border-radius: 26px;
