@@ -130,11 +130,11 @@ p {
   margin-right: 1rem;
 }
 
-.block {
+div.dblock {
   position: relative;
-  top: 5rem;
+  top: 5vh;
   text-align: center;
-  height: 10rem;
+  height: 20vh;
   color: white;
 }
 .icon {

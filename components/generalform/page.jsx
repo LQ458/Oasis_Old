@@ -151,11 +151,11 @@ const generalform = () => {
         Back to Dashboard
       </a>
       <div>
-        <button id="addPostBtn" onClick={handleAddPostClick}>
+        <button id="GaddPostBtn" onClick={handleAddPostClick}>
           <span>Write a post</span>
         </button>
       </div>
-      <div id="inputBox" className={inputBoxHidden ? "hidden" : ""}>
+      <div id="inputBoxGeneral" className={inputBoxHidden ? "hidden" : ""}>
         <form
           onSubmit={handleSubmit}
           id="postForm"

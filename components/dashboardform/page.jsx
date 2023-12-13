@@ -34,12 +34,12 @@ export default function dashboardform() {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <nav className="dash">
         <div className="container">
-          <div className="block">
+          <div className="dblock">
             <Link href="/profile" className="icon">
               <Image src="/person-circle-outline.svg" width="60" height="60" />
             </Link>
           </div>
-          <div className="block">
+          <div className="dblock">
             <div className="icon icon-2">
               <Image src="/earth-outline.svg" width="40" height="40" />
             </div>
@@ -49,7 +49,7 @@ export default function dashboardform() {
               </Link>
             </li>
           </div>
-          <div className="block">
+          <div className="dblock">
             <div className="icon icon-3">
               <Image src="/chatbox-outline.svg" width="40" height="40" />
             </div>
@@ -59,7 +59,7 @@ export default function dashboardform() {
               </Link>
             </li>
           </div>
-          <div className="block">
+          <div className="dblock">
             <div className="icon icon-4">
               <Image src="/heart.svg" width="40" height="40" />
             </div>
@@ -69,7 +69,7 @@ export default function dashboardform() {
               </Link>
             </li>
           </div>
-          <div className="block">
+          <div className="dblock">
             <div className="icon icon-5">
               <Image src="/book-outline.svg" width="40" height="40" />
             </div>
