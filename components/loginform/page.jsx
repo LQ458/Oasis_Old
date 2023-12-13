@@ -96,7 +96,7 @@ const loginForm = () => {
                     <span>Loading...</span>
                   </>
                 )}
-                {load && <span>Loading...</span>}
+                {load && <span className="lddd">Loading...</span>}
                 {!loading && !load && "Login"}
               </button>
               <div className="login">
