@@ -10,12 +10,15 @@ import Skeleton from "../skeletons/Skeleton";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { TailSpin } from "react-loader-spinner";
+
 import { useEffect } from "react";
 
 const generalform = () => {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(true); // Added loading state
   const [error, setError] = useState(false);
+  const [load, setLoad] = useState(false)
   const [posts, setPosts] = useState([]);
 
   const getPosts = async () => {
@@ -75,6 +78,7 @@ const generalform = () => {
       }
     }
     try {
+      setLoad(true)
       const response = await axios.post(
         "http://localhost:3001/upload",
         formData,
@@ -85,6 +89,7 @@ const generalform = () => {
         },
       );
       console.log("Post uploaded:", response.data);
+      setLoad(false)
     } catch (error) {
       console.error("Error uploading post:", error);
     }
@@ -206,7 +211,18 @@ const generalform = () => {
             </label>
           </div>
           <button type="submit" className="postBtn">
-            Post
+          {!load && (<p className="ldd">Post</p>)}
+          {load && (
+            <div className="load">
+          <TailSpin
+                      type="ThreeDots"
+                      color="white"
+                      height={20}
+                      width={40}
+                      style={{ marginRight: "5px" }}
+                    />
+                    <span className="ld">Loading...</span>
+                    </div>)}
           </button>
         </form>
         <div className="row">

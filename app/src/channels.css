@@ -230,7 +230,7 @@ br {
   display: inline-block;
   width: 3.8rem;
   bottom: 2.1rem;
-  right: 2rem;
+  right: -3rem;
   height: 2.2rem;
 }
 
@@ -359,4 +359,16 @@ button.postBtn {
 button.postBtn:hover {
   transition: 0.3s;
   background-color: rgb(253, 141, 159);
+}
+
+.ld{
+  color: white;
+}
+
+.ldd{
+  color: white;
+}
+
+div.load{
+  display: flex;
 }
