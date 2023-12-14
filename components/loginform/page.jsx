@@ -32,14 +32,11 @@ const loginForm = () => {
         password,
         redirect: false,
       });
-      if (res.error) {
         setErrorMessage("Invalid username or password");
         setTimeout(() => {
           setErrorMessage(null);
         }, 3000);
-      } else {
         router.replace("dashboard");
-      }
     } catch (error) {
       setErrorMessage(error.message);
       setTimeout(() => {
