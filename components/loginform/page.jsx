@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import DBconnect from "@/app/libs/mongodb";
 import { useRouter } from "next/navigation";
 import { IonIcon } from "@ionic/react";
 import { TailSpin } from "react-loader-spinner";
@@ -20,9 +19,7 @@ const loginForm = () => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    window.onload = async function () {
-      await DBconnect();
-    };
+    window.onload = function () {};
     setLoad(false);
   });
 
@@ -36,7 +33,7 @@ const loginForm = () => {
         redirect: false,
       });
       if (res.error) {
-        setErrorMessage("Invalid username or password");
+        setErrorMessage(res.error);
         setTimeout(() => {
           setErrorMessage(null);
         }, 3000);
