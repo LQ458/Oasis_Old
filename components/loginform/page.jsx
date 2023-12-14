@@ -50,12 +50,6 @@ const loginForm = () => {
     }
   };
 
-  const ErrorNotification = () => {
-    if (errorMessage) {
-      return <div className="error-notification">{errorMessage}</div>;
-    }
-    return null;
-  };
 
   return (
     <>
@@ -71,6 +65,7 @@ const loginForm = () => {
                   type="username"
                   required
                   onChange={(e) => setUsername(e.target.value)}
+                  disabled={load}
                 />
                 <label htmlFor="username">Username:</label>
               </div>
@@ -80,6 +75,7 @@ const loginForm = () => {
                   type="password"
                   required
                   onChange={(e) => setPassword(e.target.value)}
+                  disabled={load}
                 />
                 <label htmlFor="password">Password:</label>
               </div>
