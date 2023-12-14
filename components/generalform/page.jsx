@@ -90,6 +90,10 @@ const generalform = () => {
       );
       console.log("Post uploaded:", response.data);
       setLoad(false)
+      setInputBoxHidden(true);
+      useEffect(()=>{
+        getPosts();
+      })
     } catch (error) {
       console.error("Error uploading post:", error);
     }

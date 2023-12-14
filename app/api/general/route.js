@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   await DBconnect();
-  const posts = await Post.find({ group: "general" });
+  const posts = (await Post.find({ group: "general" })).reverse();
   const postslikes = await Like.find({ group: "general" });
   return NextResponse.json({ posts }, { postslikes });
 }

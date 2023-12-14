@@ -230,7 +230,7 @@ br {
   display: inline-block;
   width: 3.8rem;
   bottom: 5.5vh;
-  right: 1vw;
+  right: -2vw;
   height: 2.2rem;
 }
 
