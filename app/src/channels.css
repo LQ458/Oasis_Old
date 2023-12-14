@@ -63,7 +63,7 @@ a.titleg {
   border-radius: 20px;
 }
 
-.posts {
+.postsG {
   border: white solid 2px;
   padding-left: 1.2rem;
   padding: 1rem;
@@ -361,14 +361,14 @@ button.postBtn:hover {
   background-color: rgb(253, 141, 159);
 }
 
-.ld{
+.ld {
   color: white;
 }
 
-.ldd{
+.ldd {
   color: white;
 }
 
-div.load{
+div.load {
   display: flex;
 }

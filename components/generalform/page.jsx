@@ -18,7 +18,7 @@ const generalform = () => {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(true); // Added loading state
   const [error, setError] = useState(false);
-  const [load, setLoad] = useState(false)
+  const [load, setLoad] = useState(false);
   const [posts, setPosts] = useState([]);
 
   const getPosts = async () => {
@@ -78,29 +78,23 @@ const generalform = () => {
       }
     }
     try {
-      setLoad(true)
-      const res = await axios.post(
-        "http://localhost:3001/upload",
-        formData,
-        {
+      setLoad(true);
+      const res = await Promise.race([
+        axios.post("http://localhost:3001/upload", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        },
-      )
-      .then(response => {
-        setInputBoxHidden(true);
-        console.log("Post uploaded:", response.data);
-      })
-      .catch(error => {
+        }),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("timeout")), 3000),
+        ),
+      ]).catch((error) => {
         console.error("Error uploading post:", error);
-      })
-      .finally(() => {
-        setLoad(false);
       });
-      console.log("Post uploaded:", response.data);
-    } catch (error) {
-      console.error("Error uploading post:", error);
+      await getPosts();
+    } finally {
+      setLoad(false);
+      handleCloseFormClick();
     }
   };
 
@@ -219,19 +213,20 @@ const generalform = () => {
               </span>
             </label>
           </div>
-          <button type="submit" className="postBtn">
-          {!load && (<p className="ldd">Post</p>)}
-          {load && (
-            <div className="load">
-          <TailSpin
-                      type="ThreeDots"
-                      color="white"
-                      height={20}
-                      width={40}
-                      style={{ marginRight: "5px" }}
-                    />
-                    <span className="ld">Loading...</span>
-                    </div>)}
+          <button type="submit" className="postBtn" disabled={load}>
+            {!load && <p className="ldd">Post</p>}
+            {load && (
+              <div className="load">
+                <TailSpin
+                  type="ThreeDots"
+                  color="white"
+                  height={20}
+                  width={40}
+                  style={{ marginRight: "5px" }}
+                />
+                <span className="ld">Loading...</span>
+              </div>
+            )}
           </button>
         </form>
         <div className="row">
@@ -262,7 +257,7 @@ const generalform = () => {
                 </div>
               ))
             : posts.map((post) => (
-                <div className="posts" key={post.id}>
+                <div className="postsG" key={post.id}>
                   <h3>{post.title}</h3>
                   <p>{post.content}</p>
                   {post.pictureUrl.map((image) => (

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require("moment-timezone");
 
 const Schema = mongoose.Schema;
 
@@ -19,13 +20,9 @@ const postSchema = new Schema({
     type: Date,
     default: Date.now,
     get(value) {
-      const offset = 8; // UTC +8
-      const utc = value.getTime() + value.getTimezoneOffset() * 60000; // 转为 UTC 时间
-      const date = new Date(utc + 3600000 * offset); // 根据偏移量调整时间
-      return date.toLocaleString([], {
-        dateStyle: "short",
-        timeStyle: "short",
-      });
+      return moment(value)
+        .tz("Asia/Shanghai")
+        .format("MMMM Do, YYYY, HH:mm:ss");
     },
     immutable: true,
   },
