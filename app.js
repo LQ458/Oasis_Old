@@ -55,7 +55,7 @@ app.post("/upload", uploadmiddleware, async function (req, res) {
 
   await post.save().then(() => {
     console.log("Post saved");
-    return NextResponse.json({success: true},{status: 201})
+    return NextResponse.json({ message: "Post Created" }, { status: 201 });
   });
 });
 

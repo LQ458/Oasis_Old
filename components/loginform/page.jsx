@@ -50,7 +50,6 @@ const loginForm = () => {
     }
   };
 
-
   return (
     <>
       <title>Login</title>
