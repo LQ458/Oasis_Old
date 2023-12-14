@@ -372,3 +372,8 @@ button.postBtn:hover {
 div.load {
   display: flex;
 }
+button.deleteBtn {
+  color: black;
+  font-size: 1em;
+  padding: 2rem;
+}

@@ -10,11 +10,12 @@ export async function GET() {
   return NextResponse.json({ posts }, { postslikes });
 }
 
-export async function DELETE(request) {
-  const id = request.nextUrl.searchParams.get("id");
+export async function DELETE(req) {
+  const { id } = await req.json();
+  console.log(id);
   await DBconnect();
   await Post.findByIdAndDelete(id);
-  await Like.findOneAndDelete({ postId: id });
+  // await Like.findOneAndDelete({ postId: id });
 
   return NextResponse.json({ message: "Post deleted" }, { status: 200 });
 }

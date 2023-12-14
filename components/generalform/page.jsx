@@ -20,6 +20,7 @@ const generalform = () => {
   const [error, setError] = useState(false);
   const [load, setLoad] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [id, setId] = useState("");
 
   const getPosts = async () => {
     try {
@@ -140,6 +141,19 @@ const generalform = () => {
   //   };
   // }, []);
 
+  const handleSub = async (e) => {
+    e.preventDefault();
+    try{
+      const res = await axios.delete("/api/general", {
+        data: {
+          id: e.target.id.value,
+        }
+      });
+      await getPosts();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <title>General</title>
@@ -269,6 +283,12 @@ const generalform = () => {
                       />
                     </div>
                   ))}
+                  <form onSubmit={handleSub} id="deleteForm">
+                    <input type="hidden" name="id" id="id" value={post._id}/>
+                    <button type="submit" className="deleteBtn">
+                      <span>Delete</span>
+                    </button>
+                  </form>
                 </div>
               ))}
         </div>
