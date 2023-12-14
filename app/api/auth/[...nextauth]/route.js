@@ -22,7 +22,6 @@ export const authOptions = {
             return null;
           }
           const newUserObject = {
-            id: user._id,
             name: username,
           };
           return newUserObject;

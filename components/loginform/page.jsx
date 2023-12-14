@@ -33,7 +33,7 @@ const loginForm = () => {
         redirect: false,
       });
       if (res.error) {
-        setErrorMessage(res.error);
+        setErrorMessage("Invalid username or password");
         setTimeout(() => {
           setErrorMessage(null);
         }, 3000);
