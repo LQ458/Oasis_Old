@@ -87,11 +87,17 @@ const generalform = () => {
             "Content-Type": "multipart/form-data",
           },
         },
-      );
-      if(res.success){
-        setLoad(false)
-      setInputBoxHidden(true);
-      }
+      )
+      .then(response => {
+        setInputBoxHidden(true);
+        console.log("Post uploaded:", response.data);
+      })
+      .catch(error => {
+        console.error("Error uploading post:", error);
+      })
+      .finally(() => {
+        setLoad(false);
+      });
       console.log("Post uploaded:", response.data);
     } catch (error) {
       console.error("Error uploading post:", error);
