@@ -79,7 +79,7 @@ const generalform = () => {
     }
     try {
       setLoad(true)
-      const response = await axios.post(
+      const res = await axios.post(
         "http://localhost:3001/upload",
         formData,
         {
@@ -88,10 +88,11 @@ const generalform = () => {
           },
         },
       );
-      console.log("Post uploaded:", response.data);
-      setLoad(false)
+      if(res.success){
+        setLoad(false)
       setInputBoxHidden(true);
-      getPosts();
+      }
+      console.log("Post uploaded:", response.data);
     } catch (error) {
       console.error("Error uploading post:", error);
     }

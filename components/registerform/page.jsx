@@ -59,6 +59,7 @@ const registerform = () => {
                   type="username"
                   onChange={(e) => setUsername(e.target.value)}
                   required
+                  disabled={load}
                 />
                 <label htmlFor="username">Username:</label>
               </div>
@@ -68,6 +69,7 @@ const registerform = () => {
                   type="password"
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  disabled={load}
                 />
                 <label htmlFor="password">Password:</label>
               </div>
