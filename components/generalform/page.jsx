@@ -286,6 +286,8 @@ function generalform({ admin }) {
                       />
                     </div>
                   ))}
+                  <p className="usr">posted by {username}</p>
+                  <p className="postT">posted at {post.postingtime}</p>
                   {post.username === username && !admin && (
                     <form onSubmit={handleSub} id="deleteForm">
                       <input type="hidden" name="id" id="id" value={post._id} />
