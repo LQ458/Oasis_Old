@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import "@/app/src/channels.css";
 import React from "react";
 import { IonIcon } from "@ionic/react";
@@ -14,7 +14,7 @@ import { TailSpin } from "react-loader-spinner";
 
 import { useEffect } from "react";
 
-function generalform ({admin}) {
+function generalform({ admin }) {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(true); // Added loading state
   const [error, setError] = useState(false);
@@ -95,10 +95,10 @@ function generalform ({admin}) {
     } finally {
       setLoad(false);
       handleCloseFormClick();
-      setTitle('');
-      setContent('');
-      setPostAnonymous('');
-      setFiles('');
+      setTitle("");
+      setContent("");
+      setPostAnonymous("");
+      setFiles("");
     }
   };
 
@@ -286,12 +286,22 @@ function generalform ({admin}) {
                       />
                     </div>
                   ))}
-                  {admin && (<form onSubmit={handleSub} id="deleteForm">
-                    <input type="hidden" name="id" id="id" value={post._id} />
-                    <button type="submit" className="deleteBtn">
-                      <span>Delete</span>
-                    </button>
-                  </form>)}
+                  {post.username === username && !admin && (
+                    <form onSubmit={handleSub} id="deleteForm">
+                      <input type="hidden" name="id" id="id" value={post._id} />
+                      <button type="submit" className="deleteBtn">
+                        <span>Delete</span>
+                      </button>
+                    </form>
+                  )}
+                  {admin && (
+                    <form onSubmit={handleSub} id="deleteForm">
+                      <input type="hidden" name="id" id="id" value={post._id} />
+                      <button type="submit" className="deleteBtn">
+                        <span>Admin Delete</span>
+                      </button>
+                    </form>
+                  )}
                 </div>
               ))}
         </div>
@@ -300,6 +310,6 @@ function generalform ({admin}) {
       <br />
     </>
   );
-};
+}
 
 export default generalform;
