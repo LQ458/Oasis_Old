@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require('moment-timezone');
 
 const Schema = mongoose.Schema;
 
@@ -16,14 +17,8 @@ const postSchema = new Schema({
     type: String,
   },
   postingtime: {
-    type: Date,
-    default: Date.now,
-    get(value) {
-      let date = new Date(value);
-      let utc = date.getTime() + date.getTimezoneOffset() * 60000; // Convert to milliseconds
-      let newDate = new Date(utc + 3600000 * 8); // Convert to UTC+8
-      return newDate.toISOString().replace(/T/, " ").replace(/\..+/, "");
-    },
+    type: String,
+    default: () => moment().tz('Asia/Shanghai').format('YYYY-MM-DD HH:mm:ss').replace('T', ' ').replace('Z', ''),
     immutable: true,
   },
   postAnonymous: {
