@@ -12,7 +12,6 @@ export async function GET() {
 
 export async function DELETE(req) {
   const { id } = await req.json();
-  console.log(id);
   await DBconnect();
   await Post.findByIdAndDelete(id);
   // await Like.findOneAndDelete({ postId: id });
