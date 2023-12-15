@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import "@/app/src/channels.css";
 import React from "react";
 import { IonIcon } from "@ionic/react";
@@ -14,13 +14,13 @@ import { TailSpin } from "react-loader-spinner";
 
 import { useEffect } from "react";
 
-const generalform = () => {
+function generalform ({admin}) {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(true); // Added loading state
   const [error, setError] = useState(false);
   const [load, setLoad] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [id, setId] = useState("");
+  const username = session?.user?.name;
 
   const getPosts = async () => {
     try {
@@ -50,7 +50,6 @@ const generalform = () => {
   const [files, setFiles] = useState([]);
   const [postAnonymous, setPostAnonymous] = useState(false);
   const [inputBoxHidden, setInputBoxHidden] = useState(true);
-  const username = session?.user?.name;
 
   const handleFileChange = (e) => {
     setFiles(e.target.files);
@@ -287,12 +286,12 @@ const generalform = () => {
                       />
                     </div>
                   ))}
-                  <form onSubmit={handleSub} id="deleteForm">
+                  {admin && (<form onSubmit={handleSub} id="deleteForm">
                     <input type="hidden" name="id" id="id" value={post._id} />
                     <button type="submit" className="deleteBtn">
                       <span>Delete</span>
                     </button>
-                  </form>
+                  </form>)}
                 </div>
               ))}
         </div>
