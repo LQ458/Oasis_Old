@@ -9,18 +9,18 @@ export default async function general() {
   const session = await getServerSession(authOptions);
 
   if (!session) redirect("/login");
-    try{
-      const res = await axios.post("http://localhost:3000/api/fetchAdmin", {
-          username: session?.user?.name,
-      });
-      admin = res.data.admin;
-    } catch(error){
-      console.log("Error loading admin", error);
-    }
+  try {
+    const res = await axios.post("http://localhost:3000/api/fetchAdmin", {
+      username: session?.user?.name,
+    });
+    admin = res.data.admin;
+  } catch (error) {
+    console.log("Error loading admin", error);
+  }
 
   return (
     <main>
-      <Generalform admin={admin}/>
+      <Generalform admin={admin} />
     </main>
   );
 }
