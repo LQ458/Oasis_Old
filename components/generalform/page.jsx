@@ -96,6 +96,10 @@ const generalform = () => {
     } finally {
       setLoad(false);
       handleCloseFormClick();
+      setTitle('');
+      setContent('');
+      setPostAnonymous('');
+      setFiles('');
     }
   };
 
@@ -143,11 +147,11 @@ const generalform = () => {
 
   const handleSub = async (e) => {
     e.preventDefault();
-    try{
+    try {
       const res = await axios.delete("/api/general", {
         data: {
           id: e.target.id.value,
-        }
+        },
       });
       await getPosts();
     } catch (error) {
@@ -284,7 +288,7 @@ const generalform = () => {
                     </div>
                   ))}
                   <form onSubmit={handleSub} id="deleteForm">
-                    <input type="hidden" name="id" id="id" value={post._id}/>
+                    <input type="hidden" name="id" id="id" value={post._id} />
                     <button type="submit" className="deleteBtn">
                       <span>Delete</span>
                     </button>

@@ -20,9 +20,9 @@ const postSchema = new Schema({
     default: Date.now,
     get(value) {
       let date = new Date(value);
-      let utc = date.getTime() + (date.getTimezoneOffset() * 60000); // Convert to milliseconds
-      let newDate = new Date(utc + (3600000*8)); // Convert to UTC+8
-      return newDate.toISOString().replace(/T/, ' ').replace(/\..+/, '');
+      let utc = date.getTime() + date.getTimezoneOffset() * 60000; // Convert to milliseconds
+      let newDate = new Date(utc + 3600000 * 8); // Convert to UTC+8
+      return newDate.toISOString().replace(/T/, " ").replace(/\..+/, "");
     },
     immutable: true,
   },
