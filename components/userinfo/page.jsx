@@ -1,5 +1,6 @@
 "use client";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -7,6 +8,11 @@ import Link from "next/link";
 import "@/app/src/userinfo.css";
 
 const UserInfo = () => {
+  const router = useRouter();
+  const handleSignOut = () => {
+    signOut();
+    router.replace("/");
+  }
   const { data: session } = useSession();
   const [load, setLoad] = useState(true);
 
@@ -33,7 +39,7 @@ const UserInfo = () => {
           </a>
         </div>
 
-        <button onClick={() => signOut()} className="logout-btn">
+        <button onClick={handleSignOut} className="logout-btn">
           Log Out
         </button>
       </div>
