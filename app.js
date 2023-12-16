@@ -13,7 +13,7 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({ origin: "http://45.145.229.105" }));
+app.use(cors({ origin: "http://45.145.229.105:3000" }));
 
 mongoose
   .connect(process.env.MONGODB_URL)
