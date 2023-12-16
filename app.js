@@ -13,7 +13,7 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({ origin: "https://oasisforum.cn" }));
+app.use(cors({ origin: "https://oasisforum.cn/" }));
 
 mongoose
   .connect(process.env.MONGODB_URL)
@@ -60,5 +60,5 @@ app.post("/upload", uploadmiddleware, async function (req, res) {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log(`Server is running at http://localhost:${process.env.PORT}`);
+  console.log(`Server is running at Port ${process.env.PORT}`);
 });
