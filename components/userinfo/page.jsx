@@ -12,7 +12,7 @@ const UserInfo = () => {
   const handleSignOut = () => {
     signOut();
     router.replace("/");
-  }
+  };
   const { data: session } = useSession();
   const [load, setLoad] = useState(true);
 
