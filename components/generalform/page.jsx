@@ -80,7 +80,7 @@ function generalform({ admin }) {
     try {
       setLoad(true);
       const res = await Promise.race([
-        axios.post("http://localhost:3001/upload", formData, {
+        axios.post("https://45.145.229.105:3001/upload", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
