@@ -79,26 +79,26 @@ function generalform({ admin }) {
     }
     try {
       setLoad(true);
-      const res = await Promise.race([
-        axios.post("http://localhost:3001/upload", formData, {
+      const res = await axios.post(
+        "http://45.145.229.105:3001/upload",
+        formData,
+        {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        }),
-        new Promise((_, reject) =>
-          setTimeout(() => reject(new Error("timeout")), 3000),
-        ),
-      ]).catch((error) => {
-        console.error("Error uploading post:", error);
-      });
-      await getPosts();
-    } finally {
-      setLoad(false);
-      handleCloseFormClick();
-      setTitle("");
-      setContent("");
-      setPostAnonymous("");
-      setFiles("");
+        },
+      );
+      if (res.status === 201) {
+        await getPosts();
+        setLoad(false);
+        handleCloseFormClick();
+        setTitle("");
+        setContent("");
+        setPostAnonymous("");
+        setFiles("");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -171,7 +171,7 @@ function generalform({ admin }) {
         Back to Dashboard
       </a>
       <div>
-        <button id="GaddPostBtn" onClick={handleAddPostClick}>
+        <button className="adp" id="GaddPostBtn" onClick={handleAddPostClick}>
           <span>Write a post</span>
         </button>
       </div>
@@ -287,7 +287,7 @@ function generalform({ admin }) {
                     </div>
                   ))}
                   <p className="usr">posted by {username}</p>
-                  <p className="postT">posted at {post.postingtime}</p>
+                  <p className="postT">posted on {post.postingtime}</p>
                   {post.username === username && !admin && (
                     <form onSubmit={handleSub} id="deleteForm">
                       <input type="hidden" name="id" id="id" value={post._id} />
