@@ -82,7 +82,7 @@ export default function dashboardform() {
         </div>
       </nav>
       <br />
-      <section className="dashhsec">
+      <section className="secd">
         <h1 className="dashh1">
           Welcome to {session?.user?.name}'s Dashboard!
         </h1>

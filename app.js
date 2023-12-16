@@ -4,7 +4,6 @@ const uploadutils = require("./models/uploadfile");
 const Post = require("./models/post");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const { NextResponse } = require("next/server");
 const path = require("path");
 const uploadmiddleware = uploadutils.middleware;
 const imageCompressor = require("./models/compression");
@@ -13,7 +12,7 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors());
 
 mongoose
   .connect(process.env.MONGODB_URL)
@@ -55,10 +54,10 @@ app.post("/upload", uploadmiddleware, async function (req, res) {
 
   await post.save().then(() => {
     console.log("Post saved");
-    return NextResponse.json({ message: "Post Created" }, { status: 201 });
+    res.status(201).send("Post saved");
   });
 });
 
 app.listen(process.env.PORT, () => {
-  console.log(`Server is running at http://localhost:${process.env.PORT}`);
+  console.log(`Server is running at Port ${process.env.PORT}`);
 });
