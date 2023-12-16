@@ -82,7 +82,7 @@ a.titleg {
   height: 10vh;
 }
 
-#GaddPostBtn {
+.adp {
   display: flex;
   position: relative;
   align-items: center;
