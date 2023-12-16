@@ -54,7 +54,7 @@ app.post("/upload", uploadmiddleware, async function (req, res) {
 
   await post.save().then(() => {
     console.log("Post saved");
-    res.json({ message: "Post saved successfully!" }, {status: 201});
+    res.status(201).send("Post saved");
   });
 });
 
