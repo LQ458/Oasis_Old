@@ -4,7 +4,6 @@ const uploadutils = require("./models/uploadfile");
 const Post = require("./models/post");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const { NextResponse } = require("next/server");
 const path = require("path");
 const uploadmiddleware = uploadutils.middleware;
 const imageCompressor = require("./models/compression");
@@ -55,7 +54,7 @@ app.post("/upload", uploadmiddleware, async function (req, res) {
 
   await post.save().then(() => {
     console.log("Post saved");
-    return NextResponse.json({ message: "Post Created" }, { status: 201 });
+    res.json({ message: "Post saved successfully!" }, {status: 201});
   });
 });
 
