@@ -13,7 +13,7 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "http://10.17.2.2:3000" }));
 
 mongoose
   .connect(process.env.MONGODB_URL)
