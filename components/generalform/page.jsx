@@ -171,7 +171,7 @@ function generalform({ admin }) {
         Back to Dashboard
       </a>
       <div>
-        <button id="GaddPostBtn" onClick={handleAddPostClick}>
+        <button className="adp" id="GaddPostBtn" onClick={handleAddPostClick}>
           <span>Write a post</span>
         </button>
       </div>
