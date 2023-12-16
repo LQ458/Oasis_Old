@@ -13,7 +13,7 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({ origin: "https://oasisforum.cn" }));
+app.use(cors({ origin: "http://45.145.229.105" }));
 
 mongoose
   .connect(process.env.MONGODB_URL)
