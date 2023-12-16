@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const moment = require('moment-timezone');
+const moment = require("moment-timezone");
 
 const Schema = mongoose.Schema;
 
@@ -18,7 +18,12 @@ const postSchema = new Schema({
   },
   postingtime: {
     type: String,
-    default: () => moment().tz('Asia/Shanghai').format('YYYY-MM-DD HH:mm:ss').replace('T', ' ').replace('Z', ''),
+    default: () =>
+      moment()
+        .tz("Asia/Shanghai")
+        .format("YYYY-MM-DD HH:mm:ss")
+        .replace("T", " ")
+        .replace("Z", ""),
     immutable: true,
   },
   postAnonymous: {

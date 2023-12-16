@@ -79,26 +79,26 @@ function generalform({ admin }) {
     }
     try {
       setLoad(true);
-      const res = await Promise.race([
-        axios.post("http://45.145.229.105:3001/upload", formData, {
+      const res = await axios.post(
+        "http://45.145.229.105:3001/upload",
+        formData,
+        {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        }),
-        new Promise((_, reject) =>
-          setTimeout(() => reject(new Error("timeout")), 3000),
-        ),
-      ]).catch((error) => {
-        console.error("Error uploading post:", error);
-      });
-      await getPosts();
-    } finally {
-      setLoad(false);
-      handleCloseFormClick();
-      setTitle("");
-      setContent("");
-      setPostAnonymous("");
-      setFiles("");
+        },
+      );
+      if (res.status === 201) {
+        await getPosts();
+        setLoad(false);
+        handleCloseFormClick();
+        setTitle("");
+        setContent("");
+        setPostAnonymous("");
+        setFiles("");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
