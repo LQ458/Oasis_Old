@@ -20,7 +20,7 @@ function generalform({ admin }) {
   const [error, setError] = useState(false);
   const [load, setLoad] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [message, setMessage] = useState(null); // Added message state
+  const [msg, setMsg] = useState(null); // Added message state
   const username = session?.user?.name;
 
   const getPosts = async () => {
@@ -99,7 +99,7 @@ function generalform({ admin }) {
         setFiles("");
       }
     } catch (error) {
-      setMessage(error);
+      setMsg(error);
       setLoad(false);
     }
   };
@@ -310,7 +310,7 @@ function generalform({ admin }) {
               ))}
         </div>
       </div>
-      <p> Error : {message} </p>
+      <p> Error : {msg} </p>
       <div id="spacing" />
       <br />
     </>
