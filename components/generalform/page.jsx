@@ -79,15 +79,16 @@ function generalform({ admin }) {
     }
     try {
       setLoad(true);
-      const response = await fetch("http://localhost:3001/upload", {
-        method: 'POST',
-        body: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
+      const res = await axios.post(
+        "http://localhost:3001/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         },
-      });
-    
-      if (response.status === 201) {
+      );
+      if (res.status === 201) {
         await getPosts();
         setLoad(false);
         handleCloseFormClick();
@@ -99,7 +100,7 @@ function generalform({ admin }) {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const handleAddPostClick = () => {
     setInputBoxHidden(false);
