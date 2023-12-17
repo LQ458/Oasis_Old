@@ -99,7 +99,7 @@ function generalform({ admin }) {
         setFiles("");
       }
     } catch (error) {
-      setMsg(error);
+      console.log(error);
       setLoad(false);
     }
   };
@@ -310,7 +310,6 @@ function generalform({ admin }) {
               ))}
         </div>
       </div>
-      <p> Error : {msg} </p>
       <div id="spacing" />
       <br />
     </>
