@@ -99,7 +99,7 @@ function generalform({ admin }) {
         setFiles("");
       }
     } catch (error) {
-      setMessage(error.response.data.message);
+      setMessage(error);
       setLoad(false);
     }
   };
