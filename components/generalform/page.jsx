@@ -81,7 +81,7 @@ function generalform({ admin }) {
     try {
       setLoad(true);
       const res = await axios.post(
-        "https://www.oasisforum.cn:3001/upload",
+        "https://localhost:3001/upload",
         formData,
         {
           headers: {
