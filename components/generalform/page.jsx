@@ -80,7 +80,7 @@ function generalform({ admin }) {
     try {
       setLoad(true);
       const res = await axios.post(
-        "https://localhost:3001/upload",
+        "http://45.145.229.105:3001/upload",
         formData,
         {
           headers: {
@@ -99,6 +99,7 @@ function generalform({ admin }) {
       }
     } catch (error) {
       console.log(error);
+      setLoad(false);
     }
   };
 
