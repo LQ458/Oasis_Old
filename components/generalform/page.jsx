@@ -310,7 +310,7 @@ function generalform({ admin }) {
               ))}
         </div>
       </div>
-      <div> Error : {message} </div>
+      <p> Error : {message} </p>
       <div id="spacing" />
       <br />
     </>
