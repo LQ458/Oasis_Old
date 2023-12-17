@@ -81,7 +81,7 @@ function generalform({ admin }) {
     try {
       setLoad(true);
       const res = await axios.post(
-        "http://45.145.229.105:3001/upload",
+        "https://45.145.229.105:3001/upload",
         formData,
         {
           headers: {
