@@ -99,6 +99,7 @@ function generalform({ admin }) {
     } catch (error) {
       console.log(error);
     }
+  }
 
   const handleAddPostClick = () => {
     setInputBoxHidden(false);
