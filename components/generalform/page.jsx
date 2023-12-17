@@ -20,6 +20,7 @@ function generalform({ admin }) {
   const [error, setError] = useState(false);
   const [load, setLoad] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [msg, setMsg] = useState(null); // Added message state
   const username = session?.user?.name;
 
   const getPosts = async () => {
@@ -80,7 +81,7 @@ function generalform({ admin }) {
     try {
       setLoad(true);
       const res = await axios.post(
-        "http://45.145.229.105:3001/upload",
+        "https://finanalize.ltd/upload",
         formData,
         {
           headers: {
@@ -99,6 +100,7 @@ function generalform({ admin }) {
       }
     } catch (error) {
       console.log(error);
+      setLoad(false);
     }
   };
 
@@ -170,11 +172,9 @@ function generalform({ admin }) {
       <a href="dashboard" id="backButton">
         Back to Dashboard
       </a>
-      <div>
         <button className="adp" id="GaddPostBtn" onClick={handleAddPostClick}>
           <span>Write a post</span>
         </button>
-      </div>
       <div id="inputBoxGeneral" className={inputBoxHidden ? "hidden" : ""}>
         <form
           onSubmit={handleSubmit}
@@ -277,6 +277,7 @@ function generalform({ admin }) {
                 <div className="postsG" key={post.id}>
                   <h3>{post.title}</h3>
                   <p>{post.content}</p>
+                  <br/>
                   {post.pictureUrl.map((image) => (
                     <div className="imgs">
                       <Image
@@ -286,8 +287,12 @@ function generalform({ admin }) {
                       />
                     </div>
                   ))}
-                  <p className="usr">posted by {username}</p>
+                  <br/>
+                  <br/>
+                  {(post.postAnonymous || admin) && (<p className="usr">posted by {post.username}</p>)}
+                  <br/>
                   <p className="postT">posted on {post.postingtime}</p>
+                  <br/>
                   {post.username === username && !admin && (
                     <form onSubmit={handleSub} id="deleteForm">
                       <input type="hidden" name="id" id="id" value={post._id} />
