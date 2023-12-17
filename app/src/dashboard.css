@@ -191,6 +191,7 @@ h1.dashh1 {
 }
 div.comments {
   padding: 3rem;
+  text-align: left;
 }
 div.posts {
   padding: 3rem;
