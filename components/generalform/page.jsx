@@ -81,7 +81,7 @@ function generalform({ admin }) {
     try {
       setLoad(true);
       const res = await axios.post(
-        "https://localhost:3001/upload",
+        "https://finanalize.ltd/upload",
         formData,
         {
           headers: {
