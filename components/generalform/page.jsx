@@ -21,6 +21,7 @@ function generalform({ admin }) {
   const [load, setLoad] = useState(false);
   const [check, setCheck] = useState([]); // Added check state
   const [posts, setPosts] = useState([]);
+  const [backCheck, setBackCheck] = useState(false);
   const [msg, setMsg] = useState(null); // Added message state
   const username = session?.user?.name;
 
@@ -43,10 +44,16 @@ function generalform({ admin }) {
   };
 
   const imagePreview = (index) => {
+    document.body.style.overflowY = 'hidden';
+    setBackCheck(true);
     let newArray = [...check]; // create a copy of the current state
     newArray[index] = true; // set the first element to false
     setCheck(newArray); // update the state
   };
+
+  useEffect(() => {
+    console.log(backCheck);
+  }, [backCheck]);
 
   useEffect(() => {
     getPosts();
@@ -119,6 +126,8 @@ function generalform({ admin }) {
     let newArray = [...check]; // create a copy of the current state
     newArray[index] = false; // set the first element to false
     setCheck(newArray); // update the state
+    setBackCheck(false);
+    document.body.style.overflowY = 'scroll';
   };
 
   //   useEffect(() => {
@@ -322,6 +331,10 @@ function generalform({ admin }) {
                               X
                             </button>
                           )}
+                          {backCheck && (
+                          <div className="blocks"/>
+                        )
+                        }
                         </>
                       ))}
                     <>
