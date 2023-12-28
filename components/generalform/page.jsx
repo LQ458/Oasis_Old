@@ -19,6 +19,7 @@ function generalform({ admin }) {
   const [loading, setLoading] = useState(true); // Added loading state
   const [error, setError] = useState(false);
   const [load, setLoad] = useState(false);
+  const [check, setCheck] = useState([]); // Added check state
   const [posts, setPosts] = useState([]);
   const [msg, setMsg] = useState(null); // Added message state
   const username = session?.user?.name;
@@ -39,6 +40,12 @@ function generalform({ admin }) {
       setError(true);
       console.log("Error loading posts", error);
     }
+  };
+
+  const imagePreview = (index) => {
+    let newArray = [...check]; // create a copy of the current state
+    newArray[index] = true; // set the first element to false
+    setCheck(newArray); // update the state
   };
 
   useEffect(() => {
@@ -106,6 +113,12 @@ function generalform({ admin }) {
 
   const handleCloseFormClick = () => {
     setInputBoxHidden(true);
+  };
+
+  const handleCheckClose = (index) => {
+    let newArray = [...check]; // create a copy of the current state
+    newArray[index] = false; // set the first element to false
+    setCheck(newArray); // update the state
   };
 
   //   useEffect(() => {
@@ -270,19 +283,63 @@ function generalform({ admin }) {
                 </div>
               ))
             : posts.map((post) => (
-                <div className="postsG" key={post.id}>
+                <div className="postsG" key={post._id}>
                   <h3>{post.title}</h3>
-                  <p>{post.content}</p>
                   <br />
-                  {post.pictureUrl.map((image) => (
-                    <div className="imgs">
-                      <Image
-                        src={`/${image.filename}`}
-                        width="300"
-                        height="300"
-                      />
-                    </div>
-                  ))}
+                  <div className="contents">{post.content}</div>
+                  <br />
+                  <br />
+                  <div className="imgs">
+                    {post.pictureUrl.length > 1 &&
+                      post.pictureUrl.map((image, index) => (
+                        <>
+                          <button onClick={() => imagePreview(index)}>
+                            <Image
+                              src={`/${image.filename}`}
+                              key={index}
+                              alt={image.filename}
+                              width="300"
+                              height="300"
+                              className="Images"
+                            />
+                          </button>
+                          {check[index] && (
+                            <Image
+                              src={`/${image.filename}`}
+                              key={index}
+                              alt={image.filename}
+                              id={`${post._id}-${index}`}
+                              width="300"
+                              height="300"
+                              className="above"
+                            />
+                          )}
+                          {check[index] && (
+                            <button
+                              id="closePreview"
+                              onClick={() => handleCheckClose(index)}
+                            >
+                              X
+                            </button>
+                          )}
+                        </>
+                      ))}
+                    <>
+                      {post.pictureUrl.length === 1 &&
+                        post.pictureUrl.map((image, index) => (
+                          <button>
+                            <Image
+                              src={`/${image.filename}`}
+                              key={index}
+                              alt={image.filename}
+                              width="300"
+                              height="300"
+                              className="Image"
+                            />
+                          </button>
+                        ))}
+                    </>
+                  </div>
                   <br />
                   <br />
                   {(post.postAnonymous || admin) && (
