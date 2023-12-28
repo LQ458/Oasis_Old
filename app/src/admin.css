@@ -29,7 +29,7 @@ th {
   display: inline-block;
   display: flex;
 }
-button {
+button.admin {
   background-color: #506d4e;
   color: white;
   border: solid white;
