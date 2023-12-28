@@ -386,3 +386,38 @@ button.deleteBtn:hover {
   transition: 0.3s;
   background-color: rgb(253, 141, 159);
 }
+div.contents {
+  white-space: pre-wrap;
+}
+div.imgs {
+  display: flex;
+  flex-wrap: wrap;
+}
+.Images {
+  width: 12.25vw;
+  height: 24vh;
+  object-fit: cover;
+  margin: 0.2rem;
+}
+.Image {
+  min-width: 20vw;
+  max-width: 40vw;
+}
+.above {
+  position: fixed; /* Fixed positioning makes the element positioned relative to the browser window */
+  top: 50%; /* Position it at the middle of the page vertically */
+  left: 50%; /* Position it at the middle of the page horizontally */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* This shifts the element back by half of its width and height */
+  max-width: 100%;
+  max-height: 100%;
+  z-index: 9999; /* High value to ensure it's above all other elements */
+}
+#closePreview {
+  position: fixed;
+  top: 20vh;
+  left: 70vw;
+  z-index: 9999;
+}
