@@ -16,13 +16,14 @@ import { useEffect } from "react";
 
 function generalform({ admin }) {
   const { data: session } = useSession();
-  const [loading, setLoading] = useState(true); // Added loading state
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [load, setLoad] = useState(false);
-  const [check, setCheck] = useState([]); // Added check state
+  const [check, setCheck] = useState([]);
+  const [ok, setOk] = useState(false);
   const [posts, setPosts] = useState([]);
   const [backCheck, setBackCheck] = useState(false);
-  const [msg, setMsg] = useState(null); // Added message state
+  const [msg, setMsg] = useState(null);
   const username = session?.user?.name;
 
   const getPosts = async () => {
@@ -49,6 +50,11 @@ function generalform({ admin }) {
     let newArray = [...check]; // create a copy of the current state
     newArray[index] = true; // set the first element to false
     setCheck(newArray); // update the state
+  };
+
+  const imagePreview1 = (index) => {
+    document.body.style.overflowY = 'hidden';
+    setOk(true);
   };
 
   useEffect(() => {
@@ -129,6 +135,11 @@ function generalform({ admin }) {
     setBackCheck(false);
     document.body.style.overflowY = 'scroll';
   };
+
+  const handleClose = () => {
+    setOk(false);
+    document.body.style.overflowY = 'scroll';
+  }
 
   //   useEffect(() => {
   //     const imagesPreview = (input, placeToInsertImagePreview) => {
@@ -337,21 +348,44 @@ function generalform({ admin }) {
                         }
                         </>
                       ))}
-                    <>
                       {post.pictureUrl.length === 1 &&
                         post.pictureUrl.map((image, index) => (
-                          <button>
+                          <>
+                            <button onClick={() => imagePreview1()}>
+                              <Image
+                                src={`/${image.filename}`}
+                                key={index}
+                                alt={image.filename}
+                                width="300"
+                                height="300"
+                                className="Image"
+                              />
+                            </button>
+                          {ok && (
                             <Image
-                              src={`/${image.filename}`}
-                              key={index}
-                              alt={image.filename}
-                              width="300"
-                              height="300"
-                              className="Image"
-                            />
-                          </button>
+                            src={`/${image.filename}`}
+                            key={index}
+                            alt={image.filename}
+                            width="300"
+                            height="300"
+                            className="above"
+                          />
+                          )}
+
+                          {ok && (
+                            <button
+                              id="closePreview"
+                              onClick={() => handleClose()}
+                            >
+                              X
+                            </button>
+                          )}
+
+                          {ok && (
+                            <div className="blocks"/>
+                          )}
+                          </>
                         ))}
-                    </>
                   </div>
                   <br />
                   <br />
