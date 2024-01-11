@@ -7,7 +7,6 @@ import { closeCircleOutline } from "ionicons/icons";
 import Router, { useRouter } from "next/navigation";
 import axios from "axios";
 import Skeleton from "../skeletons/Skeleton";
-import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { TailSpin } from "react-loader-spinner";
@@ -19,7 +18,9 @@ function generalform({ admin }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [load, setLoad] = useState(false);
+  const [scale, setScale] = useState(1);
   const [check, setCheck] = useState([]);
+  const [imgCheck, setImgCheck] = useState([]);
   const [ok, setOk] = useState(false);
   const [posts, setPosts] = useState([]);
   const [backCheck, setBackCheck] = useState(false);
@@ -44,18 +45,36 @@ function generalform({ admin }) {
     }
   };
 
-  const imagePreview = (index) => {
+  const imagePreview = (index, postIndex) => {
     document.body.style.overflowY = 'hidden';
+    let Array = [...imgCheck]; // create a copy of the current state
+    Array[postIndex] = true; // set the first element to false
+    setImgCheck(Array); // update the state
     setBackCheck(true);
     let newArray = [...check]; // create a copy of the current state
     newArray[index] = true; // set the first element to false
     setCheck(newArray); // update the state
   };
 
-  const imagePreview1 = (index) => {
+  const imagePreview1 = (postIndex) => {
     document.body.style.overflowY = 'hidden';
+    let Array = [...imgCheck]; // create a copy of the current state
+    Array[postIndex] = true; // set the first element to false
+    setImgCheck(Array); // update the state
     setOk(true);
   };
+
+  const handleWheel = (e) => {
+    setScale(prevScale => {
+      let newScale = prevScale + e.deltaY * -0.001;
+      console.log('deltaY:', e.deltaY, 'newScale:', newScale);
+      // Prevent the scale from becoming too small or negative
+      newScale = Math.max(0.5, newScale);
+      // Prevent the scale from becoming too large
+      newScale = Math.min(2, newScale);
+      return newScale;
+    });
+  }
 
   useEffect(() => {
     console.log(backCheck);
@@ -128,7 +147,10 @@ function generalform({ admin }) {
     setInputBoxHidden(true);
   };
 
-  const handleCheckClose = (index) => {
+  const handleCheckClose = (index, postIndex) => {
+    let Array = [...check]; // create a copy of the current state
+    Array[postIndex] = false; // set the first element to false
+    setImgCheck(Array); // update the state
     let newArray = [...check]; // create a copy of the current state
     newArray[index] = false; // set the first element to false
     setCheck(newArray); // update the state
@@ -136,8 +158,11 @@ function generalform({ admin }) {
     document.body.style.overflowY = 'scroll';
   };
 
-  const handleClose = () => {
+  const handleClose = (index) => {
     setOk(false);
+    let newArray = [...imgCheck]; // create a copy of the current state
+    newArray[index] = false; // set the first element to false
+    setImgCheck(newArray); // update the state
     document.body.style.overflowY = 'scroll';
   }
 
@@ -302,8 +327,8 @@ function generalform({ admin }) {
                   </React.Fragment>
                 </div>
               ))
-            : posts.map((post) => (
-                <div className="postsG" key={post._id}>
+            : posts.map((post, postIndex) => (
+                <div className="postsG" key={postIndex}>
                   <h3>{post.title}</h3>
                   <br />
                   <div className="contents">{post.content}</div>
@@ -313,8 +338,8 @@ function generalform({ admin }) {
                     {post.pictureUrl.length > 1 &&
                       post.pictureUrl.map((image, index) => (
                         <>
-                          <button onClick={() => imagePreview(index)}>
-                            <Image
+                          <button onClick={() => imagePreview(index, postIndex)}>
+                            <img
                               src={`/${image.filename}`}
                               key={index}
                               alt={image.filename}
@@ -323,21 +348,22 @@ function generalform({ admin }) {
                               className="Images"
                             />
                           </button>
-                          {check[index] && (
-                            <Image
+                          {check[index] && imgCheck[postIndex] && (
+                            <img
                               src={`/${image.filename}`}
                               key={index}
                               alt={image.filename}
                               id={`${post._id}-${index}`}
-                              width="300"
-                              height="300"
+                              width={300*scale}
+                              height={300*scale}
                               className="above"
+                              onWheel={handleWheel}
                             />
                           )}
-                          {check[index] && (
+                          {check[index] && imgCheck[postIndex] && (
                             <button
                               id="closePreview"
-                              onClick={() => handleCheckClose(index)}
+                              onClick={() => handleCheckClose(index, postIndex)}
                             >
                               X
                             </button>
@@ -351,8 +377,8 @@ function generalform({ admin }) {
                       {post.pictureUrl.length === 1 &&
                         post.pictureUrl.map((image, index) => (
                           <>
-                            <button onClick={() => imagePreview1()}>
-                              <Image
+                            <button onClick={() => imagePreview1(postIndex)}>
+                              <img
                                 src={`/${image.filename}`}
                                 key={index}
                                 alt={image.filename}
@@ -361,27 +387,28 @@ function generalform({ admin }) {
                                 className="Image"
                               />
                             </button>
-                          {ok && (
-                            <Image
+                          {ok && imgCheck[postIndex] && (
+                            <img
                             src={`/${image.filename}`}
                             key={index}
                             alt={image.filename}
-                            width="300"
-                            height="300"
+                            width={300*scale}
+                            height={300*scale}
                             className="above"
+                            onWheel={handleWheel}
                           />
                           )}
 
-                          {ok && (
+                          {ok && imgCheck[postIndex] && (
                             <button
                               id="closePreview"
-                              onClick={() => handleClose()}
+                              onClick={() => handleClose(postIndex)}
                             >
                               X
                             </button>
                           )}
 
-                          {ok && (
+                          {ok && imgCheck[postIndex] && (
                             <div className="blocks"/>
                           )}
                           </>
