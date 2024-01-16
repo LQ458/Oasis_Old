@@ -54,17 +54,17 @@ const loginForm = () => {
     <>
       <title>Login</title>
       <body className="loginbd">
-      <div className="box1"/>
-      <div className="box2"/>
-      <div className="box3"/>
-      <div className="box4"/>
-      <div className="box5"/>
-      <div className="box6"/>
-      <div className="box7"/>
-      <div className="box8"/>
-      <div className="box9"/>
-      <div className="box10"/>
-      <div className="box11"/>
+        <div className="box1" />
+        <div className="box2" />
+        <div className="box3" />
+        <div className="box4" />
+        <div className="box5" />
+        <div className="box6" />
+        <div className="box7" />
+        <div className="box8" />
+        <div className="box9" />
+        <div className="box10" />
+        <div className="box11" />
         <div className="form-box">
           <div className="form-value">
             <form onSubmit={handleSubmit} id="loginForm">
