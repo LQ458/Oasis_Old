@@ -68,7 +68,7 @@ const loginForm = () => {
         <div className="form-box">
           <div className="form-value">
             <form onSubmit={handleSubmit} id="loginForm">
-              <h2>Login</h2>
+              <h2 className="LogTitle">Login</h2>
               <div className="inputbox">
                 <IonIcon icon={mailOutline} />
                 <input

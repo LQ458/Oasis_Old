@@ -66,10 +66,10 @@ function generalform({ admin }) {
 
   const handleWheel = (e) => {
     setScale((prevScale) => {
-      let newScale = prevScale + e.deltaY * -0.001;
+      let newScale = prevScale + e.deltaY * -0.1;
       console.log("deltaY:", e.deltaY, "newScale:", newScale);
       // Prevent the scale from becoming too small or negative
-      newScale = Math.max(0.5, newScale);
+      newScale = Math.max(0.4, newScale);
       // Prevent the scale from becoming too large
       newScale = Math.min(2, newScale);
       return newScale;

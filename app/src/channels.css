@@ -381,6 +381,7 @@ button.deleteBtn {
   color: white;
   position: relative;
   background-color: #ec3da0;
+  transition: 0.3s;
 }
 button.deleteBtn:hover {
   transition: 0.3s;

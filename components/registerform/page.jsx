@@ -48,7 +48,7 @@ const registerform = () => {
   return (
     <>
       <title>Register</title>
-      <section>
+      <section className="Reg">
       <div class="wave"></div>
      <div class="wave"></div>
      <div class="wave"></div>

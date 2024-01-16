@@ -14,6 +14,8 @@ export default function dashboardform() {
       $(channels[i]).css("animation-delay", i * 0.2 + "s");
     }
 
+    let liftInterval;
+
     $(function () {
       $(".channel").hover(
         function () {
@@ -26,6 +28,19 @@ export default function dashboardform() {
         },
       );
     });
+    $(".channel").click(
+      function () {
+        var iconClass = $(this).data("icon");
+        $(".icon").removeClass("lift");
+        liftInterval = setInterval(() => {
+          $("." + iconClass).toggleClass("lift");
+        }, 500);
+      },
+      function () {
+        clearInterval(liftInterval);
+        $(".icon").removeClass("lift");
+      },
+    );
   }, []);
   return (
     <body className="dash">
