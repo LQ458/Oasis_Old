@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { mailOutline, lockClosedOutline, diamondOutline } from "ionicons/icons";
 import Link from "next/link";
 
-const registerform = () => {
+const Registerform = () => {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -49,9 +49,9 @@ const registerform = () => {
     <>
       <title>Register</title>
       <section className="Reg">
-      <div class="wave"></div>
-     <div class="wave"></div>
-     <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
         <div className="form-boxR">
           <div className="form-value">
             <form onSubmit={handleSubmit}>
@@ -105,7 +105,10 @@ const registerform = () => {
                 {error && <p className="error">Username has been registered</p>}
                 {!error && (
                   <p>
-                    Already have an account? <Link href="/login" style={{color: 'black'}}>Login</Link>
+                    Already have an account?{" "}
+                    <Link href="/login" style={{ color: "black" }}>
+                      Login
+                    </Link>
                   </p>
                 )}
                 <br />
@@ -119,4 +122,4 @@ const registerform = () => {
   );
 };
 
-export default registerform;
+export default Registerform;

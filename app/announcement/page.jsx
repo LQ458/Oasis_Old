@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 
-const announcement = () => {
+const Announcement = () => {
   const [posts, setPosts] = useState([]);
 
   const getPosts = async () => {
@@ -58,4 +58,4 @@ const announcement = () => {
   );
 };
 
-export default announcement;
+export default Announcement;
