@@ -6,7 +6,13 @@ const loveformSchema = new Schema({
   username: {
     type: String,
   },
+  nickname: {
+    type: String,
+  },
   toWho: {
+    type: String,
+  },
+  content: {
     type: String,
   },
   time: {
