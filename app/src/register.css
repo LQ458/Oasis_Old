@@ -7,7 +7,7 @@
   padding: 0;
   font-family: "poppins", sans-serif;
 }
-section {
+section.Reg {
   display: flex;
   justify-content: center;
   align-items: center;
