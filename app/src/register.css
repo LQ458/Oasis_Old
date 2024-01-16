@@ -53,6 +53,7 @@ section {
 }
 h2.regU {
   font-size: 2rem;
+  color: black;
   position: relative;
   bottom: 3vh;
   text-align: center;
