@@ -49,11 +49,14 @@ const registerform = () => {
     <>
       <title>Register</title>
       <section>
-        <div className="form-box">
+      <div class="wave"></div>
+     <div class="wave"></div>
+     <div class="wave"></div>
+        <div className="form-boxR">
           <div className="form-value">
             <form onSubmit={handleSubmit}>
-              <h2 className="reg">Register</h2>
-              <div className="inputbox">
+              <h2 className="regU">Register</h2>
+              <div className="inputboxR">
                 <IonIcon icon={mailOutline} />
                 <input
                   type="username"
@@ -63,7 +66,7 @@ const registerform = () => {
                 />
                 <label htmlFor="username">Username:</label>
               </div>
-              <div className="inputbox">
+              <div className="inputboxR">
                 <IonIcon icon={lockClosedOutline} />
                 <input
                   type="password"
@@ -102,7 +105,7 @@ const registerform = () => {
                 {error && <p className="error">Username has been registered</p>}
                 {!error && (
                   <p>
-                    Already have an account? <Link href="/login">Login</Link>
+                    Already have an account? <Link href="/login" style={{color: 'black'}}>Login</Link>
                   </p>
                 )}
                 <br />

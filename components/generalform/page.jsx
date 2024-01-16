@@ -46,7 +46,7 @@ function generalform({ admin }) {
   };
 
   const imagePreview = (index, postIndex) => {
-    document.body.style.overflowY = 'hidden';
+    document.body.style.overflowY = "hidden";
     let Array = [...imgCheck]; // create a copy of the current state
     Array[postIndex] = true; // set the first element to false
     setImgCheck(Array); // update the state
@@ -57,7 +57,7 @@ function generalform({ admin }) {
   };
 
   const imagePreview1 = (postIndex) => {
-    document.body.style.overflowY = 'hidden';
+    document.body.style.overflowY = "hidden";
     let Array = [...imgCheck]; // create a copy of the current state
     Array[postIndex] = true; // set the first element to false
     setImgCheck(Array); // update the state
@@ -65,16 +65,16 @@ function generalform({ admin }) {
   };
 
   const handleWheel = (e) => {
-    setScale(prevScale => {
+    setScale((prevScale) => {
       let newScale = prevScale + e.deltaY * -0.001;
-      console.log('deltaY:', e.deltaY, 'newScale:', newScale);
+      console.log("deltaY:", e.deltaY, "newScale:", newScale);
       // Prevent the scale from becoming too small or negative
       newScale = Math.max(0.5, newScale);
       // Prevent the scale from becoming too large
       newScale = Math.min(2, newScale);
       return newScale;
     });
-  }
+  };
 
   useEffect(() => {
     console.log(backCheck);
@@ -155,7 +155,7 @@ function generalform({ admin }) {
     newArray[index] = false; // set the first element to false
     setCheck(newArray); // update the state
     setBackCheck(false);
-    document.body.style.overflowY = 'scroll';
+    document.body.style.overflowY = "scroll";
   };
 
   const handleClose = (index) => {
@@ -163,8 +163,8 @@ function generalform({ admin }) {
     let newArray = [...imgCheck]; // create a copy of the current state
     newArray[index] = false; // set the first element to false
     setImgCheck(newArray); // update the state
-    document.body.style.overflowY = 'scroll';
-  }
+    document.body.style.overflowY = "scroll";
+  };
 
   //   useEffect(() => {
   //     const imagesPreview = (input, placeToInsertImagePreview) => {
@@ -338,7 +338,9 @@ function generalform({ admin }) {
                     {post.pictureUrl.length > 1 &&
                       post.pictureUrl.map((image, index) => (
                         <>
-                          <button onClick={() => imagePreview(index, postIndex)}>
+                          <button
+                            onClick={() => imagePreview(index, postIndex)}
+                          >
                             <img
                               src={`/${image.filename}`}
                               key={index}
@@ -354,8 +356,8 @@ function generalform({ admin }) {
                               key={index}
                               alt={image.filename}
                               id={`${post._id}-${index}`}
-                              width={300*scale}
-                              height={300*scale}
+                              width={300 * scale}
+                              height={300 * scale}
                               className="above"
                               onWheel={handleWheel}
                             />
@@ -368,35 +370,32 @@ function generalform({ admin }) {
                               X
                             </button>
                           )}
-                          {backCheck && (
-                          <div className="blocks"/>
-                        )
-                        }
+                          {backCheck && <div className="blocks" />}
                         </>
                       ))}
-                      {post.pictureUrl.length === 1 &&
-                        post.pictureUrl.map((image, index) => (
-                          <>
-                            <button onClick={() => imagePreview1(postIndex)}>
-                              <img
-                                src={`/${image.filename}`}
-                                key={index}
-                                alt={image.filename}
-                                width="300"
-                                height="300"
-                                className="Image"
-                              />
-                            </button>
+                    {post.pictureUrl.length === 1 &&
+                      post.pictureUrl.map((image, index) => (
+                        <>
+                          <button onClick={() => imagePreview1(postIndex)}>
+                            <img
+                              src={`/${image.filename}`}
+                              key={index}
+                              alt={image.filename}
+                              width="300"
+                              height="300"
+                              className="Image"
+                            />
+                          </button>
                           {ok && imgCheck[postIndex] && (
                             <img
-                            src={`/${image.filename}`}
-                            key={index}
-                            alt={image.filename}
-                            width={300*scale}
-                            height={300*scale}
-                            className="above"
-                            onWheel={handleWheel}
-                          />
+                              src={`/${image.filename}`}
+                              key={index}
+                              alt={image.filename}
+                              width={300 * scale}
+                              height={300 * scale}
+                              className="above"
+                              onWheel={handleWheel}
+                            />
                           )}
 
                           {ok && imgCheck[postIndex] && (
@@ -409,10 +408,10 @@ function generalform({ admin }) {
                           )}
 
                           {ok && imgCheck[postIndex] && (
-                            <div className="blocks"/>
+                            <div className="blocks" />
                           )}
-                          </>
-                        ))}
+                        </>
+                      ))}
                   </div>
                   <br />
                   <br />

@@ -421,7 +421,7 @@ div.imgs {
   left: 70vw;
   z-index: 9999;
 }
-div.blocks{
+div.blocks {
   position: fixed;
   z-index: 7000;
   background-color: rgba(300, 300, 300, 0.2);
