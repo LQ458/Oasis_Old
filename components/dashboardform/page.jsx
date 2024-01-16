@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import "../../app/src/dashboard.css";
 
-export default function dashboardform() {
+export default function Dashboardform() {
   const { data: session } = useSession();
   useEffect(() => {
     var channels = $(".channel");
@@ -51,12 +51,22 @@ export default function dashboardform() {
         <div className="container">
           <div className="dblock">
             <Link href="/profile" className="icon">
-              <Image src="/person-circle-outline.svg" width="60" height="60" />
+              <Image
+                src="/person-circle-outline.svg"
+                width="60"
+                height="60"
+                alt="person"
+              />
             </Link>
           </div>
           <div className="dblock">
             <div className="icon icon-2">
-              <Image src="/earth-outline.svg" width="40" height="40" />
+              <Image
+                src="/earth-outline.svg"
+                width="40"
+                height="40"
+                alt="earth"
+              />
             </div>
             <li>
               <Link className="channel" data-icon="icon-2" href="/general">
@@ -66,7 +76,12 @@ export default function dashboardform() {
           </div>
           <div className="dblock">
             <div className="icon icon-3">
-              <Image src="/chatbox-outline.svg" width="40" height="40" />
+              <Image
+                src="/chatbox-outline.svg"
+                width="40"
+                height="40"
+                alt="chatbox"
+              />
             </div>
             <li>
               <Link className="channel" data-icon="icon-3" href="/announcement">
@@ -76,7 +91,7 @@ export default function dashboardform() {
           </div>
           <div className="dblock">
             <div className="icon icon-4">
-              <Image src="/heart.svg" width="40" height="40" />
+              <Image src="/heart.svg" width="40" height="40" alt="heart" />
             </div>
             <li>
               <Link className="channel" data-icon="icon-4" href="/confession">
@@ -99,7 +114,7 @@ export default function dashboardform() {
       <br />
       <section className="secd">
         <h1 className="dashh1">
-          Welcome to {session?.user?.name}'s Dashboard!
+          Welcome to {session?.user?.name}&apos;s Dashboard!
         </h1>
         <div className="comments">
           <h2 className="dashh2">Comments</h2>

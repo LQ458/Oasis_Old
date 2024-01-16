@@ -8,7 +8,7 @@ import { mailOutline, lockClosedOutline } from "ionicons/icons";
 import styles from "@/app/src/login.css";
 import { signIn } from "next-auth/react";
 
-const loginForm = () => {
+const LoginForm = () => {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -126,4 +126,4 @@ const loginForm = () => {
   );
 };
 
-export default loginForm;
+export default LoginForm;

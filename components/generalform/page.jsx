@@ -13,7 +13,7 @@ import { TailSpin } from "react-loader-spinner";
 
 import { useEffect } from "react";
 
-function generalform({ admin }) {
+function Generalform({ admin }) {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -447,4 +447,4 @@ function generalform({ admin }) {
   );
 }
 
-export default generalform;
+export default Generalform;
