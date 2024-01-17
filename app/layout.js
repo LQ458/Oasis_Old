@@ -1,3 +1,4 @@
+import 'typeface-raleway';
 import "./globals.css";
 import { AuthProvider } from "./Providers";
 

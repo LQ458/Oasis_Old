@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
 h1.h11 {
   font-size: 2rem;
   position: relative;
@@ -12,7 +11,6 @@ h1,
 p {
   margin: 0;
   padding: 0;
-  font-family: "poppins", sans-serif;
 }
 body.dash {
   overflow-y: hidden;
