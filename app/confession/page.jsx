@@ -6,6 +6,6 @@ export default async function Home() {
   const session = await getServerSession(authOptions);
 
   if (session) {
-    return <Confessionform username={session?.user?.name}/>;
+    return <Confessionform username={session?.user?.name} />;
   }
 }

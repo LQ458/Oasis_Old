@@ -4,17 +4,18 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import styles from "../app/src/confession.scss";
 
-export default function Confessionform({username}) {
+export default function Confessionform({ username }) {
   const [toWho, setToWho] = useState("");
   const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
+  const [hidden, setHidden] = useState(true); // [TODO] change to false when done testing
   const [anonymous, setAnonymous] = useState(true);
 
   const getLove = async () => {
-    try{
+    try {
       const response = await axios.get("/api/fetchLove");
       const loveforms = response.data.loveforms;
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
   };
@@ -23,13 +24,13 @@ export default function Confessionform({username}) {
     const fetchLove = async () => {
       await getLove();
     };
-  
+
     fetchLove();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
+    try {
       const response = await axios.post("/api/fetchLove", {
         username,
         toWho,
@@ -37,11 +38,17 @@ export default function Confessionform({username}) {
         content,
         anonymous,
       });
-      console.log(response);
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
+
+  const openForm = () => {
+    setHidden(false);
+  };
+  const closeForm = () => {
+    setHidden(true);
+  };
 
   return (
     <body className="loveBg">
@@ -49,13 +56,52 @@ export default function Confessionform({username}) {
         <div className="before"></div>
         <div className="after"></div>
       </div>
-      <form className="loveForm" onSubmit={handleSubmit} method="POST" encType="multipart/form-data">
-        <input type="text" name="toWho" required placeholder="To who?" value={toWho} onChange={(e) => setToWho(e.target.value)} />
-        <input type="text" name="nickname" placeholder="Your nickname?" value={nickname} onChange={(e) => setNickname(e.target.value)} />
-        <textarea name="content" placeholder="Your confession?" required value={content} onChange={(e) => setContent(e.target.value)} />
-        <input type="checkbox" name="anonymous" value={anonymous} onChange={(e) => setAnonymous(e.target.value)} />
-        <button type="submit">Submit</button>
-      </form>
+      <button className="openFormBtn" onClick={() => openForm()}>
+        Express your love
+      </button>
+      {hidden ? (
+        false
+      ) : (
+        <form
+          className="loveForm"
+          onSubmit={handleSubmit}
+          method="POST"
+          encType="multipart/form-data"
+        >
+          <button className="closeFormBtn" onClick={() => closeForm()}>
+            X
+          </button>
+          <input
+            type="text"
+            name="toWho"
+            required
+            placeholder="To who?"
+            value={toWho}
+            onChange={(e) => setToWho(e.target.value)}
+          />
+          <input
+            type="text"
+            name="nickname"
+            placeholder="Your nickname?"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+          />
+          <textarea
+            name="content"
+            placeholder="Your confession?"
+            required
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
+          <input
+            type="checkbox"
+            name="anonymous"
+            value={anonymous}
+            onChange={(e) => setAnonymous(e.target.value)}
+          />
+          <button type="submit">Submit</button>
+        </form>
+      )}
     </body>
   );
 }
