@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import React, { useEffect } from "react";
 import styles from "../app/src/confession.scss";
+import loveWords from "../app/src/loveWords.json";
 
 export default function Confessionform({ username }) {
   const [toWho, setToWho] = useState("");
@@ -10,6 +11,15 @@ export default function Confessionform({ username }) {
   const [content, setContent] = useState("");
   const [hidden, setHidden] = useState(true); // [TODO] change to false when done testing
   const [anonymous, setAnonymous] = useState(true);
+  const [cn, setCn] = useState("");
+  const [en, setEn] = useState("");
+
+  useEffect(() => {
+    const loveWordsArray = Object.values(loveWords);
+    const randomIndex = Math.floor(Math.random() * loveWordsArray.length);
+    setCn(loveWordsArray[randomIndex].CN);
+    setEn(loveWordsArray[randomIndex].EN);
+  }, []);
 
   const getLove = async () => {
     try {
@@ -56,6 +66,7 @@ export default function Confessionform({ username }) {
         <div className="before"></div>
         <div className="after"></div>
       </div>
+      <div className="loveSentence">{cn} {en}</div>
       <button className="openFormBtn" onClick={() => openForm()}>
         Express your love
       </button>
