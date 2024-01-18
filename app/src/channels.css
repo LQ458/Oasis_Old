@@ -22,9 +22,8 @@ body {
   overflow-y: scroll;
   position: relative;
   padding: 0;
-  background: url("../public/2.png") no-repeat;
-  background-position: top;
-  background-size: cover;
+  background: linear-gradient(45deg, #2196f3, #f629e1);
+  background-size: 100% 100%;
   background-attachment: fixed;
 }
 .hidden {

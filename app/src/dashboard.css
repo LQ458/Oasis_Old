@@ -14,7 +14,6 @@ p {
 }
 body.dash {
   overflow-y: hidden;
-  font-family: Arial, sans-serif;
   display: flex;
   flex-direction: row;
   height: 100vh;
@@ -202,4 +201,17 @@ div.like {
 }
 h2.dashh2 {
   position: relative;
+}
+div.dashpost {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+div.myPosts {
+  border: 1px solid transparent;
+  border-radius: 20px;
+  background-color: white;
+  color: #22a0ce;
+  padding: 0.5rem;
+  width: 10vw;
 }

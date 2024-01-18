@@ -2,12 +2,27 @@
 import Image from "next/image";
 import { useEffect } from "react";
 import $ from "jquery";
+import { useState } from "react";
+import axios from "axios";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 import "../../app/src/dashboard.css";
 
-export default function Dashboardform() {
-  const { data: session } = useSession();
+export default function Dashboardform({ username }) {
+  const [posts, setPosts] = useState([]);
+
+  const getPosts = async () => {
+    try {
+      const res = await axios.post("/api/getUserPosts", {
+        username: username,
+      });
+      setPosts(res.data.posts);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getPosts();
+  }, []);
   useEffect(() => {
     var channels = $(".channel");
     for (var i = 0; i < channels.length; i++) {
@@ -101,7 +116,12 @@ export default function Dashboardform() {
           </div>
           <div className="dblock">
             <div className="icon icon-5">
-              <Image src="/book-outline.svg" width="40" height="40" />
+              <Image
+                src="/book-outline.svg"
+                width="40"
+                height="40"
+                alt="book"
+              />
             </div>
             <li>
               <Link href="/academics" className="channel" data-icon="icon-5">
@@ -113,9 +133,7 @@ export default function Dashboardform() {
       </nav>
       <br />
       <section className="secd">
-        <h1 className="dashh1">
-          Welcome to {session?.user?.name}&apos;s Dashboard!
-        </h1>
+        <h1 className="dashh1">Welcome to {username}&apos;s Dashboard!</h1>
         <div className="comments">
           <h2 className="dashh2">Comments</h2>
           <div className="dashcomment">
@@ -123,9 +141,19 @@ export default function Dashboardform() {
           </div>
         </div>
         <div className="posts">
-          <h2 className="dashh2">Posts</h2>
+          <h2 className="dashh2">My Posts</h2>
+          <br />
           <div className="dashpost">
-            <p className="dashp">You have no posts yet!</p>
+            {(posts.length === 0 || posts.length === undefined) && (
+              <p className="dashp">You have no posts yet!</p>
+            )}
+            {posts.length > 0 &&
+              posts.map((post, index) => (
+                <div className="myPosts" key={index}>
+                  <p className="dashp">{post.title}</p>
+                  <p className="dashp">{post.username}</p>
+                </div>
+              ))}
           </div>
         </div>
         <div className="likes">

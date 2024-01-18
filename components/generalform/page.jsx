@@ -12,6 +12,7 @@ import { useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function Generalform({ admin }) {
   const { data: session } = useSession();
@@ -98,8 +99,13 @@ function Generalform({ admin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (username === undefined && usernmae === null) {
+      alert("You must login to post");
+      return;
+    }
+
     if (files.length === 0 && !title && !content) {
-      console.warn(
+      alert(
         "No files, title, or content. Please provide at least one of them.",
       );
       return;
@@ -165,6 +171,8 @@ function Generalform({ admin }) {
     setImgCheck(newArray); // update the state
     document.body.style.overflowY = "scroll";
   };
+
+  const getSpec = async () => {};
 
   //   useEffect(() => {
   //     const imagesPreview = (input, placeToInsertImagePreview) => {
@@ -329,114 +337,128 @@ function Generalform({ admin }) {
               ))
             : posts.map((post, postIndex) => (
                 <div className="postsG" key={postIndex}>
-                  <h3>{post.title}</h3>
-                  <br />
-                  <div className="contents">{post.content}</div>
-                  <br />
-                  <br />
-                  <div className="imgs">
-                    {post.pictureUrl.length > 1 &&
-                      post.pictureUrl.map((image, index) => (
-                        <>
-                          <button
-                            onClick={() => imagePreview(index, postIndex)}
-                          >
-                            <img
-                              src={`/${image.filename}`}
-                              key={index}
-                              alt={image.filename}
-                              width="300"
-                              height="300"
-                              className="Images"
-                            />
-                          </button>
-                          {check[index] && imgCheck[postIndex] && (
-                            <img
-                              src={`/${image.filename}`}
-                              key={index}
-                              alt={image.filename}
-                              id={`${post._id}-${index}`}
-                              width={300 * scale}
-                              height={300 * scale}
-                              className="above"
-                              onWheel={handleWheel}
-                            />
-                          )}
-                          {check[index] && imgCheck[postIndex] && (
+                  <div>
+                    <h3>{post.title}</h3>
+                    <br />
+                    <div className="contents">{post.content}</div>
+                    <br />
+                    <br />
+                    <div className="imgs">
+                      {post.pictureUrl.length > 1 &&
+                        post.pictureUrl.map((image, index) => (
+                          <>
                             <button
-                              id="closePreview"
-                              onClick={() => handleCheckClose(index, postIndex)}
+                              onClick={() => imagePreview(index, postIndex)}
                             >
-                              X
+                              <img
+                                src={`/${image.filename}`}
+                                key={index}
+                                alt={image.filename}
+                                width="300"
+                                height="300"
+                                className="Images"
+                              />
                             </button>
-                          )}
-                          {backCheck && <div className="blocks" />}
-                        </>
-                      ))}
-                    {post.pictureUrl.length === 1 &&
-                      post.pictureUrl.map((image, index) => (
-                        <>
-                          <button onClick={() => imagePreview1(postIndex)}>
-                            <img
-                              src={`/${image.filename}`}
-                              key={index}
-                              alt={image.filename}
-                              width="300"
-                              height="300"
-                              className="Image"
-                            />
-                          </button>
-                          {ok && imgCheck[postIndex] && (
-                            <img
-                              src={`/${image.filename}`}
-                              key={index}
-                              alt={image.filename}
-                              width={300 * scale}
-                              height={300 * scale}
-                              className="above"
-                              onWheel={handleWheel}
-                            />
-                          )}
-
-                          {ok && imgCheck[postIndex] && (
-                            <button
-                              id="closePreview"
-                              onClick={() => handleClose(postIndex)}
-                            >
-                              X
+                            {check[index] && imgCheck[postIndex] && (
+                              <img
+                                src={`/${image.filename}`}
+                                key={index}
+                                alt={image.filename}
+                                id={`${post._id}-${index}`}
+                                width={300 * scale}
+                                height={300 * scale}
+                                className="above"
+                                onWheel={handleWheel}
+                              />
+                            )}
+                            {check[index] && imgCheck[postIndex] && (
+                              <button
+                                id="closePreview"
+                                onClick={() =>
+                                  handleCheckClose(index, postIndex)
+                                }
+                              >
+                                X
+                              </button>
+                            )}
+                            {backCheck && <div className="blocks" />}
+                          </>
+                        ))}
+                      {post.pictureUrl.length === 1 &&
+                        post.pictureUrl.map((image, index) => (
+                          <>
+                            <button onClick={() => imagePreview1(postIndex)}>
+                              <img
+                                src={`/${image.filename}`}
+                                key={index}
+                                alt={image.filename}
+                                width="300"
+                                height="300"
+                                className="Image"
+                              />
                             </button>
-                          )}
+                            {ok && imgCheck[postIndex] && (
+                              <img
+                                src={`/${image.filename}`}
+                                key={index}
+                                alt={image.filename}
+                                width={300 * scale}
+                                height={300 * scale}
+                                className="above"
+                                onWheel={handleWheel}
+                              />
+                            )}
 
-                          {ok && imgCheck[postIndex] && (
-                            <div className="blocks" />
-                          )}
-                        </>
-                      ))}
+                            {ok && imgCheck[postIndex] && (
+                              <button
+                                id="closePreview"
+                                onClick={() => handleClose(postIndex)}
+                              >
+                                X
+                              </button>
+                            )}
+
+                            {ok && imgCheck[postIndex] && (
+                              <div className="blocks" />
+                            )}
+                          </>
+                        ))}
+                    </div>
+                    <br />
+                    <br />
+                    {(post.postAnonymous || admin) && (
+                      <p className="usr">posted by {post.username}</p>
+                    )}
+                    <br />
+                    <p className="postT">posted on {post.postingtime}</p>
+                    <br />
+                    {post.username === username && !admin && (
+                      <form onSubmit={handleSub} id="deleteForm">
+                        <input
+                          type="hidden"
+                          name="id"
+                          id="id"
+                          value={post._id}
+                        />
+                        <button type="submit" className="deleteBtn">
+                          <span>Delete</span>
+                        </button>
+                      </form>
+                    )}
+                    {admin && (
+                      <form onSubmit={handleSub} id="deleteForm">
+                        <input
+                          type="hidden"
+                          name="id"
+                          id="id"
+                          value={post._id}
+                        />
+                        <button type="submit" className="deleteBtn">
+                          <span>Admin Delete</span>
+                        </button>
+                      </form>
+                    )}
                   </div>
-                  <br />
-                  <br />
-                  {(post.postAnonymous || admin) && (
-                    <p className="usr">posted by {post.username}</p>
-                  )}
-                  <br />
-                  <p className="postT">posted on {post.postingtime}</p>
-                  <br />
-                  {post.username === username && !admin && (
-                    <form onSubmit={handleSub} id="deleteForm">
-                      <input type="hidden" name="id" id="id" value={post._id} />
-                      <button type="submit" className="deleteBtn">
-                        <span>Delete</span>
-                      </button>
-                    </form>
-                  )}
-                  {admin && (
-                    <form onSubmit={handleSub} id="deleteForm">
-                      <input type="hidden" name="id" id="id" value={post._id} />
-                      <button type="submit" className="deleteBtn">
-                        <span>Admin Delete</span>
-                      </button>
-                    </form>
-                  )}
                 </div>
               ))}
         </div>

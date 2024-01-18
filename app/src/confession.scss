@@ -76,29 +76,33 @@ $box-shadow2: ();
 body.loveBg {
   margin: 0;
   padding: 0;
+  color: white;
   background: #003366;
   overflow: hidden;
 }
 
 .pyro > .before,
 .pyro > .after {
-  position: absolute;
+  position: fixed;
   width: 4px;
   height: 4px;
+  display: flex;
   border-radius: 50%;
   box-shadow: $box-shadow2;
   @include animation(
     (
-      1s bang ease-out infinite backwards,
-      1s gravity ease-in infinite backwards,
-      5s position linear infinite backwards
+      1s bang ease-out 5 backwards,
+      1s gravity ease-in 5 backwards,
+      5s position linear 5 backwards
     )
   );
+  animation-iteration-count: 5; // Add this line
 }
 
 .pyro > .after {
-  @include animation-delay((1.25s, 1.25s, 1.25s));
-  @include animation-duration((1.25s, 1.25s, 6.25s));
+  @include animation-delay((2s, 2s, 2s));
+  @include animation-duration((3s, 3s, 15s));
+  animation-iteration-count: 5; // Add this line
 }
 
 @include keyframes(bang) {
@@ -142,9 +146,65 @@ body.loveBg {
   }
 }
 
-button.openFormBtn{
+button.openFormBtn {
   background-color: white;
+  font-weight: 500;
+  color: black;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  padding: 0.3rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   top: 8vh;
   right: 10vw;
   position: absolute;
+}
+button.openFormBtn:hover {
+  background-color: #a4a4a4;
+}
+div.loveSentence {
+  font-style: italic;
+  color: rgb(255, 255, 255);
+  position: fixed;
+  font-size: 0.8rem;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+div.loveOne {
+  color: black;
+  position: relative;
+  background-color: white;
+  width: 15vw;
+  border: 1px solid transparent;
+  border-radius: 25px;
+  padding: 1rem;
+  margin: 1rem;
+}
+div.formContainer {
+  position: absolute;
+  background-color: white;
+  padding: 1rem;
+  width: 15vw;
+  border: 1px solid transparent;
+  border-radius: 25px;
+  font-size: 1.2rem;
+  display: flex;
+  color: black;
+  left: 50vw;
+  top: 20vh;
+}
+div.loveBody {
+  position: absolute;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+div.lvNickname {
+  text-align: right;
+}
+.IPT {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 0.5rem;
 }
