@@ -9,8 +9,9 @@ export default function Confessionform({ username }) {
   const [toWho, setToWho] = useState("");
   const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
-  const [hidden, setHidden] = useState(true); // [TODO] change to false when done testing
+  const [hidden, setHidden] = useState(true);
   const [anonymous, setAnonymous] = useState(true);
+  const [loveforms, setLoveforms] = useState([]);
   const [cn, setCn] = useState("");
   const [en, setEn] = useState("");
 
@@ -24,7 +25,7 @@ export default function Confessionform({ username }) {
   const getLove = async () => {
     try {
       const response = await axios.get("/api/fetchLove");
-      const loveforms = response.data.loveforms;
+      setLoveforms(response.data.loveforms);
     } catch (error) {
       console.log(error);
     }
@@ -65,54 +66,72 @@ export default function Confessionform({ username }) {
       <div className="pyro">
         <div className="before"></div>
         <div className="after"></div>
+        <div className="loveSentence">
+          {cn}
+          <br />
+          {en}
+        </div>
+        <button className="openFormBtn" onClick={() => openForm()}>
+          Express your love
+        </button>
+        {hidden ? (
+          false
+        ) : (
+          <div className="formContainer">
+            <form
+              className="loveForm"
+              onSubmit={handleSubmit}
+              method="POST"
+              encType="multipart/form-data"
+            >
+              <button className="closeFormBtn" onClick={() => closeForm()}>
+                X
+              </button>
+              <input
+                type="text"
+                className="IPT"
+                name="toWho"
+                required
+                placeholder="To who?"
+                value={toWho}
+                onChange={(e) => setToWho(e.target.value)}
+              />
+              <input
+                type="text"
+                className="IPT"
+                name="nickname"
+                placeholder="Your nickname?"
+                value={nickname}
+                onChange={(e) => setNickname(e.target.value)}
+              />
+              <textarea
+                name="content"
+                className="IPT"
+                placeholder="Your confession?"
+                required
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
+              <input
+                type="checkbox"
+                name="anonymous"
+                value={anonymous}
+                onChange={(e) => setAnonymous(e.target.value)}
+              />
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        )}
+        <div className="loveBody">
+          {loveforms.map((loveform, index) => (
+            <div className="loveOne" key={index}>
+              <div className="Towho">To: {loveform.toWho}</div>
+              <div className="lvContent">{loveform.content}</div>
+              <div className="lvNickname">from: {loveform.nickname}</div>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="loveSentence">{cn} {en}</div>
-      <button className="openFormBtn" onClick={() => openForm()}>
-        Express your love
-      </button>
-      {hidden ? (
-        false
-      ) : (
-        <form
-          className="loveForm"
-          onSubmit={handleSubmit}
-          method="POST"
-          encType="multipart/form-data"
-        >
-          <button className="closeFormBtn" onClick={() => closeForm()}>
-            X
-          </button>
-          <input
-            type="text"
-            name="toWho"
-            required
-            placeholder="To who?"
-            value={toWho}
-            onChange={(e) => setToWho(e.target.value)}
-          />
-          <input
-            type="text"
-            name="nickname"
-            placeholder="Your nickname?"
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-          />
-          <textarea
-            name="content"
-            placeholder="Your confession?"
-            required
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
-          <input
-            type="checkbox"
-            name="anonymous"
-            value={anonymous}
-            onChange={(e) => setAnonymous(e.target.value)}
-          />
-          <button type="submit">Submit</button>
-        </form>
-      )}
     </body>
   );
 }
