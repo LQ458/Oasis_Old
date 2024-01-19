@@ -13,7 +13,7 @@ p {
   padding: 0;
 }
 body.dash {
-  overflow-y: hidden;
+  overflow: hidden;
   display: flex;
   flex-direction: row;
   height: 100vh;
@@ -173,12 +173,29 @@ a.title {
 }
 section.secd {
   position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
   padding: 2rem;
   color: white;
   font-size: 1.2rem;
   background-color: rgba(200, 200, 200, 0.336);
   height: 100vh;
   width: 94vw;
+}
+section.secd::-webkit-scrollbar {
+  width: 10px;
+  background-color: transparent;
+}
+
+/* This is the handle (or thumb) */
+section.secd::-webkit-scrollbar-thumb {
+  background-color: rgb(166, 166, 166);
+  border-radius: 10px;
+}
+
+/* This is the handle on hover */
+section.secd::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(56, 239, 208);
 }
 h1.dashh1 {
   font-size: 2rem;
@@ -203,15 +220,22 @@ h2.dashh2 {
   position: relative;
 }
 div.dashpost {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
+  display: flex;
 }
-div.myPosts {
+div.myPost {
   border: 1px solid transparent;
   border-radius: 20px;
   background-color: white;
   color: #22a0ce;
   padding: 0.5rem;
   width: 10vw;
+}
+button.postBtns {
+  padding: 0;
+  width: 4vw;
+  padding-left: 1vw;
+}
+div.myPosts{
+  display: flex;
+  gap: 6.5vw;
 }

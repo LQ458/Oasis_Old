@@ -9,6 +9,9 @@ import "../../app/src/dashboard.css";
 
 export default function Dashboardform({ username }) {
   const [posts, setPosts] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const leftover = posts.length % 5;
 
   const getPosts = async () => {
     try {
@@ -20,6 +23,22 @@ export default function Dashboardform({ username }) {
       console.log(error);
     }
   };
+
+  const goNext = () => {
+    if (currentIndex + 9 < posts.length) setCurrentIndex(currentIndex + 5);
+    else if (currentIndex + leftover + 4 < posts.length) {
+      setCurrentIndex(currentIndex + leftover);
+      console.log(leftover);
+      console.log(posts.length);
+    }
+  };
+
+  const goBack = () => {
+    if (currentIndex - 5 >= 0) setCurrentIndex(currentIndex - 5);
+    else if (currentIndex - leftover >= 0) {
+      setCurrentIndex(currentIndex - leftover);
+    }
+  }
   useEffect(() => {
     getPosts();
   }, []);
@@ -144,16 +163,28 @@ export default function Dashboardform({ username }) {
           <h2 className="dashh2">My Posts</h2>
           <br />
           <div className="dashpost">
+            {posts.length > 0 && (
+              <button className="postBtns" onClick={goBack}>
+                <Image src="/backBtn.svg" width="40" height="40" />
+              </button>
+            )}
             {(posts.length === 0 || posts.length === undefined) && (
               <p className="dashp">You have no posts yet!</p>
             )}
+            <div className="myPosts">
             {posts.length > 0 &&
-              posts.map((post, index) => (
-                <div className="myPosts" key={index}>
+              posts.slice(currentIndex, currentIndex + 5).map((post, index) => (
+                <div className="myPost" key={index}>
                   <p className="dashp">{post.title}</p>
                   <p className="dashp">{post.username}</p>
                 </div>
               ))}
+              </div>
+            {posts.length > 0 && (
+              <button className="postBtns" onClick={goNext}>
+                <Image src="/nextBtn.svg" width="40" height="40" />
+              </button>
+            )}
           </div>
         </div>
         <div className="likes">
