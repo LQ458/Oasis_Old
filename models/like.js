@@ -13,11 +13,11 @@ const likeSchema = new Schema({
   },
   number: {
     type: Number,
-    min: [0, 'Negative numbers are not allowed'],
-    validate : {
-      validator : Number.isInteger,
-      message   : '{VALUE} is not an integer value'
-    }
+    min: [0, "Negative numbers are not allowed"],
+    validate: {
+      validator: Number.isInteger,
+      message: "{VALUE} is not an integer value",
+    },
   },
 });
 

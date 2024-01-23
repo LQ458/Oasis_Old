@@ -44,30 +44,33 @@ export default function Dashboardform({ username }) {
   };
 
   useEffect(() => {
-    if (posts.length <= 5){ setLshow(false); setRshow(false); }
-    else{ setLshow(false); setRshow(true);}
+    if (posts.length <= 5) {
+      setLshow(false);
+      setRshow(false);
+    } else {
+      setLshow(false);
+      setRshow(true);
+    }
   }, [currentIndex, posts]);
 
   useEffect(() => {
     if (currentIndex + 9 < posts.length) {
       setRshow(true);
-    } else if (currentIndex + leftover + 4 < posts.length && leftover !==0) {
+    } else if (currentIndex + leftover + 4 < posts.length && leftover !== 0) {
       setRshow(true);
     } else if (currentIndex + leftover + 4 < posts.length && leftover === 0) {
       setRshow(false);
-    }
-      else{
+    } else {
       setRshow(false);
     }
 
     if (currentIndex - 5 >= 0) {
       setLshow(true);
-    } else if (currentIndex - leftover >= 0 && leftover !==0) {
+    } else if (currentIndex - leftover >= 0 && leftover !== 0) {
       setLshow(true);
     } else if (currentIndex - leftover === 0 && leftover === 0) {
       setLshow(false);
-    }
-    else{
+    } else {
       setLshow(false);
     }
   }, [currentIndex, posts]);
@@ -189,6 +192,7 @@ export default function Dashboardform({ username }) {
         <h1 className="dashh1">Welcome to {username}&apos;s Dashboard!</h1>
         <div className="comments">
           <h2 className="dashh2">Comments</h2>
+          <br />
           <div className="dashcomment">
             <p className="dashp">You have no comments yet!</p>
           </div>
@@ -203,7 +207,7 @@ export default function Dashboardform({ username }) {
               </button>
             )}
             {posts.length > 0 && !lshow && (
-              <div className="postBtns" width="40" height="40"/>
+              <div className="postBtns" width="40" height="40" />
             )}
             {(posts.length === 0 || posts.length === undefined) && (
               <p className="dashp">You have no posts yet!</p>
@@ -215,14 +219,14 @@ export default function Dashboardform({ username }) {
                   .map((post, index) => (
                     <CSSTransition key={index} timeout={500} classNames="item">
                       <div className="myPost">
-                        <p className="dashp">{post.title}</p>
-                        <p className="dashp">{post.username}</p>
+                        <p>{post.title}</p>
+                        <p>{post.username}</p>
                       </div>
                     </CSSTransition>
                   ))}
             </TransitionGroup>
             {posts.length > 0 && !rshow && (
-              <div className="postBtns" width="40" height="40"/>
+              <div className="postBtns" width="40" height="40" />
             )}
             {posts.length > 0 && rshow && (
               <button className="postBtns" onClick={goNext}>
@@ -233,12 +237,14 @@ export default function Dashboardform({ username }) {
         </div>
         <div className="likes">
           <h2 className="dashh2">Liked Posts</h2>
+          <br />
           <div className="dashlike">
             <p className="dashp">You have no liked posts yet!</p>
           </div>
         </div>
         <div className="like">
           <h2 className="dashh2">Liked Comments</h2>
+          <br />
           <div className="dashlike">
             <p className="dashp">You have no liked comments yet!</p>
           </div>

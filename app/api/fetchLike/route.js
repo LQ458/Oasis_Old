@@ -13,19 +13,18 @@ export async function GET(req, res) {
 export async function POST(req, res) {
   await DBconnect();
   const { postId, sendUsername, status } = await req.json();
-  if(status){
+  if (status) {
     await Like.findOneAndUpdate(
-        { postId: postId },
-        { $inc: { number: 1 } },
-        { new: true },
-      );
-  }
-  else{
+      { postId: postId },
+      { $inc: { number: 1 } },
+      { new: true },
+    );
+  } else {
     await Like.findOneAndUpdate(
-        { postId: postId },
-        { $inc: { number: -1 } },
-        { new: true },
-      );
+      { postId: postId },
+      { $inc: { number: -1 } },
+      { new: true },
+    );
   }
   await Likestatus.findOneAndUpdate(
     { postId: postId, username: sendUsername },
