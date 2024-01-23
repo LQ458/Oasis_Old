@@ -235,7 +235,37 @@ button.postBtns {
   width: 4vw;
   padding-left: 1vw;
 }
-div.myPosts{
+div.myPosts {
   display: flex;
   gap: 6.5vw;
+}
+.item-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.item-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition:
+    opacity 500ms,
+    transform 500ms;
+}
+
+.item-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.item-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition:
+    opacity 500ms,
+    transform 500ms;
+}
+div.postBtns{
+  padding: 0;
+  width: 4vw;
+  padding-left: 1vw;
 }

@@ -5,11 +5,14 @@ import $ from "jquery";
 import { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "../../app/src/dashboard.css";
 
 export default function Dashboardform({ username }) {
   const [posts, setPosts] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [lshow, setLshow] = useState(false);
+  const [rshow, setRshow] = useState(false);
 
   const leftover = posts.length % 5;
 
@@ -25,23 +28,54 @@ export default function Dashboardform({ username }) {
   };
 
   const goNext = () => {
-    if (currentIndex + 9 < posts.length) setCurrentIndex(currentIndex + 5);
-    else if (currentIndex + leftover + 4 < posts.length) {
+    if (currentIndex + 9 < posts.length) {
+      setCurrentIndex(currentIndex + 5);
+    } else if (currentIndex + leftover + 4 < posts.length) {
       setCurrentIndex(currentIndex + leftover);
-      console.log(leftover);
-      console.log(posts.length);
     }
   };
 
   const goBack = () => {
-    if (currentIndex - 5 >= 0) setCurrentIndex(currentIndex - 5);
-    else if (currentIndex - leftover >= 0) {
+    if (currentIndex - 5 >= 0) {
+      setCurrentIndex(currentIndex - 5);
+    } else if (currentIndex - leftover >= 0) {
       setCurrentIndex(currentIndex - leftover);
     }
-  }
+  };
+
+  useEffect(() => {
+    if (posts.length <= 5){ setLshow(false); setRshow(false); }
+    else{ setLshow(false); setRshow(true);}
+  }, [currentIndex, posts]);
+
+  useEffect(() => {
+    if (currentIndex + 9 < posts.length) {
+      setRshow(true);
+    } else if (currentIndex + leftover + 4 < posts.length && leftover !==0) {
+      setRshow(true);
+    } else if (currentIndex + leftover + 4 < posts.length && leftover === 0) {
+      setRshow(false);
+    }
+      else{
+      setRshow(false);
+    }
+
+    if (currentIndex - 5 >= 0) {
+      setLshow(true);
+    } else if (currentIndex - leftover >= 0 && leftover !==0) {
+      setLshow(true);
+    } else if (currentIndex - leftover === 0 && leftover === 0) {
+      setLshow(false);
+    }
+    else{
+      setLshow(false);
+    }
+  }, [currentIndex, posts]);
+
   useEffect(() => {
     getPosts();
   }, []);
+
   useEffect(() => {
     var channels = $(".channel");
     for (var i = 0; i < channels.length; i++) {
@@ -163,26 +197,36 @@ export default function Dashboardform({ username }) {
           <h2 className="dashh2">My Posts</h2>
           <br />
           <div className="dashpost">
-            {posts.length > 0 && (
+            {posts.length > 0 && lshow && (
               <button className="postBtns" onClick={goBack}>
-                <Image src="/backBtn.svg" width="40" height="40" />
+                <Image src="/backBtn.svg" width="40" height="40" alt="goBack" />
               </button>
+            )}
+            {posts.length > 0 && !lshow && (
+              <div className="postBtns" width="40" height="40"/>
             )}
             {(posts.length === 0 || posts.length === undefined) && (
               <p className="dashp">You have no posts yet!</p>
             )}
-            <div className="myPosts">
-            {posts.length > 0 &&
-              posts.slice(currentIndex, currentIndex + 5).map((post, index) => (
-                <div className="myPost" key={index}>
-                  <p className="dashp">{post.title}</p>
-                  <p className="dashp">{post.username}</p>
-                </div>
-              ))}
-              </div>
-            {posts.length > 0 && (
+            <TransitionGroup className="myPosts">
+              {posts.length > 0 &&
+                posts
+                  .slice(currentIndex, currentIndex + 5)
+                  .map((post, index) => (
+                    <CSSTransition key={index} timeout={500} classNames="item">
+                      <div className="myPost">
+                        <p className="dashp">{post.title}</p>
+                        <p className="dashp">{post.username}</p>
+                      </div>
+                    </CSSTransition>
+                  ))}
+            </TransitionGroup>
+            {posts.length > 0 && !rshow && (
+              <div className="postBtns" width="40" height="40"/>
+            )}
+            {posts.length > 0 && rshow && (
               <button className="postBtns" onClick={goNext}>
-                <Image src="/nextBtn.svg" width="40" height="40" />
+                <Image src="/nextBtn.svg" width="40" height="40" alt="goNext" />
               </button>
             )}
           </div>

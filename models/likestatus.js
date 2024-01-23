@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const likestatusSchema = new Schema({
-  title: {
+  postId: {
     type: String,
   },
   username: {
