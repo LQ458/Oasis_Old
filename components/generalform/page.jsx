@@ -2,19 +2,15 @@
 import "@/app/src/channels.css";
 import React from "react";
 import { IonIcon } from "@ionic/react";
-import { useRef } from "react";
 import { closeCircleOutline } from "ionicons/icons";
-import Router, { useRouter } from "next/navigation";
 import axios from "axios";
 import Skeleton from "../skeletons/Skeleton";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { TailSpin } from "react-loader-spinner";
-
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 
-function Generalform({ admin }) {
+function Generalform({ admin, username }) {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -26,7 +22,13 @@ function Generalform({ admin }) {
   const [posts, setPosts] = useState([]);
   const [backCheck, setBackCheck] = useState(false);
   const [msg, setMsg] = useState(null);
-  const username = session?.user?.name;
+  const [title, setTitle] = useState("");
+  const [likeNum, setLikeNum] = useState([]);
+  const [content, setContent] = useState("");
+  const [files, setFiles] = useState([]);
+  const [postAnonymous, setPostAnonymous] = useState(false);
+  const [inputBoxHidden, setInputBoxHidden] = useState(true);
+  const [status, setStatus] = useState(true);
 
   const getPosts = async () => {
     try {
@@ -76,21 +78,6 @@ function Generalform({ admin }) {
       return newScale;
     });
   };
-
-  useEffect(() => {
-    console.log(backCheck);
-  }, [backCheck]);
-
-  useEffect(() => {
-    getPosts();
-  }, []);
-
-  // const postslikes = await getPosts(postslikes);
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [files, setFiles] = useState([]);
-  const [postAnonymous, setPostAnonymous] = useState(false);
-  const [inputBoxHidden, setInputBoxHidden] = useState(true);
 
   const handleFileChange = (e) => {
     setFiles(e.target.files);
@@ -221,6 +208,28 @@ function Generalform({ admin }) {
       console.log(error);
     }
   };
+
+  const sendLike = async (e) => {
+    e.preventDefault();
+    setStatus(!status);
+    try {
+      const res = await axios.post("/api/fetchLike", {
+        postId: e.target.id.value,
+        sendUsername: username,
+        status: status,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    console.log(backCheck);
+  }, [backCheck]);
+
+  useEffect(() => {
+    getPosts();
+  }, []);
   return (
     <>
       <title>General</title>
@@ -426,12 +435,21 @@ function Generalform({ admin }) {
                     </div>
                     <br />
                     <br />
-                    {(post.postAnonymous || admin) && (
+                    {(post.postAnonymous === false ||
+                      post.postAnonymous === null ||
+                      post.postAnonymous === undefined ||
+                      admin === true) && (
                       <p className="usr">posted by {post.username}</p>
                     )}
                     <br />
                     <p className="postT">posted on {post.postingtime}</p>
                     <br />
+                    <form onSubmit={sendLike}>
+                      <input type="hidden" name="id" id="id" value={post._id} />
+                      <button className="likeBtn" type="submit" id={`like${post._id}`}>
+                        <span>Like</span>
+                      </button>
+                    </form>
                     {post.username === username && !admin && (
                       <form onSubmit={handleSub} id="deleteForm">
                         <input
