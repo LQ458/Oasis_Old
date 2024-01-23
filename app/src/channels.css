@@ -182,7 +182,7 @@ a.titleg {
   position: relative;
 }
 #closeForm:hover {
-  color: #ec3da0;
+  fill: #ec3da0;
   transition: 0.3s;
 }
 
