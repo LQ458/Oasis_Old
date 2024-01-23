@@ -218,6 +218,7 @@ div.like {
 }
 h2.dashh2 {
   position: relative;
+  left: 4vw;
 }
 div.dashpost {
   display: flex;
@@ -264,8 +265,12 @@ div.myPosts {
     opacity 500ms,
     transform 500ms;
 }
-div.postBtns{
+div.postBtns {
   padding: 0;
   width: 4vw;
   padding-left: 1vw;
+}
+p.dashp {
+  position: relative;
+  left: 4vw;
 }

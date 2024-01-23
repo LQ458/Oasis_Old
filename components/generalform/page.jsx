@@ -446,7 +446,11 @@ function Generalform({ admin, username }) {
                     <br />
                     <form onSubmit={sendLike}>
                       <input type="hidden" name="id" id="id" value={post._id} />
-                      <button className="likeBtn" type="submit" id={`like${post._id}`}>
+                      <button
+                        className="likeBtn"
+                        type="submit"
+                        id={`like${post._id}`}
+                      >
                         <span>Like</span>
                       </button>
                     </form>
