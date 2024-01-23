@@ -1,12 +1,12 @@
 "use client";
 import "@/app/src/channels.css";
 import React from "react";
-import { IonIcon } from "@ionic/react";
-import { closeCircleOutline } from "ionicons/icons";
 import axios from "axios";
 import Skeleton from "../skeletons/Skeleton";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import Cancel from "@/public/cancel.svg";
+import Image from "next/image";
 import { TailSpin } from "react-loader-spinner";
 import { useEffect } from "react";
 
@@ -23,12 +23,12 @@ function Generalform({ admin, username }) {
   const [backCheck, setBackCheck] = useState(false);
   const [msg, setMsg] = useState(null);
   const [title, setTitle] = useState("");
-  const [likeNum, setLikeNum] = useState([]);
+  const [likes, setLikes] = useState([]);
   const [content, setContent] = useState("");
   const [files, setFiles] = useState([]);
+  const [likestatuses, setLikestatuses] = useState([]);
   const [postAnonymous, setPostAnonymous] = useState(false);
   const [inputBoxHidden, setInputBoxHidden] = useState(true);
-  const [status, setStatus] = useState(true);
 
   const getPosts = async () => {
     try {
@@ -45,6 +45,35 @@ function Generalform({ admin, username }) {
       setLoading(false);
       setError(true);
       console.log("Error loading posts", error);
+    }
+  };
+  const fecthLikes = async () => {
+    try {
+      const res = await axios.get("/api/fetchLike",{
+        params: {
+          username: username,
+        },
+      });
+      setLikes(res.data.likes);
+      setLikestatuses(res.data.likestatuses);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const likeUpdate = async (index) => {
+    try {
+      const res = await axios.get("/api/renew",{
+        params: {
+          postId: index,
+        },
+      });
+      const newArrays = likes.map(like => 
+        like.postId === index ? {...like, like: res.data.like} : like
+      );
+      setLikes(newArrays);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -70,7 +99,6 @@ function Generalform({ admin, username }) {
   const handleWheel = (e) => {
     setScale((prevScale) => {
       let newScale = prevScale + e.deltaY * -0.1;
-      console.log("deltaY:", e.deltaY, "newScale:", newScale);
       // Prevent the scale from becoming too small or negative
       newScale = Math.max(0.4, newScale);
       // Prevent the scale from becoming too large
@@ -211,24 +239,27 @@ function Generalform({ admin, username }) {
 
   const sendLike = async (e) => {
     e.preventDefault();
-    setStatus(!status);
     try {
+      const postId = e.target.id.value;
+      const currentStatus = likestatuses.find(likestatus => likestatus.postId === postId).status;
       const res = await axios.post("/api/fetchLike", {
-        postId: e.target.id.value,
+        postId,
         sendUsername: username,
-        status: status,
+        status: !currentStatus,
       });
+      const newArrays = likestatuses.map(likestatus => 
+        likestatus.postId === postId ? {...likestatus, status: !currentStatus} : likestatus
+      );
+      setLikestatuses(newArrays);
+      await likeUpdate(postId);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    console.log(backCheck);
-  }, [backCheck]);
-
-  useEffect(() => {
     getPosts();
+    fecthLikes();
   }, []);
   return (
     <>
@@ -253,13 +284,12 @@ function Generalform({ admin, username }) {
           encType="multipart/form-data"
         >
           <button id="closeForm" onClick={handleCloseFormClick}>
-            <IonIcon icon={closeCircleOutline} />
+            <Image src={Cancel} alt="cancel" height="40" width="40" />
           </button>
           <label htmlFor="title">Title:</label>
           <input
             type="text"
             id="title"
-            name="title"
             required
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -269,7 +299,6 @@ function Generalform({ admin, username }) {
           <label htmlFor="content">Write sth: </label>
           <textarea
             id="content"
-            name="content"
             required
             value={content}
             onChange={(e) => setContent(e.target.value)}
@@ -279,7 +308,6 @@ function Generalform({ admin, username }) {
           <label htmlFor="input-files">Pictures:</label>
           <input
             type="file"
-            name="files"
             id="input-files"
             className="form-control-file border"
             onChange={handleFileChange}
@@ -444,6 +472,7 @@ function Generalform({ admin, username }) {
                     <br />
                     <p className="postT">posted on {post.postingtime}</p>
                     <br />
+                    <p className="postT">likes: {(likes.find(like => like.postId === post._id) || {number: 0}).number}</p>
                     <form onSubmit={sendLike}>
                       <input type="hidden" name="id" id="id" value={post._id} />
                       <button
