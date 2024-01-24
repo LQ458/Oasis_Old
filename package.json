@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
+    "critical": "^6.0.5",
     "eslint": "^8",
     "eslint-config-next": "14.0.2",
     "postcss": "^8",

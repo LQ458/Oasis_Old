@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 export async function GET(req) {
   try {
     await DBconnect();
-    const username = req.nextUrl.searchParams.get('username');
+    const username = req.nextUrl.searchParams.get("username");
     const [likes, likestatuses] = await Promise.all([
       Like.find({ forum: "general" }),
       Likestatus.find({ username: username }),
@@ -16,7 +16,7 @@ export async function GET(req) {
     return NextResponse.json({ likes, likestatuses }, { status: 200 });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ message: 'Server error' }, { status: 500 });
+    return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }
 
@@ -24,7 +24,7 @@ export async function POST(req) {
   await DBconnect();
   const { postId, sendUsername, status } = await req.json();
   await Promise.all([
-    status 
+    status
       ? Like.findOneAndUpdate(
           { postId: postId },
           { $inc: { number: 1 } },
