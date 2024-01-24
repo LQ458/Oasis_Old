@@ -19,6 +19,9 @@ const likeSchema = new Schema({
       message: "{VALUE} is not an integer value",
     },
   },
+  postingtime: {
+    type: String,
+  }
 });
 
 module.exports = mongoose.models.Like || mongoose.model("Like", likeSchema);

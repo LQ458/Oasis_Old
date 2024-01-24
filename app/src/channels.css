@@ -431,12 +431,15 @@ div.blocks {
 }
 button.likeBtn {
   position: relative;
-  left: 35vw;
 }
-.style1 {
-  background-color: #2196f3;
+p.postlike {
+  position: relative;
+  left: 0.7vw;
+  font-weight: 500;
+  font-size: 2rem;
 }
-
-.style2 {
-  background-color: #a04597;
+div.likeContainer {
+  position: relative;
+  left: 30vw;
+  display: flex;
 }

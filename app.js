@@ -41,7 +41,6 @@ app.post("/upload", uploadmiddleware, async function (req, res) {
     pictures: fileNumbers,
     pictureUrl: [],
   });
-  console.log(post);
 
   if (req.files && req.files.length >= 1) {
     req.files.forEach(function (file) {
@@ -56,17 +55,18 @@ app.post("/upload", uploadmiddleware, async function (req, res) {
   }
   imageCompressor.compressImages(inputFiles, outputFolderPath);
 
-  Like.create({
-    postId: post._id,
-    username: req.body.username,
-    forum: req.body.group,
-    number: 0,
+  await post.save().then(() => {
+    Like.create({
+      postId: post._id,
+      username: req.body.username,
+      forum: req.body.group,
+      number: 0,
+      postingtime: post.postingtime,
+    });
   });
 
-  await post.save().then(() => {
-    console.log("Post saved");
-    res.status(201).send("Post saved");
-  });
+  console.log("Post saved");
+  res.status(201).send("Post saved");
 });
 
 app.listen(process.env.PORT, () => {

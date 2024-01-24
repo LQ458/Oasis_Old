@@ -31,7 +31,7 @@ function Generalform({ admin, username }) {
   const [postAnonymous, setPostAnonymous] = useState(false);
   const [inputBoxHidden, setInputBoxHidden] = useState(true);
   const [likeload, setLikeload] = useState(false);
-  var newCopies = [];
+  const [postIds, setPostIds] = useState([]);
 
   const getPosts = async () => {
     try {
@@ -41,7 +41,6 @@ function Generalform({ admin, username }) {
       if (res.status !== 200) {
         throw new Error("Failed to fetch posts");
       }
-
       setPosts(res.data.posts);
       setLoading(false);
     } catch (error) {
@@ -231,39 +230,18 @@ function Generalform({ admin, username }) {
     try {
       setLikeload(true);
       const postId = e.target.id.value;
-      const currentStatus = likestatuses.find(
-        (likestatus) => likestatus.postId === postId,
-      ).status;
+      const likestatus = likestatuses?.find((likestatus) => likestatus.postId === postId);
+      const currentStatus = likestatus?.status ?? false;
       const res = await axios.post("/api/fetchLike", {
         postId,
         sendUsername: username,
         status: !currentStatus,
       });
-      const newArrays = likestatuses.map((likestatus) =>
-        likestatus.postId === postId
-          ? { ...likestatus, status: !currentStatus }
-          : likestatus,
-      );
-      if(currentStatus === true){
-        newCopies = likes.map((like) =>
-          like.postId === postId ? { ...like, number: like.number - 1 } : like,
-        );
-      } else{
-        newCopies = likes.map((like) =>
-          like.postId === postId ? { ...like, number: like.number + 1 } : like,
-        );
-      }
-      setLikestatuses(newArrays);
-      const handleLike = () => {
-        setLikes(newCopies);
-      }
-      handleLike();
-      console.log(newCopies)
-      console.log("break")
-      console.log(likes)
+      setLikestatuses(res.data.likestatuses);
+      setLikes(res.data.likes);
       setLikeload(false);
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   };
 
@@ -482,26 +460,68 @@ function Generalform({ admin, username }) {
                     <br />
                     <p className="postT">posted on {post.postingtime}</p>
                     <br />
-                    {!likeload &&
-                      likes.map(
-                        (like) =>
-                          like.postId === post._id && (
-                            <p key={like.postId} className="postT">
-                              likes: {like.number}
-                            </p>
-                          ),
-                      )}
-                    {likeload && <div className="likeLoad" >Loading...</div>}
-                    <form onSubmit={sendLike} disabled={likeload}>
-                      <input type="hidden" name="id" id="id" value={post._id} />
-                      <button
-                        className="likeBtn"
-                        type="submit"
-                        id={`like${post._id}`}
-                      >
-                        <span>Like</span>
-                      </button>
-                    </form>
+                    <div className="likeContainer">
+                      <form onSubmit={sendLike} disabled={likeload}>
+                        <input
+                          type="hidden"
+                          name="id"
+                          id="id"
+                          value={post._id}
+                        />
+                        <button
+                          className="likeBtn"
+                          type="submit"
+                          id={`like${post._id}`}
+                        >
+                          {(() => {
+                            const likestatus = likestatuses.find(
+                              (likestatus) =>
+                                likestatus.postId === post._id &&
+                                likestatus.username === username,
+                            );
+                            return likestatus && likestatus.status ? (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="red"
+                                width={50}
+                                height={50}
+                                className="heart"
+                                viewBox="0 0 512 512"
+                              >
+                                <path d="M256 448a32 32 0 01-18-5.57c-78.59-53.35-112.62-89.93-131.39-112.8-40-48.75-59.15-98.8-58.61-153C48.63 114.52 98.46 64 159.08 64c44.08 0 74.61 24.83 92.39 45.51a6 6 0 009.06 0C278.31 88.81 308.84 64 352.92 64c60.62 0 110.45 50.52 111.08 112.64.54 54.21-18.63 104.26-58.61 153-18.77 22.87-52.8 59.45-131.39 112.8a32 32 0 01-18 5.56z" />
+                              </svg>
+                            ) : (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width={50}
+                                className="heart"
+                                height={50}
+                                viewBox="0 0 512 512"
+                              >
+                                <path
+                                  d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z"
+                                  fill="none"
+                                  stroke="black"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="32"
+                                />
+                              </svg>
+                            );
+                          })()}
+                        </button>
+                      </form>
+                      {!likeload &&
+                        likes.map(
+                          (like) =>
+                            like.postId === post._id && (
+                              <p key={like.postId} className="postlike">
+                                {like.number}
+                              </p>
+                            ),
+                        )}
+                      {likeload && <div className="likeLoad">Loading...</div>}
+                    </div>
                     {post.username === username && !admin && (
                       <form onSubmit={handleSub} id="deleteForm">
                         <input
