@@ -3,16 +3,14 @@ import "@/app/src/channels.css";
 import React from "react";
 import axios from "axios";
 import Skeleton from "../skeletons/Skeleton";
-import { useSession } from "next-auth/react";
 import { useState } from "react";
 import Cancel from "@/public/cancel.svg";
 import Image from "next/image";
 import { TailSpin } from "react-loader-spinner";
+import { Picker } from "emoji-mart";
 import { useEffect } from "react";
-import { set } from "mongoose";
 
 function Generalform({ admin, username }) {
-  const { data: session } = useSession();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [load, setLoad] = useState(false);
@@ -31,7 +29,7 @@ function Generalform({ admin, username }) {
   const [postAnonymous, setPostAnonymous] = useState(false);
   const [inputBoxHidden, setInputBoxHidden] = useState(true);
   const [likeload, setLikeload] = useState(false);
-  const [postIds, setPostIds] = useState([]);
+  const [selectedEmoji, setSelectedEmoji] = useState(null);
 
   const getPosts = async () => {
     try {
