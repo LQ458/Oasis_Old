@@ -9,6 +9,7 @@ import Cancel from "@/public/cancel.svg";
 import Image from "next/image";
 import { TailSpin } from "react-loader-spinner";
 import { useEffect } from "react";
+import { set } from "mongoose";
 
 function Generalform({ admin, username }) {
   const { data: session } = useSession();
@@ -29,6 +30,8 @@ function Generalform({ admin, username }) {
   const [likestatuses, setLikestatuses] = useState([]);
   const [postAnonymous, setPostAnonymous] = useState(false);
   const [inputBoxHidden, setInputBoxHidden] = useState(true);
+  const [likeload, setLikeload] = useState(false);
+  var newCopies = [];
 
   const getPosts = async () => {
     try {
@@ -49,29 +52,15 @@ function Generalform({ admin, username }) {
   };
   const fecthLikes = async () => {
     try {
-      const res = await axios.get("/api/fetchLike",{
+      setLikeload(true);
+      const res = await axios.get("/api/fetchLike", {
         params: {
           username: username,
         },
       });
       setLikes(res.data.likes);
       setLikestatuses(res.data.likestatuses);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const likeUpdate = async (index) => {
-    try {
-      const res = await axios.get("/api/renew",{
-        params: {
-          postId: index,
-        },
-      });
-      const newArrays = likes.map(like => 
-        like.postId === index ? {...like, like: res.data.like} : like
-      );
-      setLikes(newArrays);
+      setLikeload(false);
     } catch (error) {
       console.log(error);
     }
@@ -240,18 +229,39 @@ function Generalform({ admin, username }) {
   const sendLike = async (e) => {
     e.preventDefault();
     try {
+      setLikeload(true);
       const postId = e.target.id.value;
-      const currentStatus = likestatuses.find(likestatus => likestatus.postId === postId).status;
+      const currentStatus = likestatuses.find(
+        (likestatus) => likestatus.postId === postId,
+      ).status;
       const res = await axios.post("/api/fetchLike", {
         postId,
         sendUsername: username,
         status: !currentStatus,
       });
-      const newArrays = likestatuses.map(likestatus => 
-        likestatus.postId === postId ? {...likestatus, status: !currentStatus} : likestatus
+      const newArrays = likestatuses.map((likestatus) =>
+        likestatus.postId === postId
+          ? { ...likestatus, status: !currentStatus }
+          : likestatus,
       );
+      if(currentStatus === true){
+        newCopies = likes.map((like) =>
+          like.postId === postId ? { ...like, number: like.number - 1 } : like,
+        );
+      } else{
+        newCopies = likes.map((like) =>
+          like.postId === postId ? { ...like, number: like.number + 1 } : like,
+        );
+      }
       setLikestatuses(newArrays);
-      await likeUpdate(postId);
+      const handleLike = () => {
+        setLikes(newCopies);
+      }
+      handleLike();
+      console.log(newCopies)
+      console.log("break")
+      console.log(likes)
+      setLikeload(false);
     } catch (error) {
       console.log(error);
     }
@@ -472,8 +482,17 @@ function Generalform({ admin, username }) {
                     <br />
                     <p className="postT">posted on {post.postingtime}</p>
                     <br />
-                    <p className="postT">likes: {(likes.find(like => like.postId === post._id) || {number: 0}).number}</p>
-                    <form onSubmit={sendLike}>
+                    {!likeload &&
+                      likes.map(
+                        (like) =>
+                          like.postId === post._id && (
+                            <p key={like.postId} className="postT">
+                              likes: {like.number}
+                            </p>
+                          ),
+                      )}
+                    {likeload && <div className="likeLoad" >Loading...</div>}
+                    <form onSubmit={sendLike} disabled={likeload}>
                       <input type="hidden" name="id" id="id" value={post._id} />
                       <button
                         className="likeBtn"
