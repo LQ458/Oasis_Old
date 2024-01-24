@@ -43,9 +43,9 @@ export async function POST(req) {
   const [likestatuses, likes] = await Promise.all([
     Likestatus.find(),
     Like.find(),
-  ])
+  ]);
   return NextResponse.json(
-    { message: "like successfully recorded", likestatuses, likes},
+    { message: "like successfully recorded", likestatuses, likes },
     { status: 201 },
   );
 }

@@ -21,9 +21,9 @@ const likestatusSchema = new Schema({
         .replace("T", " ")
         .replace("Z", ""),
     immutable: true,
-  }
+  },
 });
 
 const Likestatus =
-mongoose.models.Likestatus || mongoose.model("Likestatus", likestatusSchema);
+  mongoose.models.Likestatus || mongoose.model("Likestatus", likestatusSchema);
 module.exports = Likestatus;
