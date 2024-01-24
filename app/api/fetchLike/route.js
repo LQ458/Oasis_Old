@@ -12,7 +12,6 @@ export async function GET(req) {
       Like.find({ forum: "general" }),
       Likestatus.find({ username: username }),
     ]);
-    console.log(username);
     return NextResponse.json({ likes, likestatuses }, { status: 200 });
   } catch (error) {
     console.error(error);
@@ -41,8 +40,12 @@ export async function POST(req) {
       { upsert: true, new: true },
     ),
   ]);
+  const [likestatuses, likes] = await Promise.all([
+    Likestatus.find(),
+    Like.find(),
+  ])
   return NextResponse.json(
-    { message: "like successfully recorded" },
+    { message: "like successfully recorded", likestatuses, likes},
     { status: 201 },
   );
 }
