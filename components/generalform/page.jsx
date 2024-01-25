@@ -28,8 +28,10 @@ function Generalform({ admin, username }) {
   const [likestatuses, setLikestatuses] = useState([]);
   const [postAnonymous, setPostAnonymous] = useState(false);
   const [inputBoxHidden, setInputBoxHidden] = useState(true);
-  const [likeload, setLikeload] = useState(false);
+  const [likeloads, setLikeloads] = useState(true);
+  const [likeload, setLikeload] = useState([]);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
+  let newArray;
 
   const getPosts = async () => {
     try {
@@ -47,9 +49,10 @@ function Generalform({ admin, username }) {
       console.log("Error loading posts", error);
     }
   };
-  const fecthLikes = async () => {
+  const fetchLikes = async () => {
     try {
-      setLikeload(true);
+      console.log("fetching likes");
+      setLikeloads(true);
       const res = await axios.get("/api/fetchLike", {
         params: {
           username: username,
@@ -57,7 +60,7 @@ function Generalform({ admin, username }) {
       });
       setLikes(res.data.likes);
       setLikestatuses(res.data.likestatuses);
-      setLikeload(false);
+      setLikeloads(false);
     } catch (error) {
       console.log(error);
     }
@@ -223,10 +226,12 @@ function Generalform({ admin, username }) {
     }
   };
 
-  const sendLike = async (e) => {
+  const sendLike = async (likeIndex, e) => {
     e.preventDefault();
     try {
-      setLikeload(true);
+      newArray = [...likeload];
+      newArray[likeIndex] = true;
+      setLikeload(newArray);
       const postId = e.target.id.value;
       const likestatus = likestatuses?.find(
         (likestatus) => likestatus.postId === postId,
@@ -239,20 +244,21 @@ function Generalform({ admin, username }) {
       });
       setLikestatuses(res.data.likestatuses);
       setLikes(res.data.likes);
-      setLikeload(false);
+      newArray[likeIndex] = false;
+      setLikeload(newArray);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleRefresh = async() => {
+  const handleRefresh = async () => {
     await getPosts();
-    await fecthLikes();
+    await fetchLikes();
   };
 
   useEffect(() => {
     getPosts();
-    fecthLikes();
+    fetchLikes();
   }, []);
   return (
     <>
@@ -468,110 +474,115 @@ function Generalform({ admin, username }) {
                     <p className="postT">posted on {post.postingtime}</p>
                     <br />
                     <div className="likeContainer">
-                      {!likeload &&
-                        likes.map(
-                          (like) =>
-                            like.postId === post._id && (
-                              <>
-                                <form onSubmit={sendLike} disabled={likeload}>
-                                  <input
-                                    type="hidden"
-                                    name="id"
-                                    id="id"
-                                    value={post._id}
-                                  />
-                                  <button
-                                    className="likeBtn"
-                                    type="submit"
-                                    id={`like${post._id}`}
-                                  >
-                                    {(() => {
-                                      const likestatus = likestatuses.find(
-                                        (likestatus) =>
-                                          likestatus.postId === post._id &&
-                                          likestatus.username === username,
-                                      );
-                                      return likestatus && likestatus.status ? (
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          fill="red"
-                                          width={50}
-                                          height={50}
-                                          className="heart"
-                                          viewBox="0 0 512 512"
-                                        >
-                                          <path d="M256 448a32 32 0 01-18-5.57c-78.59-53.35-112.62-89.93-131.39-112.8-40-48.75-59.15-98.8-58.61-153C48.63 114.52 98.46 64 159.08 64c44.08 0 74.61 24.83 92.39 45.51a6 6 0 009.06 0C278.31 88.81 308.84 64 352.92 64c60.62 0 110.45 50.52 111.08 112.64.54 54.21-18.63 104.26-58.61 153-18.77 22.87-52.8 59.45-131.39 112.8a32 32 0 01-18 5.56z" />
-                                        </svg>
-                                      ) : (
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width={50}
-                                          className="heart"
-                                          height={50}
-                                          viewBox="0 0 512 512"
-                                        >
-                                          <path
-                                            d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z"
-                                            fill="none"
-                                            stroke="black"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="32"
-                                          />
-                                        </svg>
-                                      );
-                                    })()}
-                                  </button>
-                                </form>
-                                <p key={like.postId} className="postlike">
-                                  {like.number}
-                                </p>
-                              </>
-                            ),
-                        )}
-                      {likeload && (
-                        <div className="likeLoad">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="red"
-                            width={50}
-                            height={50}
-                            className="loadHeart"
-                            viewBox="0 0 512 512"
-                          >
-                            <path d="M256 448a32 32 0 01-18-5.57c-78.59-53.35-112.62-89.93-131.39-112.8-40-48.75-59.15-98.8-58.61-153C48.63 114.52 98.46 64 159.08 64c44.08 0 74.61 24.83 92.39 45.51a6 6 0 009.06 0C278.31 88.81 308.84 64 352.92 64c60.62 0 110.45 50.52 111.08 112.64.54 54.21-18.63 104.26-58.61 153-18.77 22.87-52.8 59.45-131.39 112.8a32 32 0 01-18 5.56z" />
-                          </svg>
-                        </div>
-                      )}
+                      {likes.map((like, likeIndex) => (
+                        <>
+                          {like.postId === post._id && !(likeloads || likeload[likeIndex]) && (
+                            <>
+                              <form
+                                onSubmit={(e) => sendLike(likeIndex, e)}
+                                disabled={likeloads || likeload[likeIndex]}
+                                key={likeIndex}
+                              >
+                                <input
+                                  type="hidden"
+                                  name="id"
+                                  id="id"
+                                  value={post._id}
+                                />
+                                <button
+                                  className="likeBtn"
+                                  type="submit"
+                                  id={`like${post._id}`}
+                                >
+                                  {(() => {
+                                    const likestatus = likestatuses.find(
+                                      (likestatus) =>
+                                        likestatus.postId === post._id &&
+                                        likestatus.username === username,
+                                    );
+                                    return likestatus && likestatus.status ? (
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="red"
+                                        width={50}
+                                        height={50}
+                                        className="heart"
+                                        viewBox="0 0 512 512"
+                                      >
+                                        <path d="M256 448a32 32 0 01-18-5.57c-78.59-53.35-112.62-89.93-131.39-112.8-40-48.75-59.15-98.8-58.61-153C48.63 114.52 98.46 64 159.08 64c44.08 0 74.61 24.83 92.39 45.51a6 6 0 009.06 0C278.31 88.81 308.84 64 352.92 64c60.62 0 110.45 50.52 111.08 112.64.54 54.21-18.63 104.26-58.61 153-18.77 22.87-52.8 59.45-131.39 112.8a32 32 0 01-18 5.56z" />
+                                      </svg>
+                                    ) : (
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width={50}
+                                        className="heart"
+                                        height={50}
+                                        viewBox="0 0 512 512"
+                                      >
+                                        <path
+                                          d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z"
+                                          fill="none"
+                                          stroke="black"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth="32"
+                                        />
+                                      </svg>
+                                    );
+                                  })()}
+                                </button>
+                              </form>
+                              <p key={like.number} className="postlike">
+                                {like.number}
+                              </p>
+                            </>
+                          )}
+
+                          {like.postId === post._id && (likeloads || likeload[likeIndex]) && (
+                            <div className="likeLoad" key={post._id}>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="red"
+                                width={50}
+                                height={50}
+                                className="loadHeart"
+                                viewBox="0 0 512 512"
+                              >
+                                <path d="M256 448a32 32 0 01-18-5.57c-78.59-53.35-112.62-89.93-131.39-112.8-40-48.75-59.15-98.8-58.61-153C48.63 114.52 98.46 64 159.08 64c44.08 0 74.61 24.83 92.39 45.51a6 6 0 009.06 0C278.31 88.81 308.84 64 352.92 64c60.62 0 110.45 50.52 111.08 112.64.54 54.21-18.63 104.26-58.61 153-18.77 22.87-52.8 59.45-131.39 112.8a32 32 0 01-18 5.56z" />
+                              </svg>
+                            </div>
+                          )}
+                        </>
+                      ))}
                     </div>
                     {post.username === username && !admin && (
                       <div className="deleteForm">
-                      <form onSubmit={handleSub} id="deleteForm">
-                        <input
-                          type="hidden"
-                          name="id"
-                          id="id"
-                          value={post._id}
-                        />
-                        <button type="submit" className="deleteBtn">
-                          <span>Delete</span>
-                        </button>
-                      </form>
+                        <form onSubmit={handleSub} id="deleteForm">
+                          <input
+                            type="hidden"
+                            name="id"
+                            id="id"
+                            value={post._id}
+                          />
+                          <button type="submit" className="deleteBtn">
+                            <span>Delete</span>
+                          </button>
+                        </form>
                       </div>
                     )}
                     {admin && (
                       <div className="deleteForm">
-                      <form onSubmit={handleSub} id="deleteForm">
-                        <input
-                          type="hidden"
-                          name="id"
-                          id="id"
-                          value={post._id}
-                        />
-                        <button type="submit" className="deleteBtn">
-                          <span>Admin Delete</span>
-                        </button>
-                      </form>
+                        <form onSubmit={handleSub} id="deleteForm">
+                          <input
+                            type="hidden"
+                            name="id"
+                            id="id"
+                            value={post._id}
+                          />
+                          <button type="submit" className="deleteBtn">
+                            <span>Admin Delete</span>
+                          </button>
+                        </form>
                       </div>
                     )}
                   </div>

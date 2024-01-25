@@ -9,10 +9,12 @@ export async function POST(req, res) {
     var likes = [];
     await DBconnect();
     const posts = await Post.find({ username: username });
-    await Promise.all(posts.map(async (post) => {
-      const like = await Like.findOne({ postId: post._id });
-      likes.push(like);
-  }));
+    await Promise.all(
+      posts.map(async (post) => {
+        const like = await Like.findOne({ postId: post._id });
+        likes.push(like);
+      }),
+    );
     return NextResponse.json({ posts, likes }, { status: 200 });
   } catch (error) {
     console.log(error);
