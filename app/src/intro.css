@@ -211,16 +211,12 @@ h2 {
 }
 
 .gradient-text {
-  background: linear-gradient(to right, #f4a896, #04a2f1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  /* For Firefox */
-  -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
+  display: flex;
 }
 
 .channel {
   margin-right: 15px;
+  color: #f2bbaf;
   font-size: 1.5rem;
   font-weight: 600;
   text-decoration: none;
@@ -229,8 +225,8 @@ h2 {
   transition:
     background-color 0.3s,
     color 0.3s;
-  -webkit-text-stroke: 0.5px goldenrod; /* For Chrome, Safari, and Opera */
-  text-stroke: 0.5px goldenrod; /* For other browsers */
+  -webkit-text-stroke: 0.3px goldenrod; /* For Chrome, Safari, and Opera */
+  text-stroke: 0.3px goldenrod; /* For other browsers */
 }
 
 .channel:hover {
@@ -264,17 +260,15 @@ h2 {
   -webkit-text-stroke: 0.5px goldenrod; /* For Chrome, Safari, and Opera */
   text-stroke: 0.5px goldenrod; /* For other browsers */
 }
-li {
-  list-style: none;
-}
 .container {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  row-gap: 3vh;
   justify-content: center;
 }
 
 .block {
-  width: 600px;
-  height: 150px;
   margin: 10px;
   color: #f4a896;
 }
@@ -295,4 +289,107 @@ h3 {
   -moz-text-fill-color: transparent;
   -webkit-text-stroke: 0.3px goldenrod;
   text-stroke: 0.3px goldenrod;
+}
+@media screen and (max-width: 900px) {
+  .container {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    row-gap: 0;
+  }
+}
+a.c1{
+  position: relative;
+  left: 3vw;
+}
+a.c2{
+  position: relative;
+  left: 8vw;
+}
+a.c3{
+  position: relative;
+  left: 14vw;
+}
+a.c4{
+  position: relative;
+  left: 22vw;
+}
+@media screen and (max-width: 1000px) {
+  a.c1{
+    position: relative;
+    left: 0vw;
+  }
+  a.c2{
+    position: relative;
+    left: 0vw;
+  }
+  a.c3{
+    position: relative;
+    left: 0vw;
+  }
+  a.c4{
+    position: relative;
+    left: 0vw;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  div.gradient-text {
+    display: grid;
+    position: relative;
+    margin-left: 20px;
+    grid-template-columns: repeat(1, 1fr);
+  }
+  a.c1{
+    position: relative;
+    width: fit-content;
+    width: -moz-fit-content; /* Add vendor-specific property for Firefox */
+    left: 0vw;
+  }
+  a.c2{
+    position: relative;
+    width: fit-content;
+    width: -moz-fit-content; /* Add vendor-specific property for Firefox */
+    left: 0vw;
+  }
+  a.c3{
+    position: relative;
+    left: 0vw;
+  }
+  a.c4{
+    position: relative;
+    width: fit-content;
+    width: -moz-fit-content; /* Add vendor-specific property for Firefox */
+    left: 0vw;
+  }
+}
+@media screen and (min-width: 700px) and (max-width: 800px) {
+  div.gradient-text {
+    display: grid;
+    position: relative;
+    margin-left: 20px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  a.c1{
+    position: relative;
+    width: fit-content;
+    width: -moz-fit-content; /* Add vendor-specific property for Firefox */
+    left: 0vw;
+  }
+  a.c2{
+    position: relative;
+    width: fit-content;
+    width: -moz-fit-content; /* Add vendor-specific property for Firefox */
+    left: 0vw;
+  }
+  a.c3{
+    position: relative;
+    left: 0vw;
+  }
+  a.c4{
+    position: relative;
+    width: fit-content;
+    width: -moz-fit-content; /* Add vendor-specific property for Firefox */
+    left: 0vw;
+  }
+  
 }
