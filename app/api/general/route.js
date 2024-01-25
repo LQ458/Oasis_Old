@@ -26,7 +26,7 @@ export async function DELETE(req) {
   }
   Promise.all([
     Post.findByIdAndDelete(id),
-    Like.findByIdAndDelete(id),
+    Like.findOneAndDelete({  postId: id }),
     Likestatus.deleteMany({ postId: id }),
   ]);
   return NextResponse.json({ message: "Post deleted" }, { status: 200 });
