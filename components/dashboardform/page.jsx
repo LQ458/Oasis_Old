@@ -12,6 +12,9 @@ export default function Dashboardform({ username }) {
   const [posts, setPosts] = useState([]);
   const [likes, setLikes] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [likeIndex, setLikeIndex] = useState(0);
+  const [likelshow, setLikelshow] = useState(false);
+  const [likershow, setLikershow] = useState(false);
   const [lshow, setLshow] = useState(false);
   const [rshow, setRshow] = useState(false);
 
@@ -29,19 +32,35 @@ export default function Dashboardform({ username }) {
     }
   };
 
-  const goNext = () => {
-    if (currentIndex + 9 < posts.length) {
-      setCurrentIndex(currentIndex + 5);
-    } else if (currentIndex + leftover + 4 < posts.length) {
-      setCurrentIndex(currentIndex + leftover);
+  const goNext = (index) => {
+    if (index === "currentIndex") {
+      if (currentIndex + 9 < posts.length) {
+        setCurrentIndex(currentIndex + 5);
+      } else if (currentIndex + leftover + 4 < posts.length) {
+        setCurrentIndex(currentIndex + leftover);
+      }
+    } else if (index === "likeIndex") {
+      if (likeIndex + 9 < posts.length) {
+        setLikeIndex(likeIndex + 5);
+      } else if (likeIndex + leftover + 4 < posts.length) {
+        setLikeIndex(likeIndex + leftover);
+      }
     }
   };
 
-  const goBack = () => {
-    if (currentIndex - 5 >= 0) {
-      setCurrentIndex(currentIndex - 5);
-    } else if (currentIndex - leftover >= 0) {
-      setCurrentIndex(currentIndex - leftover);
+  const goBack = (index) => {
+    if (index === "currentIndex") {
+      if (currentIndex - 5 >= 0) {
+        setCurrentIndex(currentIndex - 5);
+      } else if (currentIndex - leftover >= 0) {
+        setCurrentIndex(currentIndex - leftover);
+      }
+    } else if (index === "likeIndex") {
+      if (likeIndex - 5 >= 0) {
+        setLikeIndex(likeIndex - 5);
+      } else if (likeIndex - leftover >= 0) {
+        setLikeIndex(likeIndex - leftover);
+      }
     }
   };
 
@@ -54,6 +73,16 @@ export default function Dashboardform({ username }) {
       setRshow(true);
     }
   }, [currentIndex, posts]);
+
+  useEffect(() => {
+    if (posts.length <= 5) {
+      setLshow(false);
+      setRshow(false);
+    } else {
+      setLshow(false);
+      setRshow(true);
+    }
+  }, [likeIndex, posts]);
 
   useEffect(() => {
     if (currentIndex + 9 < posts.length) {
@@ -241,8 +270,40 @@ export default function Dashboardform({ username }) {
         <div className="likes">
           <h2 className="dashh2">Liked Posts</h2>
           <br />
-          <div className="dashlike">
-            <p className="dashp">You have no liked posts yet!</p>
+          <div className="dashpost">
+            {posts.length > 0 && lshow && (
+              <button className="postBtns" onClick={goBack}>
+                <Image src="/backBtn.svg" width="40" height="40" alt="goBack" />
+              </button>
+            )}
+            {posts.length > 0 && !lshow && (
+              <div className="postBtns" width="40" height="40" />
+            )}
+            {(posts.length === 0 || posts.length === undefined) && (
+              <p className="dashp">You have no liked posts yet!</p>
+            )}
+            <TransitionGroup className="myPosts">
+              {posts.length > 0 &&
+                posts
+                  .slice(currentIndex, currentIndex + 5)
+                  .map((post, index) => (
+                    <CSSTransition key={index} timeout={500} classNames="item">
+                      <div className="myPost">
+                        <p>{post.title}</p>
+                        <p>{post.username}</p>
+                        <p>Likes: {likes[index].number}</p>
+                      </div>
+                    </CSSTransition>
+                  ))}
+            </TransitionGroup>
+            {posts.length > 0 && !rshow && (
+              <div className="postBtns" width="40" height="40" />
+            )}
+            {posts.length > 0 && rshow && (
+              <button className="postBtns" onClick={goNext}>
+                <Image src="/nextBtn.svg" width="40" height="40" alt="goNext" />
+              </button>
+            )}
           </div>
         </div>
         <div className="like">
