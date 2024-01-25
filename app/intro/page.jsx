@@ -18,33 +18,23 @@ const Intro = () => {
         <div className="icon-container">
           <Chatbubbles />
         </div>
-        <li>
           <a className="webicon" href="intro">
             Oasis
           </a>
-        </li>
-        <ul className="gradient-text">
-          <li>
-            <a className="channel" href="login">
+        <div className="gradient-text">
+            <a className="channel c1" href="login">
               Login
             </a>
-          </li>
-          <li>
-            <a className="channel" href="register">
+            <a className="channel c2" href="register">
               Register
             </a>
-          </li>
-          <li>
-            <a className="channel" href="announcement">
+            <a className="channel c3" href="announcement">
               Announcement
             </a>
-          </li>
-          <li>
-            <a className="channel" href="contact">
+            <a className="channel c4" href="contact">
               Contact
             </a>
-          </li>
-        </ul>
+        </div>
       </nav>
       <header>
         <h1>Welcome to the Oasis!</h1>
@@ -52,7 +42,7 @@ const Intro = () => {
         <p>
           Welcome to our forum website, the ultimate platform for engaging
           discussions and connecting with like-minded individuals. Whether
-          you’re seeking expert advice, sharing your experiences, or simply
+          you&apos;re seeking expert advice, sharing your experiences, or simply
           looking to expand your knowledge, our forum offers a vibrant community
           where you can ask questions, contribute insights, and immerse yourself
           in a diverse range of topics. Join us and be part of the conversation
@@ -77,7 +67,7 @@ const Intro = () => {
             </div>
             <h3>Diverse Community</h3>
             <p>
-              Celebrating diversity, embracing perspectives, valuing everyone’s
+              Celebrating diversity, embracing perspectives, valuing everyone&apos;s
               voice
             </p>
           </div>
@@ -101,11 +91,6 @@ const Intro = () => {
               constructive discussions
             </p>
           </div>
-        </div>
-        <br />
-        <br />
-        <br />
-        <div className="container">
           <div className="block">
             <div className="icon">
               <ShieldHalf />
