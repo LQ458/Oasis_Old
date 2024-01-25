@@ -27,9 +27,8 @@ mongoose
 app.post("/upload", uploadmiddleware, async function (req, res) {
   const fileNumbers = req.files ? req.files.length : 0;
   const inputFiles = [];
-  let postAnonymous = req.body.postAnonymous;
-  if (req.body.postAnonymous === null || req.body.postAnonymous === undefined)
-    postAnonymous = false;
+  let postAnonymous = false;
+  if (req.body.postAnonymous === "true"){ postAnonymous = true; }
   const outputFolderPath = path.join(process.cwd(), "/public/");
   const outputFolderPath1 = path.join(process.cwd(), "/app/public/uploads/");
   const post = new Post({
