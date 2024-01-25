@@ -3,7 +3,7 @@ import "@/app/src/channels.css";
 import React from "react";
 import axios from "axios";
 import Skeleton from "../skeletons/Skeleton";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Cancel from "@/public/cancel.svg";
 import Image from "next/image";
 import { TailSpin } from "react-loader-spinner";
@@ -32,6 +32,8 @@ function Generalform({ admin, username }) {
   const [likeload, setLikeload] = useState([]);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
   let newArray;
+
+  const formRef = useRef();
 
   const getPosts = async () => {
     try {
@@ -119,6 +121,8 @@ function Generalform({ admin, username }) {
     formData.append("title", title);
     formData.append("content", content);
     formData.append("postAnonymous", postAnonymous);
+    console.log(postAnonymous);
+    console.log("--------------------");
     formData.append("group", "general");
     formData.append("username", username);
 
@@ -138,11 +142,13 @@ function Generalform({ admin, username }) {
         await getPosts();
         setLoad(false);
         handleCloseFormClick();
+        setMsg("Post created successfully");
         setTitle("");
         setContent("");
-        setPostAnonymous("");
-        setFiles("");
+        setFiles([]);
+        setPostAnonymous(false);
       }
+      fetchLikes();
     } catch (error) {
       console.log(error);
       setLoad(false);
@@ -273,15 +279,18 @@ function Generalform({ admin, username }) {
       <a href="dashboard" id="backButton">
         Back to Dashboard
       </a>
-      <button id="backButton" onClick={handleRefresh}>
+      <button className="refreshBtn" onClick={handleRefresh}>
         Refresh
       </button>
       <button className="adp" id="GaddPostBtn" onClick={handleAddPostClick}>
         <span>Write a post</span>
       </button>
-      <div id="inputBoxGeneral" className={inputBoxHidden ? "hidden" : ""}>
-        <form
-          onSubmit={handleSubmit}
+        {!inputBoxHidden && (
+          <div id="inputBoxGeneral">
+          <form
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
           id="postForm"
           encType="multipart/form-data"
         >
@@ -291,6 +300,7 @@ function Generalform({ admin, username }) {
           <label htmlFor="title">Title:</label>
           <input
             type="text"
+            className="title"
             id="title"
             name="title"
             required
@@ -354,7 +364,8 @@ function Generalform({ admin, username }) {
             <div className="preview-images" />
           </div>
         </div>
-      </div>
+        </div>
+        )}
       <div className="bg">
         <div id="posts" className="word-box">
           {loading
@@ -467,7 +478,7 @@ function Generalform({ admin, username }) {
                     </div>
                     <br />
                     <br />
-                    {(post.postAnonymous !== true || admin == true) && (
+                    {(post.postAnonymous !== "true" || admin == true) && (
                       <p className="usr">posted by {post.username}</p>
                     )}
                     <br />
@@ -525,7 +536,7 @@ function Generalform({ admin, username }) {
                                           stroke="black"
                                           strokeLinecap="round"
                                           strokeLinejoin="round"
-                                          strokeWidth="32"
+                                          strokeWidth={20}
                                         />
                                       </svg>
                                     );
