@@ -245,6 +245,11 @@ function Generalform({ admin, username }) {
     }
   };
 
+  const handleRefresh = async() => {
+    await getPosts();
+    await fecthLikes();
+  };
+
   useEffect(() => {
     getPosts();
     fecthLikes();
@@ -262,6 +267,9 @@ function Generalform({ admin, username }) {
       <a href="dashboard" id="backButton">
         Back to Dashboard
       </a>
+      <button id="backButton" onClick={handleRefresh}>
+        Refresh
+      </button>
       <button className="adp" id="GaddPostBtn" onClick={handleAddPostClick}>
         <span>Write a post</span>
       </button>
@@ -278,6 +286,7 @@ function Generalform({ admin, username }) {
           <input
             type="text"
             id="title"
+            name="title"
             required
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -288,6 +297,7 @@ function Generalform({ admin, username }) {
           <textarea
             id="content"
             required
+            name="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
           ></textarea>
@@ -451,10 +461,7 @@ function Generalform({ admin, username }) {
                     </div>
                     <br />
                     <br />
-                    {(post.postAnonymous === false ||
-                      post.postAnonymous === null ||
-                      post.postAnonymous === undefined ||
-                      admin === true) && (
+                    {(post.postAnonymous !== true || admin == true) && (
                       <p className="usr">posted by {post.username}</p>
                     )}
                     <br />

@@ -10,6 +10,7 @@ import "../../app/src/dashboard.css";
 
 export default function Dashboardform({ username }) {
   const [posts, setPosts] = useState([]);
+  const [likes, setLikes] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [lshow, setLshow] = useState(false);
   const [rshow, setRshow] = useState(false);
@@ -22,6 +23,7 @@ export default function Dashboardform({ username }) {
         username: username,
       });
       setPosts(res.data.posts);
+      setLikes(res.data.likes);
     } catch (error) {
       console.log(error);
     }
@@ -221,6 +223,7 @@ export default function Dashboardform({ username }) {
                       <div className="myPost">
                         <p>{post.title}</p>
                         <p>{post.username}</p>
+                        <p>Likes: {likes[index].number}</p>
                       </div>
                     </CSSTransition>
                   ))}
