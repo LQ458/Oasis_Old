@@ -29,5 +29,5 @@ export async function DELETE(req) {
     Like.findOneAndDelete({ postId: id }),
     Likestatus.deleteMany({ postId: id }),
   ]);
-  return NextResponse.json({ message: "Post deleted" }, { status: 200 });
+  return NextResponse.json({ message: "News deleted" }, { status: 200 });
 }
