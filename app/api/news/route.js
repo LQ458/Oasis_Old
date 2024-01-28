@@ -8,7 +8,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   await DBconnect();
-  const posts = (await Post.find({ group: "general" })).reverse();
+  const posts = (await Post.find({ group: "news" })).reverse();
   return NextResponse.json({ posts }, { status: 200 });
 }
 

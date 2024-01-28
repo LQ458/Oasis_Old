@@ -18,22 +18,22 @@ const Intro = () => {
         <div className="icon-container">
           <Chatbubbles />
         </div>
-          <a className="webicon" href="intro">
-            Oasis
-          </a>
+        <a className="webicon" href="intro">
+          Oasis
+        </a>
         <div className="gradient-text">
-            <a className="channel c1" href="login">
-              Login
-            </a>
-            <a className="channel c2" href="register">
-              Register
-            </a>
-            <a className="channel c3" href="announcement">
-              Announcement
-            </a>
-            <a className="channel c4" href="contact">
-              Contact
-            </a>
+          <a className="channel c1" href="login">
+            Login
+          </a>
+          <a className="channel c2" href="register">
+            Register
+          </a>
+          <a className="channel c3" href="news">
+            News
+          </a>
+          <a className="channel c4" href="contact">
+            Contact
+          </a>
         </div>
       </nav>
       <header>
@@ -67,8 +67,8 @@ const Intro = () => {
             </div>
             <h3>Diverse Community</h3>
             <p>
-              Celebrating diversity, embracing perspectives, valuing everyone&apos;s
-              voice
+              Celebrating diversity, embracing perspectives, valuing
+              everyone&apos;s voice
             </p>
           </div>
           <div className="block">
