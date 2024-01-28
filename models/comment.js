@@ -5,8 +5,8 @@ const { Module } = require("module");
 const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
-  postId: { 
-    type: String 
+  postId: {
+    type: String,
   },
   title: {
     type: String,
@@ -46,5 +46,5 @@ const commentSchema = new Schema({
   ],
 });
 
-module.exports = mongoose.models.Comment ||
-  mongoose.model("Comment", commentSchema);
+module.exports =
+  mongoose.models.Comment || mongoose.model("Comment", commentSchema);

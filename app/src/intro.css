@@ -306,101 +306,102 @@ h2 {
     row-gap: 0;
   }
 }
-a.c1{
+a.c1 {
   position: relative;
   left: 3vw;
 }
-a.c2{
-  position: relative;
-  left: 8vw;
-}
-a.c3{
+a.c2 {
   position: relative;
   left: 14vw;
 }
-a.c4{
+a.c3 {
   position: relative;
-  left: 22vw;
+  left: 26vw;
 }
-@media screen and (max-width: 1000px) {
-  a.c1{
+a.c4 {
+  position: relative;
+  left: 40vw;
+}
+@media screen and (max-width: 1150px) {
+  a.c1 {
     position: relative;
     left: 0vw;
   }
-  a.c2{
+  a.c2 {
     position: relative;
-    left: 0vw;
+    left: 7vw;
   }
-  a.c3{
+  a.c3 {
     position: relative;
-    left: 0vw;
+    left: 14vw;
   }
-  a.c4{
+  a.c4 {
     position: relative;
-    left: 0vw;
+    left: 21vw;
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 870px) {
   div.gradient-text {
     display: grid;
     position: relative;
     margin-left: 20px;
     grid-template-columns: repeat(1, 1fr);
   }
-  a.c1{
+  a.c1 {
     position: relative;
     width: fit-content;
     width: -moz-fit-content; /* Add vendor-specific property for Firefox */
     left: 0vw;
   }
-  a.c2{
+  a.c2 {
     position: relative;
     width: fit-content;
     width: -moz-fit-content; /* Add vendor-specific property for Firefox */
     left: 0vw;
   }
-  a.c3{
+  a.c3 {
     position: relative;
     left: 0vw;
   }
-  a.c4{
+  a.c4 {
     position: relative;
     width: fit-content;
     width: -moz-fit-content; /* Add vendor-specific property for Firefox */
     left: 0vw;
   }
 }
-@media screen and (min-width: 700px) and (max-width: 800px) {
+@media screen and (min-width: 700px) and (max-width: 870px) {
   div.gradient-text {
     display: grid;
     position: relative;
+    left: 6vw;
     margin-left: 20px;
     grid-template-columns: repeat(2, 1fr);
   }
-  a.c1{
+  a.c1 {
     position: relative;
     width: fit-content;
     width: -moz-fit-content; /* Add vendor-specific property for Firefox */
     left: 0vw;
   }
-  a.c2{
+  a.c2 {
     position: relative;
     width: fit-content;
     width: -moz-fit-content; /* Add vendor-specific property for Firefox */
     left: 0vw;
   }
-  a.c3{
+  a.c3 {
     position: relative;
     left: 0vw;
   }
-  a.c4{
+  a.c4 {
     position: relative;
     width: fit-content;
     width: -moz-fit-content; /* Add vendor-specific property for Firefox */
     left: 0vw;
   }
 }
-h1.intro{
-  color: var(--title-color)
+h1.intro {
+  color: var(--title-color);
 }

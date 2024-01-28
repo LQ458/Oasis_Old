@@ -33,7 +33,9 @@ app.post("/upload", uploadmiddleware, async function (req, res) {
   const fileNumbers = req.files ? req.files.length : 0;
   const inputFiles = [];
   let postAnonymous = false;
-  if (req.body.postAnonymous === "true"){ postAnonymous = true; }
+  if (req.body.postAnonymous === "true") {
+    postAnonymous = true;
+  }
   const outputFolderPath = path.join(process.cwd(), "/public/");
   const outputFolderPath1 = path.join(process.cwd(), "/app/public/uploads/");
   const post = new Post({
@@ -78,7 +80,9 @@ app.post("/uploadComment", uploadmiddleware, async function (req, res) {
   const fileNumbers = req.files ? req.files.length : 0;
   const inputFiles = [];
   let anonymous = false;
-  if (req.body.anonymous === "true"){ anonymous = true; }
+  if (req.body.anonymous === "true") {
+    anonymous = true;
+  }
   const outputFolderPath = path.join(process.cwd(), "/public/");
   const outputFolderPath1 = path.join(process.cwd(), "/app/public/uploads/");
   const comment = new Comment({
