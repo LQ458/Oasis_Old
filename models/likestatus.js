@@ -12,6 +12,9 @@ const likestatusSchema = new Schema({
   status: {
     type: Boolean,
   },
+  category: {
+    type: String,
+  },
   postingtime: {
     type: String,
     default: () =>

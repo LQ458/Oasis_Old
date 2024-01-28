@@ -1,4 +1,4 @@
-import DBconnect from "@/app/libs/mongodb";
+import DBconnect from "@/libs/mongodb";
 import Post from "@/models/post";
 import { NextResponse } from "next/server";
 import Like from "@/models/like";

@@ -1,7 +1,7 @@
 import Like from "@/models/like";
 import Post from "@/models/post";
 import Likestatus from "@/models/likestatus";
-import DBconnect from "@/app/libs/mongodb";
+import DBconnect from "@/libs/mongodb";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
@@ -21,7 +21,7 @@ export async function GET(req) {
 
 export async function POST(req) {
   await DBconnect();
-  const { postId, sendUsername, status } = await req.json();
+  const { postId, sendUsername, status, category } = await req.json();
   await Promise.all([
     status
       ? Like.findOneAndUpdate(
@@ -35,7 +35,7 @@ export async function POST(req) {
           { new: true },
         ),
     Likestatus.findOneAndUpdate(
-      { postId: postId, username: sendUsername },
+      { postId: postId, username: sendUsername, category },
       { $set: { status: status } },
       { upsert: true, new: true },
     ),

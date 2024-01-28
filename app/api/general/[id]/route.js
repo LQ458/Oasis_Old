@@ -1,4 +1,4 @@
-import { DBconnect, DBclose } from "@/app/libs/mongodb";
+import { DBconnect, DBclose } from "@/libs/mongodb";
 import { NextResponse } from "next/server.js";
 import User from "@/models/user";
 import Post from "@/models/post";

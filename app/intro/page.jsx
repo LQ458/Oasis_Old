@@ -37,7 +37,7 @@ const Intro = () => {
         </div>
       </nav>
       <header>
-        <h1>Welcome to the Oasis!</h1>
+        <h1 className="intro">Welcome to the Oasis!</h1>
         <hr />
         <p>
           Welcome to our forum website, the ultimate platform for engaging
@@ -50,7 +50,7 @@ const Intro = () => {
         </p>
       </header>
       <section>
-        <h2>About Us</h2>
+        <h1 className="intro">About Us</h1>
         <hr />
         <p>
           At Oasis, we believe in the power of connections and conversations. We
