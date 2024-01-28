@@ -11,6 +11,9 @@ const likeSchema = new Schema({
   forum: {
     type: String,
   },
+  category: {
+    type: String,
+  },
   number: {
     type: Number,
     min: [0, "Negative numbers are not allowed"],

@@ -232,7 +232,7 @@ function Generalform({ admin, username }) {
     }
   };
 
-  const sendLike = async (likeIndex, e) => {
+  const sendLike = async (category ,likeIndex, e) => {
     e.preventDefault();
     try {
       newArray = [...likeload];
@@ -247,6 +247,7 @@ function Generalform({ admin, username }) {
         postId,
         sendUsername: username,
         status: !currentStatus,
+        category
       });
       setLikestatuses(res.data.likestatuses);
       setLikes(res.data.likes);
@@ -490,7 +491,7 @@ function Generalform({ admin, username }) {
                           {like.postId === post._id && !(likeloads || likeload[likeIndex]) && (
                             <>
                               <form
-                                onSubmit={(e) => sendLike(likeIndex, e)}
+                                onSubmit={(e) => sendLike("post",likeIndex, e)}
                                 disabled={likeloads || likeload[likeIndex]}
                                 key={likeIndex}
                               >
@@ -566,6 +567,78 @@ function Generalform({ admin, username }) {
                         </>
                       ))}
                     </div>
+                    {/* <button onClick={openCommentForm}>
+                      Add a Comment
+                    </button>
+                    <form
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
+          id="postForm"
+          encType="multipart/form-data"
+        >
+          <button onClick={closeCommentForm}>
+            <Image src={Cancel} alt="cancel" height="40" width="40" />
+          </button>
+          <input
+            type="text"
+            className="title"
+            id="title"
+            name="title"
+            placeholder="Title:/optional"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <br />
+          <br />
+          <textarea
+            required
+            name="content"
+            placeholder="Comment on this post:"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          ></textarea>
+          <br />
+          <br />
+          <label htmlFor="input-files">Pictures:</label>
+          <input
+            type="file"
+            onChange={handleFileChange}
+            multiple
+          />
+          <div className="switchForm">
+            <label className="switch">
+              <input
+                type="checkbox"
+                name="postAnonymous"
+                checked={postAnonymous}
+                onChange={() => setPostAnonymous(!postAnonymous)}
+              />
+              <span className="slider round">
+                <h6 className="posta">
+                  Anonymously?
+                  <p />
+                </h6>
+              </span>
+            </label>
+          </div>
+          <button type="submit" className="postBtn" disabled={load}>
+            {!load && <p className="ldd">Post</p>}
+            {load && (
+              <div className="load">
+                <TailSpin
+                  type="ThreeDots"
+                  color="white"
+                  height={20}
+                  width={40}
+                  style={{ marginRight: "5px" }}
+                />
+                <span className="ld">Loading...</span>
+              </div>
+            )}
+          </button>
+        </form> */}
+                    <br/>
                     {post.username === username && !admin && (
                       <div className="deleteForm">
                         <form onSubmit={handleSub} id="deleteForm">

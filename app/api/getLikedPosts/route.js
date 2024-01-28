@@ -1,6 +1,6 @@
 import Likestatus from "@/models/likestatus";
 import { NextResponse } from "next/server";
-import DBconnect from "@/app/libs/mongodb";
+import DBconnect from "@/libs/mongodb";
 import Post from "@/models/post";
 import Like from "@/models/like";
 

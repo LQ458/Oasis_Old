@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const path = require("path");
 const Like = require("./models/like");
+const Comment = require("./models/comment");
 const uploadmiddleware = uploadutils.middleware;
 const imageCompressor = require("./models/compression");
 
@@ -14,6 +15,10 @@ dotenv.config();
 const app = express();
 
 app.use(cors());
+
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running at Port ${process.env.PORT}`);
+});
 
 mongoose
   .connect(process.env.MONGODB_URL)
@@ -59,6 +64,7 @@ app.post("/upload", uploadmiddleware, async function (req, res) {
       postId: post._id,
       username: req.body.username,
       forum: req.body.group,
+      category: "post",
       number: 0,
       postingtime: post.postingtime,
     });
@@ -68,6 +74,47 @@ app.post("/upload", uploadmiddleware, async function (req, res) {
   res.status(201).send("Post saved");
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running at Port ${process.env.PORT}`);
+app.post("/uploadComment", uploadmiddleware, async function (req, res) {
+  const fileNumbers = req.files ? req.files.length : 0;
+  const inputFiles = [];
+  let anonymous = false;
+  if (req.body.anonymous === "true"){ anonymous = true; }
+  const outputFolderPath = path.join(process.cwd(), "/public/");
+  const outputFolderPath1 = path.join(process.cwd(), "/app/public/uploads/");
+  const comment = new Comment({
+    title: req.body.title,
+    content: req.body.content,
+    group: req.body.group,
+    username: req.body.username,
+    anonymous: anonymous,
+    pictures: fileNumbers,
+    pictureUrl: [],
+  });
+
+  if (req.files && req.files.length >= 1) {
+    req.files.forEach(function (file) {
+      comment.pictureUrl.push({
+        filename: file.filename,
+        originalname: file.originalname,
+        path: file.path,
+        size: file.size,
+      });
+      inputFiles.push(outputFolderPath1 + file.filename);
+    });
+  }
+  imageCompressor.compressImages(inputFiles, outputFolderPath);
+
+  await comment.save().then(() => {
+    Like.create({
+      postId: comment._id,
+      username: req.body.username,
+      forum: req.body.group,
+      category: "comment",
+      number: 0,
+      postingtime: comment.postingtime,
+    });
+  });
+
+  console.log("Comment saved");
+  res.status(201).send("Comment saved");
 });
