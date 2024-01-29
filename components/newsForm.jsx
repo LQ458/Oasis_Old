@@ -33,7 +33,7 @@ function Newsform({ admin, username }) {
   const [selectedEmoji, setSelectedEmoji] = useState(null);
   let newArray;
 
-  console.log(username)
+  console.log(username);
 
   const fetchNews = async () => {
     try {
@@ -250,8 +250,8 @@ function Newsform({ admin, username }) {
       </button>
       {admin && (
         <button className="adp" id="GaddPostBtn" onClick={handleAddPostClick}>
-        <span>Write news</span>
-      </button>
+          <span>Write news</span>
+        </button>
       )}
       {!inputBoxHidden && (
         <div id="inputBoxGeneral">
