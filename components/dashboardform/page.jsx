@@ -186,7 +186,7 @@ export default function Dashboardform({ username }) {
               />
             </div>
             <li>
-              <Link className="channel" data-icon="icon-3" href="/announcement">
+              <Link className="channel" data-icon="icon-3" href="/news">
                 News
               </Link>
             </li>
