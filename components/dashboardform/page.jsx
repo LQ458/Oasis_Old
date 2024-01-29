@@ -234,11 +234,11 @@ export default function Dashboardform({ username }) {
           <div className="dashpost">
             {posts.length > 0 && lshow && (
               <button className="postBtns" onClick={goBack}>
-                <Image src="/backBtn.svg" width="40" height="40" alt="goBack" />
+                <Image src="/backBtn.svg" className="postsvgs" layout="fill" objectFit="contain" alt="goBack" />
               </button>
             )}
             {posts.length > 0 && !lshow && (
-              <div className="postBtns" width="40" height="40" />
+              <div className="postBtns"/>
             )}
             {(posts.length === 0 || posts.length === undefined) && (
               <p className="dashp">You have no posts yet!</p>
@@ -258,11 +258,11 @@ export default function Dashboardform({ username }) {
                   ))}
             </TransitionGroup>
             {posts.length > 0 && !rshow && (
-              <div className="postBtns" width="40" height="40" />
+              <div className="postBtns" />
             )}
             {posts.length > 0 && rshow && (
               <button className="postBtns" onClick={goNext}>
-                <Image src="/nextBtn.svg" width="40" height="40" alt="goNext" />
+                <Image src="/nextBtn.svg" className="postsvgs" layout="fill" objectFit="contain" alt="goNext" />
               </button>
             )}
           </div>
@@ -273,7 +273,7 @@ export default function Dashboardform({ username }) {
           <div className="dashpost">
             {posts.length > 0 && lshow && (
               <button className="postBtns" onClick={goBack}>
-                <Image src="/backBtn.svg" width="40" height="40" alt="goBack" />
+                <Image src="/backBtn.svg" className="postsvgs" layout="fill" objectFit="contain" alt="goBack" />
               </button>
             )}
             {posts.length > 0 && !lshow && (
@@ -301,7 +301,7 @@ export default function Dashboardform({ username }) {
             )}
             {posts.length > 0 && rshow && (
               <button className="postBtns" onClick={goNext}>
-                <Image src="/nextBtn.svg" width="40" height="40" alt="goNext" />
+                <Image src="/nextBtn.svg" className="postsvgs" layout="fill" objectFit="contain" alt="goNext" />
               </button>
             )}
           </div>

@@ -231,11 +231,6 @@ div.myPost {
   padding: 0.5rem;
   width: 10vw;
 }
-button.postBtns {
-  padding: 0;
-  width: 4vw;
-  padding-left: 1vw;
-}
 div.myPosts {
   display: flex;
   gap: 6.5vw;
@@ -266,11 +261,26 @@ div.myPosts {
     transform 500ms;
 }
 div.postBtns {
-  padding: 0;
-  width: 4vw;
-  padding-left: 1vw;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  left: 1vw;
+}
+button.postBtns {
+  top: 2.5vw;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  left: 1vw;
 }
 p.dashp {
   position: relative;
   left: 4vw;
+}
+.postsvgs{
+  height: 40px !important;
+  width: 40px !important;
+}
+@media screen and (max-width: 1600px) {
+  
 }

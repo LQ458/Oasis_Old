@@ -10,7 +10,7 @@ export async function GET(req) {
     const forum = req.nextUrl.searchParams.get("forum");
     const username = req.nextUrl.searchParams.get("username");
     const [likes, likestatuses] = await Promise.all([
-      Like.find({ forum: forum}),
+      Like.find({ forum: forum }),
       Likestatus.find({ username: username }),
     ]);
     return NextResponse.json({ likes, likestatuses }, { status: 200 });
