@@ -105,7 +105,7 @@ function Generalform({ admin, username }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (username === undefined && usernmae === null) {
+    if (username === undefined && username === null) {
       alert("You must login to post");
       return;
     }
