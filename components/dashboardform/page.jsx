@@ -234,12 +234,16 @@ export default function Dashboardform({ username }) {
           <div className="dashpost">
             {posts.length > 0 && lshow && (
               <button className="postBtns" onClick={goBack}>
-                <Image src="/backBtn.svg" className="postsvgs" layout="fill" objectFit="contain" alt="goBack" />
+                <Image
+                  src="/backBtn.svg"
+                  className="postsvgs"
+                  layout="fill"
+                  objectFit="contain"
+                  alt="goBack"
+                />
               </button>
             )}
-            {posts.length > 0 && !lshow && (
-              <div className="postBtns"/>
-            )}
+            {posts.length > 0 && !lshow && <div className="postBtns" />}
             {(posts.length === 0 || posts.length === undefined) && (
               <p className="dashp">You have no posts yet!</p>
             )}
@@ -257,12 +261,16 @@ export default function Dashboardform({ username }) {
                     </CSSTransition>
                   ))}
             </TransitionGroup>
-            {posts.length > 0 && !rshow && (
-              <div className="postBtns" />
-            )}
+            {posts.length > 0 && !rshow && <div className="postBtns" />}
             {posts.length > 0 && rshow && (
               <button className="postBtns" onClick={goNext}>
-                <Image src="/nextBtn.svg" className="postsvgs" layout="fill" objectFit="contain" alt="goNext" />
+                <Image
+                  src="/nextBtn.svg"
+                  className="postsvgs"
+                  layout="fill"
+                  objectFit="contain"
+                  alt="goNext"
+                />
               </button>
             )}
           </div>
@@ -273,7 +281,13 @@ export default function Dashboardform({ username }) {
           <div className="dashpost">
             {posts.length > 0 && lshow && (
               <button className="postBtns" onClick={goBack}>
-                <Image src="/backBtn.svg" className="postsvgs" layout="fill" objectFit="contain" alt="goBack" />
+                <Image
+                  src="/backBtn.svg"
+                  className="postsvgs"
+                  layout="fill"
+                  objectFit="contain"
+                  alt="goBack"
+                />
               </button>
             )}
             {posts.length > 0 && !lshow && (
@@ -301,7 +315,13 @@ export default function Dashboardform({ username }) {
             )}
             {posts.length > 0 && rshow && (
               <button className="postBtns" onClick={goNext}>
-                <Image src="/nextBtn.svg" className="postsvgs" layout="fill" objectFit="contain" alt="goNext" />
+                <Image
+                  src="/nextBtn.svg"
+                  className="postsvgs"
+                  layout="fill"
+                  objectFit="contain"
+                  alt="goNext"
+                />
               </button>
             )}
           </div>
