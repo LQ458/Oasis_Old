@@ -9,6 +9,8 @@ const Like = require("./models/like");
 const Comment = require("./models/comment");
 const uploadmiddleware = uploadutils.middleware;
 const imageCompressor = require("./models/compression");
+const MainTopic = require("./models/mainTopic");
+import SubTopic from "./models/subTopic";
 
 dotenv.config();
 
@@ -121,4 +123,67 @@ app.post("/uploadComment", uploadmiddleware, async function (req, res) {
 
   console.log("Comment saved");
   res.status(201).send("Comment saved");
+});
+
+app.post("/uploadTopic", uploadmiddleware, async function (req, res) {
+  const fileNumbers = req.files ? req.files.length : 0;
+  var ind;
+  const inputFiles = [];
+  let postAnonymous = false;
+  if (req.body.anonymous === "true") {
+    postAnonymous = true;
+  }
+  const outputFolderPath = path.join(process.cwd(), "/public/");
+  const outputFolderPath1 = path.join(process.cwd(), "/app/public/uploads/");
+  let mainTopic, subTopic;
+
+  if (req.body.postId) {
+    subTopic = new SubTopic({
+      postId: req.body.postId,
+      title: req.body.title,
+      notes: req.body.notes,
+      category: req.body.category,
+      username: req.body.username,
+      anonymous: postAnonymous,
+      pictures: fileNumbers,
+      pictureUrl: [],
+    });
+    ind = "main";
+  } else {
+    mainTopic = new MainTopic({
+      title: req.body.title,
+      notes: req.body.notes,
+      category: req.body.category,
+      username: req.body.username,
+      anonymous: postAnonymous,
+      pictures: fileNumbers,
+      pictureUrl: [],
+    });
+  }
+
+  if (req.files && req.files.length >= 1) {
+    req.files.forEach(function (file) {
+      (ind === "main" ? mainTopic : subTopic).pictureUrl.push({
+        filename: file.filename,
+        originalname: file.originalname,
+        path: file.path,
+        size: file.size,
+      });
+      inputFiles.push(outputFolderPath1 + file.filename);
+    });
+  }
+  imageCompressor.compressImages(inputFiles, outputFolderPath);
+
+  await (ind === "main" ? mainTopic : subTopic).save().then(() => {
+    Like.create({
+      postId: (ind === "main" ? mainTopic : subTopic)._id,
+      username: req.body.username,
+      category: req.body.category,
+      number: 0,
+      postingtime: (ind === "main" ? mainTopic : subTopic).postingtime,
+    });
+  });
+
+  console.log("Topic saved");
+  res.status(201).send("Topic saved");
 });

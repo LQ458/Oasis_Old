@@ -58,6 +58,7 @@ function Generalform({ admin, username }) {
       const res = await axios.get("/api/fetchLike", {
         params: {
           username: username,
+          forum: "general",
         },
       });
       setLikes(res.data.likes);
@@ -267,6 +268,7 @@ function Generalform({ admin, username }) {
     getPosts();
     fetchLikes();
   }, []);
+
   return (
     <>
       <title>General</title>

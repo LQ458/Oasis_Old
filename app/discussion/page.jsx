@@ -9,7 +9,7 @@ export default async function general() {
   const session = await getServerSession(authOptions);
 
   try {
-    const res = await axios.post("http://localhost:3000/api/fetchAdmin", {
+    const res = await axios.post("/api/fetchAdmin", {
       username: session?.user?.name,
     });
     admin = res.data.admin;

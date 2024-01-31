@@ -211,8 +211,8 @@ export default function Dashboardform({ username }) {
               />
             </div>
             <li>
-              <Link href="/academics" className="channel" data-icon="icon-5">
-                Academics
+              <Link href="/discussion" className="channel" data-icon="icon-5">
+                Discussion
               </Link>
             </li>
           </div>
