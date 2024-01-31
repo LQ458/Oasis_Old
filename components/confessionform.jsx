@@ -32,11 +32,7 @@ export default function Confessionform({ username }) {
   };
 
   useEffect(() => {
-    const fetchLove = async () => {
-      await getLove();
-    };
-
-    fetchLove();
+    getLove();
   }, []);
 
   const handleSubmit = async (e) => {

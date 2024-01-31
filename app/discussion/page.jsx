@@ -4,12 +4,14 @@ import { redirect } from "next/navigation";
 import axios from "axios";
 import { authOptions } from "../api/auth/[...nextauth]/route.js";
 
-export default async function general() {
+export default async function discussion() {
   let admin;
   const session = await getServerSession(authOptions);
 
+  if(!session) return redirect("/");
+
   try {
-    const res = await axios.post("/api/fetchAdmin", {
+    const res = await axios.post("http://localhost:3000/api/fetchAdmin", {
       username: session?.user?.name,
     });
     admin = res.data.admin;
