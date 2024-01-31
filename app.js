@@ -10,7 +10,7 @@ const Comment = require("./models/comment");
 const uploadmiddleware = uploadutils.middleware;
 const imageCompressor = require("./models/compression");
 const MainTopic = require("./models/mainTopic");
-import SubTopic from "./models/subTopic";
+const SubTopic = require("./models/subTopic");
 
 dotenv.config();
 
@@ -127,7 +127,7 @@ app.post("/uploadComment", uploadmiddleware, async function (req, res) {
 
 app.post("/uploadTopic", uploadmiddleware, async function (req, res) {
   const fileNumbers = req.files ? req.files.length : 0;
-  var ind;
+  var ind = null;
   const inputFiles = [];
   let postAnonymous = false;
   if (req.body.anonymous === "true") {
@@ -135,10 +135,24 @@ app.post("/uploadTopic", uploadmiddleware, async function (req, res) {
   }
   const outputFolderPath = path.join(process.cwd(), "/public/");
   const outputFolderPath1 = path.join(process.cwd(), "/app/public/uploads/");
-  let mainTopic, subTopic;
+  let topic;
 
-  if (req.body.postId) {
-    subTopic = new SubTopic({
+  if (
+    req.body.postId === "" ||
+    req.body.postId === null ||
+    req.body.postId === undefined
+  ) {
+    topic = new MainTopic({
+      title: req.body.title,
+      notes: req.body.notes,
+      category: req.body.category,
+      username: req.body.username,
+      anonymous: postAnonymous,
+      pictures: fileNumbers,
+      pictureUrl: [],
+    });
+  } else {
+    topic = new SubTopic({
       postId: req.body.postId,
       title: req.body.title,
       notes: req.body.notes,
@@ -149,21 +163,11 @@ app.post("/uploadTopic", uploadmiddleware, async function (req, res) {
       pictureUrl: [],
     });
     ind = "main";
-  } else {
-    mainTopic = new MainTopic({
-      title: req.body.title,
-      notes: req.body.notes,
-      category: req.body.category,
-      username: req.body.username,
-      anonymous: postAnonymous,
-      pictures: fileNumbers,
-      pictureUrl: [],
-    });
   }
 
   if (req.files && req.files.length >= 1) {
     req.files.forEach(function (file) {
-      (ind === "main" ? mainTopic : subTopic).pictureUrl.push({
+      topic.pictureUrl.push({
         filename: file.filename,
         originalname: file.originalname,
         path: file.path,
@@ -174,13 +178,13 @@ app.post("/uploadTopic", uploadmiddleware, async function (req, res) {
   }
   imageCompressor.compressImages(inputFiles, outputFolderPath);
 
-  await (ind === "main" ? mainTopic : subTopic).save().then(() => {
+  await topic.save().then(() => {
     Like.create({
-      postId: (ind === "main" ? mainTopic : subTopic)._id,
+      postId: topic._id,
       username: req.body.username,
       category: req.body.category,
       number: 0,
-      postingtime: (ind === "main" ? mainTopic : subTopic).postingtime,
+      postingtime: topic.postingtime,
     });
   });
 
