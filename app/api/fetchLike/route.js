@@ -8,6 +8,7 @@ export async function GET(req) {
   try {
     await DBconnect();
     const forum = req.nextUrl.searchParams.get("forum");
+    console.log(forum);
     const username = req.nextUrl.searchParams.get("username");
     const [likes, likestatuses] = await Promise.all([
       Like.find({ forum: forum }),
