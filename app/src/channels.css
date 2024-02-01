@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+  --black-color: #374151;
+  --main-color: #1976d2;
+  --sub-color: #1a699e;
+  --sec-color: #2c9aff;
+}
+
 html {
   width: 100%;
 }
@@ -22,26 +29,26 @@ body {
   overflow-y: scroll;
   position: relative;
   padding: 0;
-  background: linear-gradient(45deg, #2196f3, #f629e1);
+  background-color: #f2f4f5;
   background-size: 100% 100%;
   background-attachment: fixed;
 }
 
 a.titleg {
-  font-size: 1rem;
+  font-size: 1.3rem;
   position: relative;
-  left: 1.5rem;
-  bottom: 0.1rem;
+  top: 0.3vh;
+  left: 2.5vw;
   font-weight: 600;
-  color: aliceblue;
+  color: white;
   text-decoration: none;
 }
 
 #topBar {
   padding: 1rem 0; /* Adjust the padding */
   width: 100%;
-  height: 6vh;
-  background-color: #282828;
+  height: 8vh;
+  background-color: var(--main-color);
   position: fixed;
   top: 0;
   left: 0;
@@ -59,7 +66,8 @@ a.titleg {
 }
 
 .postsG {
-  border: white solid 2px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.05);
+  border: #e5e7eb solid 1px;
   padding-left: 1.2rem;
   padding: 1rem;
   width: 40vw;
@@ -67,7 +75,7 @@ a.titleg {
   margin-bottom: 3vh;
   border-radius: 26px;
   background-color: white;
-  color: black;
+  color: var(--black-color);
   opacity: 1;
   position: relative;
   left: 1.7rem;
@@ -79,16 +87,18 @@ a.titleg {
 
 .adp {
   display: flex;
+  box-shadow: 0 5px 20px rgba(0,0,0,.05);
+  border: #e5e7eb solid 1px;
   position: relative;
   align-items: center;
   justify-content: center;
-  background-color: #f2f2f2;
+  background-color: white;
   border: none;
   left: 61vw;
   top: 3.2rem;
   border-radius: 12px;
   padding: 0.7rem;
-  color: #333;
+  color:var(--black-color);
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
@@ -99,7 +109,7 @@ a.titleg {
 }
 
 .postLikes {
-  color: black;
+  color: var(--black-color);
   font-weight: 500;
   font-size: 28px;
   position: relative;
@@ -110,22 +120,25 @@ a.titleg {
   color: red;
 }
 #backButton {
-  color: white;
+  color: var(--black-color);
   position: relative;
   font-size: 20px;
   top: 4vh;
   left: 40px;
+  border: 2px solid transparent;
   text-decoration: none;
   font-weight: 600;
   padding: 5px 10px;
   border-radius: 5px;
   transition:
+  border-color 0.3s,
     background-color 0.3s,
     color 0.3s;
 }
 #backButton:hover {
-  background-color: rgba(300, 300, 300, 0.2);
-  color: #fff;
+  background-color: #79bcf246;
+  border-color: var(--main-color);
+  color: black;
 }
 
 #backButton:active {
@@ -133,7 +146,7 @@ a.titleg {
 }
 
 button.refreshBtn {
-  color: white;
+  color: var(--black-color);
   position: relative;
   font-size: 20px;
   top: 4vh;
@@ -141,14 +154,17 @@ button.refreshBtn {
   text-decoration: none;
   font-weight: 600;
   padding: 5px 10px;
+  border: 2px solid transparent;
   border-radius: 5px;
   transition:
+    border-color 0.3s,
     background-color 0.3s,
     color 0.3s;
 }
 button.refreshBtn:hover {
-  background-color: rgba(300, 300, 300, 0.2);
-  color: #fff;
+  background-color: #79bcf246;
+  border-color: var(--main-color);
+  color: black;
 }
 
 button.refreshBtn:active {
@@ -188,21 +204,14 @@ button.refreshBtn:active {
   width: 28vw;
   padding: 3rem;
   height: 62vh;
-  border: 1px solid #ccc;
+  box-shadow: 0 5px 20px rgba(0,0,0,.05);
+  border: #e5e7eb solid 1px;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: white;
   position: absolute;
 }
-
-#closeForm {
-  color: black;
-  font-size: 2rem;
-  left: 22vw;
-  top: -2vh;
-  position: relative;
-}
 #closeForm:hover {
-  fill: #ec3da0;
+  fill: var(--sub-color);
   transition: 0.3s;
 }
 
@@ -225,7 +234,7 @@ textarea {
 }
 
 .Btn {
-  background-color: #ec3da0;
+  background-color: var(--sub-color);
   position: relative;
   color: #fff;
   border: none;
@@ -234,9 +243,7 @@ textarea {
   font-size: 16px;
   cursor: pointer;
 }
-button.Btn:hover {
-  background-color: #a04597;
-}
+
 
 br {
   line-height: 12px;
@@ -246,10 +253,10 @@ br {
 .switch {
   position: relative;
   display: inline-block;
-  width: 3.8rem;
+  width: 4.2vw;
   bottom: 5.5vh;
   right: -2vw;
-  height: 2.2rem;
+  height: 4.2vh;
 }
 
 /* Hide default HTML checkbox */
@@ -285,11 +292,11 @@ br {
 }
 
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: var(--main-color);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
+  box-shadow: 0 0 1px var(--main-color);
 }
 
 input:checked + .slider:before {
@@ -310,16 +317,16 @@ input:checked + .slider:before {
 .posta {
   position: relative;
   white-space: nowrap;
-  top: 0.1rem;
-  left: 5rem;
+  top: 0.2vh;
+  left: 4.7vw;
   font-weight: 550;
   font-size: 1.2rem;
   display: inline-block;
 }
-.switchForm {
+div.switchForm {
   position: relative;
-  left: 150px;
-  top: 80px;
+  left: 15vw;
+  top: 1vh;
 }
 div.preview-images > img {
   width: 30%;
@@ -349,7 +356,7 @@ img {
   margin-bottom: 3rem;
   border-radius: 26px;
   background-color: white;
-  color: black;
+  color: var(--black-color);
   opacity: 1;
   position: relative;
   left: 1.7rem;
@@ -359,7 +366,7 @@ img {
   border-radius: 2px;
 }
 .title:focus {
-  border-color: black;
+  border-color: var(--black-color);
 }
 #content {
   border: 1px solid rgb(148, 148, 148);
@@ -371,11 +378,27 @@ button.postBtn {
   padding: 0.5rem;
   padding-left: 1rem;
   padding-right: 1rem;
-  background-color: #ec3da0;
+  background-color: var(--sec-color);
 }
 button.postBtn:hover {
   transition: 0.3s;
-  background-color: rgb(253, 141, 159);
+  background-color: var(--sub-color);
+}
+
+button.closeForm {
+  color: white;
+  position: relative;
+  left: 2vw;
+  border: 1px solid transparent;
+  border-radius: 25px;
+  padding: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: var(--sec-color);
+}
+button.closeForm:hover {
+  transition: 0.3s;
+  background-color: var(--sub-color);
 }
 
 .ld {
@@ -397,12 +420,12 @@ button.deleteBtn {
   padding-right: 1rem;
   color: white;
   position: relative;
-  background-color: #ec3da0;
+  background-color: var(--sec-color);
   transition: 0.3s;
 }
 button.deleteBtn:hover {
   transition: 0.3s;
-  background-color: rgb(253, 141, 159);
+  background-color: var(--sub-color);
 }
 div.contents {
   white-space: pre-wrap;
@@ -478,4 +501,32 @@ svg.loadHeart {
   100% {
     transform: scale(1.2);
   }
+}
+h3.ptitle{
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+/* Hide the default file input */
+#input-files {
+  display: none;
+}
+
+/* Style the label */
+label[for="input-files"] {
+  padding: 10px;
+  position: relative;
+  background-color: #2196f3;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Change the label style on hover */
+label[for="input-files"]:hover {
+  background-color: #0d8aee;
+}
+
+div.formBottom{
+  position: relative;
+  top: 6vh;
 }

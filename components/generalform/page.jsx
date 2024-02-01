@@ -297,9 +297,6 @@ function Generalform({ admin, username }) {
             id="postForm"
             encType="multipart/form-data"
           >
-            <button id="closeForm" onClick={handleCloseFormClick}>
-              <Image src={Cancel} alt="cancel" height="40" width="40" />
-            </button>
             <label htmlFor="title">Title:</label>
             <input
               type="text"
@@ -322,14 +319,35 @@ function Generalform({ admin, username }) {
             ></textarea>
             <br />
             <br />
-            <label htmlFor="input-files">Pictures:</label>
-            <input
-              type="file"
-              id="input-files"
-              className="form-control-file border"
-              onChange={handleFileChange}
-              multiple
-            />
+            <label htmlFor="input-files">
+  Pictures:
+  <input
+    type="file"
+    id="input-files"
+    className="form-control-file border"
+    onChange={handleFileChange}
+    multiple
+  />
+</label>
+<div className="formBottom">
+            <button type="submit" className="postBtn" disabled={load}>
+              {!load && <p className="ldd">Post</p>}
+              {load && (
+                <div className="load">
+                  <TailSpin
+                    type="ThreeDots"
+                    color="white"
+                    height={20}
+                    width={40}
+                    style={{ marginRight: "5px" }}
+                  />
+                  <span className="ld">Loading...</span>
+                </div>
+              )}
+            </button>
+            <button className="closeForm" onClick={handleCloseFormClick}>
+              <p>Cancel</p>
+            </button>
             <div className="switchForm">
               <label className="switch">
                 <input
@@ -346,21 +364,7 @@ function Generalform({ admin, username }) {
                 </span>
               </label>
             </div>
-            <button type="submit" className="postBtn" disabled={load}>
-              {!load && <p className="ldd">Post</p>}
-              {load && (
-                <div className="load">
-                  <TailSpin
-                    type="ThreeDots"
-                    color="white"
-                    height={20}
-                    width={40}
-                    style={{ marginRight: "5px" }}
-                  />
-                  <span className="ld">Loading...</span>
-                </div>
-              )}
-            </button>
+            </div>
           </form>
           <div className="row">
             <div className="col-sm-12">
@@ -392,8 +396,7 @@ function Generalform({ admin, username }) {
               ))
             : posts.map((post, postIndex) => (
                 <div className="postsG" key={postIndex}>
-                  <div>
-                    <h3>{post.title}</h3>
+                    <h3 className="ptitle">{post.title}</h3>
                     <br />
                     <div className="contents">{post.content}</div>
                     <br />
@@ -675,7 +678,6 @@ function Generalform({ admin, username }) {
                         </form>
                       </div>
                     )}
-                  </div>
                 </div>
               ))}
         </div>

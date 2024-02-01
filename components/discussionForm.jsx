@@ -1,9 +1,10 @@
-"use client";
+'use client'
+import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "@/app/src/discussion.css";
 
-export default function DiscussionForm({ admin, username }) {
+function DiscussionForm({ admin, username }) {
   const [mainTopics, setMainTopics] = useState([]);
   const [subTopics, setSubTopics] = useState([]);
   const [mainTopic, setMainTopic] = useState("");
@@ -37,12 +38,14 @@ export default function DiscussionForm({ admin, username }) {
 
   return (
     <>
+    <title>{mainTopic ? mainTopic.title : "Discussion"}</title>
       <div className="discussionTopBar">
       {mainTopic && (
           <h1 className="discussion">{mainTopic.title}</h1>
       )}
       </div>
-      <h1 className="discussion">Hiii</h1>
     </>
   );
 }
+
+export default DiscussionForm;

@@ -4,7 +4,6 @@ import React from "react";
 import axios from "axios";
 import Skeleton from "./skeletons/Skeleton";
 import { useState, useRef } from "react";
-import Cancel from "@/public/cancel.svg";
 import Image from "next/image";
 import { TailSpin } from "react-loader-spinner";
 import { Picker } from "emoji-mart";
@@ -262,9 +261,6 @@ function Newsform({ admin, username }) {
             id="postForm"
             encType="multipart/form-data"
           >
-            <button id="closeForm" onClick={handleCloseFormClick}>
-              <Image src={Cancel} alt="cancel" height="40" width="40" />
-            </button>
             <label htmlFor="title">Title:</label>
             <input
               type="text"
@@ -287,14 +283,35 @@ function Newsform({ admin, username }) {
             ></textarea>
             <br />
             <br />
-            <label htmlFor="input-files">Pictures:</label>
-            <input
-              type="file"
-              id="input-files"
-              className="form-control-file border"
-              onChange={handleFileChange}
-              multiple
-            />
+            <label htmlFor="input-files">
+  Pictures:
+  <input
+    type="file"
+    id="input-files"
+    className="form-control-file border"
+    onChange={handleFileChange}
+    multiple
+  />
+</label>
+<div className="formBottom">
+            <button type="submit" className="postBtn" disabled={load}>
+              {!load && <p className="ldd">Post</p>}
+              {load && (
+                <div className="load">
+                  <TailSpin
+                    type="ThreeDots"
+                    color="white"
+                    height={20}
+                    width={40}
+                    style={{ marginRight: "5px" }}
+                  />
+                  <span className="ld">Loading...</span>
+                </div>
+              )}
+            </button>
+            <button className="closeForm" onClick={handleCloseFormClick}>
+              Cancel
+            </button>
             <div className="switchForm">
               <label className="switch">
                 <input
@@ -311,21 +328,7 @@ function Newsform({ admin, username }) {
                 </span>
               </label>
             </div>
-            <button type="submit" className="postBtn" disabled={load}>
-              {!load && <p className="ldd">Post</p>}
-              {load && (
-                <div className="load">
-                  <TailSpin
-                    type="ThreeDots"
-                    color="white"
-                    height={20}
-                    width={40}
-                    style={{ marginRight: "5px" }}
-                  />
-                  <span className="ld">Loading...</span>
-                </div>
-              )}
-            </button>
+            </div>
           </form>
         </div>
       )}
