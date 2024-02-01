@@ -11,7 +11,7 @@ div.discussionTopBar {
   background-color: var(--blue-color);
 }
 
-h1.discussion{
+h1.discussion {
   color: white;
   top: 1.7vh;
   position: relative;

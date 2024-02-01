@@ -1,6 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+:root {
+  --width: 100vw;
+}
+
 h1.h11 {
   font-size: 2rem;
   position: relative;
@@ -17,39 +18,7 @@ body.dash {
   display: flex;
   flex-direction: row;
   height: 100vh;
-  background: linear-gradient(
-    -55deg,
-    #ee7752,
-    #e73c7e,
-    rgb(180, 180, 36),
-    #257fa0,
-    #1d9f80
-  );
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-#topBardash {
-  padding: 5px 0;
-  width: 100%;
-  height: 4.5rem;
-  background-color: transparent;
-  position: absolute;
-  display: flex;
-  top: 0;
-  left: 0;
-  z-index: 2;
+  background-color: #f2f4f5;
 }
 li {
   list-style: none;
@@ -79,12 +48,10 @@ a.title {
   top: 0.7rem;
   font-weight: 600;
   font-weight: 550;
-  color: aliceblue;
   text-decoration: none;
 }
 .profile {
   position: relative;
-  color: white;
   left: 70rem;
   bottom: 0;
 }
@@ -93,10 +60,10 @@ section.secd {
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 2rem;
-  color: white;
+  color: #374151;
   font-size: 1.2rem;
   height: 100vh;
-  width: calc(100vw - 130px);
+  width: var(--width);
 }
 section.secd::-webkit-scrollbar {
   width: 10px;
@@ -114,8 +81,12 @@ section.secd::-webkit-scrollbar-thumb:hover {
   background-color: rgb(56, 239, 208);
 }
 h1.dashh1 {
-  font-size: 2rem;
-  position: relative;
+  top: 1.7vh;
+  left: 50%;
+  color: white;
+  transform: translateX(-50%);
+  font-size: 1.4rem;
+  position: absolute;
   font-weight: 550;
 }
 div.comments {
@@ -139,8 +110,9 @@ div.dashpost {
   display: flex;
 }
 div.myPost {
-  border: 1px solid transparent;
+  border: #e5e7eb solid 1px;
   border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
   background-color: white;
   color: #22a0ce;
   padding: 0.5rem;
@@ -197,4 +169,44 @@ p.dashp {
   width: 40px !important;
 }
 @media screen and (max-width: 1600px) {
+}
+top.dash {
+  position: fixed;
+  z-index: 100;
+  display: flex;
+  top: 0;
+  left: 0;
+  text-align: center;
+  background-color: #133153;
+  height: 8vh;
+  width: var(--width);
+}
+button.menuBtn {
+  top: 1.5vh;
+  color: white;
+  left: 4vw;
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+button.menuBtn:hover {
+  color: rgb(183, 183, 183);
+}
+
+.toIntro {
+  position: relative;
+  display: flex;
+  top: 0.4vh;
+  left: 1vw;
+  color: white;
+  font-size: 1.2rem;
+}
+span.intro {
+  position: relative;
+  top: 1.7vh;
+}
+
+div.nav {
+  position: relative;
+  margin-top: auto;
 }

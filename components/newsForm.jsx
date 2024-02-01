@@ -284,50 +284,50 @@ function Newsform({ admin, username }) {
             <br />
             <br />
             <label htmlFor="input-files">
-  Pictures:
-  <input
-    type="file"
-    id="input-files"
-    className="form-control-file border"
-    onChange={handleFileChange}
-    multiple
-  />
-</label>
-<div className="formBottom">
-            <button type="submit" className="postBtn" disabled={load}>
-              {!load && <p className="ldd">Post</p>}
-              {load && (
-                <div className="load">
-                  <TailSpin
-                    type="ThreeDots"
-                    color="white"
-                    height={20}
-                    width={40}
-                    style={{ marginRight: "5px" }}
+              Pictures:
+              <input
+                type="file"
+                id="input-files"
+                className="form-control-file border"
+                onChange={handleFileChange}
+                multiple
+              />
+            </label>
+            <div className="formBottom">
+              <button type="submit" className="postBtn" disabled={load}>
+                {!load && <p className="ldd">Post</p>}
+                {load && (
+                  <div className="load">
+                    <TailSpin
+                      type="ThreeDots"
+                      color="white"
+                      height={20}
+                      width={40}
+                      style={{ marginRight: "5px" }}
+                    />
+                    <span className="ld">Loading...</span>
+                  </div>
+                )}
+              </button>
+              <button className="closeForm" onClick={handleCloseFormClick}>
+                Cancel
+              </button>
+              <div className="switchForm">
+                <label className="switch">
+                  <input
+                    type="checkbox"
+                    name="postAnonymous"
+                    checked={postAnonymous}
+                    onChange={() => setPostAnonymous(!postAnonymous)}
                   />
-                  <span className="ld">Loading...</span>
-                </div>
-              )}
-            </button>
-            <button className="closeForm" onClick={handleCloseFormClick}>
-              Cancel
-            </button>
-            <div className="switchForm">
-              <label className="switch">
-                <input
-                  type="checkbox"
-                  name="postAnonymous"
-                  checked={postAnonymous}
-                  onChange={() => setPostAnonymous(!postAnonymous)}
-                />
-                <span className="slider round">
-                  <h6 className="posta">
-                    Anonymously?
-                    <p />
-                  </h6>
-                </span>
-              </label>
-            </div>
+                  <span className="slider round">
+                    <h6 className="posta">
+                      Anonymously?
+                      <p />
+                    </h6>
+                  </span>
+                </label>
+              </div>
             </div>
           </form>
         </div>
