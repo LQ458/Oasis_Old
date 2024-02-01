@@ -8,7 +8,7 @@ export default async function Discussion() {
   let admin;
   const session = await getServerSession(authOptions);
 
-  if(!session) redirect("/");
+  if (!session) redirect("/");
 
   try {
     const res = await axios.post("http://localhost:3000/api/fetchAdmin", {

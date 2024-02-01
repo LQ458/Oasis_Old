@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Link from "next/link";
 import $ from "jquery";
 import { useEffect } from "react";
@@ -42,74 +42,69 @@ const Nav = () => {
   }, []);
   return (
     <nav className="dash">
-        <div className="container">
-          <div className="dblock">
-            <Link href="/profile" className="icon">
-              <Image
-                src="/person-circle-outline.svg"
-                width="60"
-                height="60"
-                alt="person"
-              />
-            </Link>
-          </div>
-          <div className="dblock">
-            <div className="icon icon-2">
-              <Image
-                src="/earth-outline.svg"
-                width="40"
-                height="40"
-                alt="earth"
-              />
-            </div>
-            <li>
-              <Link className="channel" data-icon="icon-2" href="/general">
-                General
-              </Link>
-            </li>
-          </div>
-          <div className="dblock">
-            <div className="icon icon-3">
-              <Image
-                src="/chatbox-outline.svg"
-                width="40"
-                height="40"
-                alt="chatbox"
-              />
-            </div>
-            <li>
-              <Link className="channel" data-icon="icon-3" href="/news">
-                News
-              </Link>
-            </li>
-          </div>
-          <div className="dblock">
-            <div className="icon icon-4">
-              <Image src="/heart.svg" width="40" height="40" alt="heart" />
-            </div>
-            <li>
-              <Link className="channel" data-icon="icon-4" href="/confession">
-                Confession
-              </Link>
-            </li>
-          </div>
-          <div className="dblock">
-            <div className="icon icon-5">
-              <Image
-                src="/book-outline.svg"
-                width="40"
-                height="40"
-                alt="book"
-              />
-            </div>
-            <li>
-              <Link href="/discussion" className="channel" data-icon="icon-5">
-                Discussion
-              </Link>
-            </li>
-          </div>
+      <div className="container">
+        <div className="dblock">
+          <Link href="/profile" className="icon">
+            <Image
+              src="/person-circle-outline.svg"
+              width="60"
+              height="60"
+              alt="person"
+            />
+          </Link>
         </div>
-      </nav>
+        <div className="dblock">
+          <div className="icon icon-2">
+            <Image
+              src="/earth-outline.svg"
+              width="40"
+              height="40"
+              alt="earth"
+            />
+          </div>
+          <li>
+            <Link className="channel" data-icon="icon-2" href="/general">
+              General
+            </Link>
+          </li>
+        </div>
+        <div className="dblock">
+          <div className="icon icon-3">
+            <Image
+              src="/chatbox-outline.svg"
+              width="40"
+              height="40"
+              alt="chatbox"
+            />
+          </div>
+          <li>
+            <Link className="channel" data-icon="icon-3" href="/news">
+              News
+            </Link>
+          </li>
+        </div>
+        <div className="dblock">
+          <div className="icon icon-4">
+            <Image src="/heart.svg" width="40" height="40" alt="heart" />
+          </div>
+          <li>
+            <Link className="channel" data-icon="icon-4" href="/confession">
+              Confession
+            </Link>
+          </li>
+        </div>
+        <div className="dblock">
+          <div className="icon icon-5">
+            <Image src="/book-outline.svg" width="40" height="40" alt="book" />
+          </div>
+          <li>
+            <Link href="/discussion" className="channel" data-icon="icon-5">
+              Discussion
+            </Link>
+          </li>
+        </div>
+      </div>
+    </nav>
   );
 };
 

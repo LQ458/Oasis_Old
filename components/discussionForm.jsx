@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -38,11 +38,9 @@ function DiscussionForm({ admin, username }) {
 
   return (
     <>
-    <title>{mainTopic ? mainTopic.title : "Discussion"}</title>
+      <title>{mainTopic ? mainTopic.title : "Discussion"}</title>
       <div className="discussionTopBar">
-      {mainTopic && (
-          <h1 className="discussion">{mainTopic.title}</h1>
-      )}
+        {mainTopic && <h1 className="discussion">{mainTopic.title}</h1>}
       </div>
     </>
   );
