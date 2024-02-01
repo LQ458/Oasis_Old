@@ -51,38 +51,6 @@ body.dash {
   left: 0;
   z-index: 2;
 }
-.channels {
-  display: flex;
-  align-items: center;
-}
-.channel {
-  text-decoration: none;
-  position: relative;
-  transition: color 0.5s;
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
-.channel:hover {
-  text-decoration: none;
-  color: rgb(15, 185, 185);
-}
-
-.channel:active {
-  animation: click-effect 0.3s ease-in-out;
-}
-
-@keyframes click-effect {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.9);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
 li {
   list-style: none;
 }
@@ -95,25 +63,6 @@ ul li {
   display: inline-block;
   margin-right: 10px;
 }
-.container {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.806);
-  border-right: 1.5px solid #fff;
-  color: white;
-  justify-content: left;
-  width: 130px;
-}
-.icon-container {
-  position: relative;
-  left: 15px;
-  margin-top: -16px;
-}
-nav.dash {
-  flex-grow: 1;
-}
 p {
   text-align: left;
 }
@@ -123,28 +72,6 @@ p {
   align-items: center;
 }
 
-.index .icon-container {
-  margin-right: 1rem;
-}
-
-div.dblock {
-  position: relative;
-  top: 5vh;
-  text-align: center;
-  height: 20vh;
-  color: white;
-}
-.icon {
-  display: inline-block;
-  position: relative;
-  font-weight: 50;
-  transition: transform 0.2s ease-in-out;
-}
-.lift {
-  transform: translateY(-15px);
-  color: white;
-  transition: transform 0.2s ease-in-out;
-}
 a.title {
   font-size: 2rem;
   position: relative;
@@ -154,16 +81,6 @@ a.title {
   font-weight: 550;
   color: aliceblue;
   text-decoration: none;
-}
-#adminPage {
-  text-align: center;
-  text-decoration: none;
-  position: relative;
-  right: 100px;
-  color: white;
-  width: 200px;
-  border: white 2px solid;
-  height: 20px;
 }
 .profile {
   position: relative;
@@ -178,7 +95,6 @@ section.secd {
   padding: 2rem;
   color: white;
   font-size: 1.2rem;
-  background-color: rgba(200, 200, 200, 0.336);
   height: 100vh;
   width: calc(100vw - 130px);
 }
@@ -201,7 +117,6 @@ h1.dashh1 {
   font-size: 2rem;
   position: relative;
   font-weight: 550;
-  color: white;
 }
 div.comments {
   padding: 3rem;
