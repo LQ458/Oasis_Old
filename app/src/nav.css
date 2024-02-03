@@ -57,3 +57,7 @@ div.dblock {
     transform: scale(1);
   }
 }
+
+li.nav {
+  list-style: none;
+}

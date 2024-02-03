@@ -62,7 +62,7 @@ const Nav = () => {
               alt="earth"
             />
           </div>
-          <li>
+          <li className="nav">
             <Link className="channel" data-icon="icon-2" href="/general">
               General
             </Link>
@@ -77,7 +77,7 @@ const Nav = () => {
               alt="chatbox"
             />
           </div>
-          <li>
+          <li className="nav">
             <Link className="channel" data-icon="icon-3" href="/news">
               News
             </Link>
@@ -87,7 +87,7 @@ const Nav = () => {
           <div className="icon icon-4">
             <Image src="/heart.svg" width="40" height="40" alt="heart" />
           </div>
-          <li>
+          <li className="nav">
             <Link className="channel" data-icon="icon-4" href="/confession">
               Confession
             </Link>
@@ -97,7 +97,7 @@ const Nav = () => {
           <div className="icon icon-5">
             <Image src="/book-outline.svg" width="40" height="40" alt="book" />
           </div>
-          <li>
+          <li className="nav">
             <Link href="/discussion" className="channel" data-icon="icon-5">
               Discussion
             </Link>
