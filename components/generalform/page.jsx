@@ -4,8 +4,6 @@ import React from "react";
 import axios from "axios";
 import Skeleton from "../skeletons/Skeleton";
 import { useState, useRef } from "react";
-import Cancel from "@/public/cancel.svg";
-import Image from "next/image";
 import { TailSpin } from "react-loader-spinner";
 import { Picker } from "emoji-mart";
 import { useEffect } from "react";
