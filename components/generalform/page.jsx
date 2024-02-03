@@ -134,7 +134,7 @@ function Generalform({ admin, username }) {
     }
     try {
       setLoad(true);
-      const res = await axios.post("http://localhost:3001/upload", formData, {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_SOURCE_URL}/upload`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
