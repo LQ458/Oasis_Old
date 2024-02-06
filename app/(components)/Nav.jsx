@@ -1,45 +1,13 @@
 "use client";
-import Link from "next/link";
-import $ from "jquery";
-import { useEffect } from "react";
-import Image from "next/image";
-import "../src/nav.css";
+import { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import '../src/nav.css';
 
 const Nav = () => {
-  useEffect(() => {
-    var channels = $(".channel");
-    for (var i = 0; i < channels.length; i++) {
-      $(channels[i]).css("animation-delay", i * 0.2 + "s");
-    }
+  const [activeIcon, setActiveIcon] = useState(null);
+  const [lift, setLift] = useState(false);
 
-    let liftInterval;
-
-    $(function () {
-      $(".channel").hover(
-        function () {
-          var iconClass = $(this).data("icon");
-          $(".icon").removeClass("lift");
-          $("." + iconClass).addClass("lift");
-        },
-        function () {
-          $(".icon").removeClass("lift");
-        },
-      );
-    });
-    $(".channel").click(
-      function () {
-        var iconClass = $(this).data("icon");
-        $(".icon").removeClass("lift");
-        liftInterval = setInterval(() => {
-          $("." + iconClass).toggleClass("lift");
-        }, 500);
-      },
-      function () {
-        clearInterval(liftInterval);
-        $(".icon").removeClass("lift");
-      },
-    );
-  }, []);
   return (
     <nav className="dash">
       <div className="container">
@@ -54,7 +22,7 @@ const Nav = () => {
           </Link>
         </div>
         <div className="dblock">
-          <div className="icon icon-2">
+          <div className={`icon icon-2 ${activeIcon === 'icon-2' && lift ? 'lift' : ''}`}>
             <Image
               src="/earth-outline.svg"
               width="40"
@@ -63,13 +31,18 @@ const Nav = () => {
             />
           </div>
           <li className="nav">
-            <Link className="channel" data-icon="icon-2" href="/general">
+            <Link
+              className="channel"
+              onMouseEnter={() => { setActiveIcon('icon-2'); setLift(true); }}
+              onMouseLeave={() => { setActiveIcon(null); setLift(false); }}
+              href="/general"
+            >
               General
             </Link>
           </li>
         </div>
         <div className="dblock">
-          <div className="icon icon-3">
+          <div className={`icon icon-3 ${activeIcon === 'icon-3' && lift ? 'lift' : ''}`}>
             <Image
               src="/chatbox-outline.svg"
               width="40"
@@ -78,27 +51,42 @@ const Nav = () => {
             />
           </div>
           <li className="nav">
-            <Link className="channel" data-icon="icon-3" href="/news">
+            <Link
+              className="channel"
+              onMouseEnter={() => { setActiveIcon('icon-3'); setLift(true); }}
+              onMouseLeave={() => { setActiveIcon(null); setLift(false); }}
+              href="/news"
+            >
               News
             </Link>
           </li>
         </div>
         <div className="dblock">
-          <div className="icon icon-4">
+          <div className={`icon icon-4 ${activeIcon === 'icon-4' && lift ? 'lift' : ''}`}>
             <Image src="/heart.svg" width="40" height="40" alt="heart" />
           </div>
           <li className="nav">
-            <Link className="channel" data-icon="icon-4" href="/confession">
+            <Link
+              className="channel"
+              onMouseEnter={() => { setActiveIcon('icon-4'); setLift(true); }}
+              onMouseLeave={() => { setActiveIcon(null); setLift(false); }}
+              href="/confession"
+            >
               Confession
             </Link>
           </li>
         </div>
         <div className="dblock">
-          <div className="icon icon-5">
+          <div className={`icon icon-5 ${activeIcon === 'icon-5' && lift ? 'lift' : ''}`}>
             <Image src="/book-outline.svg" width="40" height="40" alt="book" />
           </div>
           <li className="nav">
-            <Link href="/discussion" className="channel" data-icon="icon-5">
+            <Link
+              className="channel"
+              onMouseEnter={() => { setActiveIcon('icon-5'); setLift(true); }}
+              onMouseLeave={() => { setActiveIcon(null); setLift(false); }}
+              href="/discussion"
+            >
               Discussion
             </Link>
           </li>
