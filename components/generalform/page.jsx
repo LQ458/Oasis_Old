@@ -6,7 +6,9 @@ import Skeleton from "../skeletons/Skeleton";
 import { useState, useRef } from "react";
 import { TailSpin } from "react-loader-spinner";
 import { Picker } from "emoji-mart";
+import ColorThief from "colorthief";
 import { useEffect } from "react";
+import path, { dirname } from "path";
 
 function Generalform({ admin, username }) {
   const [loading, setLoading] = useState(true);
@@ -30,8 +32,6 @@ function Generalform({ admin, username }) {
   const [likeload, setLikeload] = useState([]);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
   let newArray;
-
-  const formRef = useRef();
 
   const getPosts = async () => {
     try {
@@ -67,8 +67,21 @@ function Generalform({ admin, username }) {
     }
   };
 
-  const imagePreview = (index, postIndex) => {
+  const imagePreview = (index, postIndex, img) => {
     document.body.style.overflowY = "hidden";
+    const colorThief = new ColorThief();
+    const image = new Image();
+    image.crossOrigin = "Anonymous";
+    image.src = path.join('/', img.filename); // Use the path from your img object
+
+    image.onload = async function () {
+      const colors = await colorThief.getPalette(image, 2);
+      const rgbColors = colors.map(color => `rgb(${color.join(', ')})`);
+      document.documentElement.style.setProperty('--1-color', rgbColors[0]);
+      document.documentElement.style.setProperty('--2-color', rgbColors[1]);
+      document.documentElement.style.setProperty('--3-color', rgbColors[2]);
+    };
+
     let Array = [...imgCheck]; // create a copy of the current state
     Array[postIndex] = true; // set the first element to false
     setImgCheck(Array); // update the state
@@ -78,8 +91,20 @@ function Generalform({ admin, username }) {
     setCheck(newArray); // update the state
   };
 
-  const imagePreview1 = (postIndex) => {
+  const imagePreview1 = (postIndex, img) => {
     document.body.style.overflowY = "hidden";
+    const colorThief = new ColorThief();
+    const image = new Image();
+    image.crossOrigin = "Anonymous";
+    image.src = path.join('/', img.filename); // Use the path from your img object
+
+    image.onload = async function () {
+      const colors = await colorThief.getPalette(image, 2);
+      const rgbColors = colors.map(color => `rgb(${color.join(', ')})`);
+      document.documentElement.style.setProperty('--1-color', rgbColors[0]);
+      document.documentElement.style.setProperty('--2-color', rgbColors[1]);
+      document.documentElement.style.setProperty('--3-color', rgbColors[2]);
+    };
     let Array = [...imgCheck]; // create a copy of the current state
     Array[postIndex] = true; // set the first element to false
     setImgCheck(Array); // update the state
@@ -132,11 +157,15 @@ function Generalform({ admin, username }) {
     }
     try {
       setLoad(true);
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_SOURCE_URL}/upload`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_SOURCE_URL}/upload`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         },
-      });
+      );
       if (res.status === 201) {
         await getPosts();
         setLoad(false);
@@ -170,6 +199,9 @@ function Generalform({ admin, username }) {
     newArray[index] = false; // set the first element to false
     setCheck(newArray); // update the state
     setBackCheck(false);
+    document.documentElement.style.setProperty('--1-color', "#f2f4f5");
+    document.documentElement.style.setProperty('--2-color', "#f2f4f5");
+    document.documentElement.style.setProperty('--3-color', "#f2f4f5");
     document.body.style.overflowY = "scroll";
   };
 
@@ -178,6 +210,9 @@ function Generalform({ admin, username }) {
     let newArray = [...imgCheck]; // create a copy of the current state
     newArray[index] = false; // set the first element to false
     setImgCheck(newArray); // update the state
+    document.documentElement.style.setProperty('--1-color', "#f2f4f5");
+    document.documentElement.style.setProperty('--2-color', "#f2f4f5");
+    document.documentElement.style.setProperty('--3-color', "#f2f4f5");
     document.body.style.overflowY = "scroll";
   };
 
@@ -356,7 +391,7 @@ function Generalform({ admin, username }) {
                   />
                   <span className="slider round">
                     <h6 className="posta">
-                      Anonymously?
+                      Anon?
                       <p />
                     </h6>
                   </span>
@@ -404,7 +439,9 @@ function Generalform({ admin, username }) {
                       post.pictureUrl.map((image, index) => (
                         <>
                           <button
-                            onClick={() => imagePreview(index, postIndex)}
+                            onClick={() =>
+                              imagePreview(index, postIndex, image)
+                            }
                           >
                             <img
                               src={`/${image.filename}`}
@@ -441,7 +478,7 @@ function Generalform({ admin, username }) {
                     {post.pictureUrl.length === 1 &&
                       post.pictureUrl.map((image, index) => (
                         <>
-                          <button onClick={() => imagePreview1(postIndex)}>
+                          <button onClick={() => imagePreview1(postIndex, image)}>
                             <img
                               src={`/${image.filename}`}
                               key={index}

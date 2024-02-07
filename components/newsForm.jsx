@@ -133,11 +133,15 @@ function Newsform({ admin, username }) {
     }
     try {
       setLoad(true);
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_SOURCE_URL}/upload`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_SOURCE_URL}/upload`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         },
-      });
+      );
       if (res.status === 201) {
         await fetchNews();
         setLoad(false);
@@ -322,7 +326,7 @@ function Newsform({ admin, username }) {
                   />
                   <span className="slider round">
                     <h6 className="posta">
-                      Anonymously?
+                      Anon?
                       <p />
                     </h6>
                   </span>
