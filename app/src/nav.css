@@ -1,4 +1,4 @@
-.container {
+.navContainer {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -9,7 +9,7 @@
   width: 130px !important;
   justify-content: left;
 }
-div.dblock {
+div.navDblock {
   position: relative;
   top: 5vh;
   text-align: center;

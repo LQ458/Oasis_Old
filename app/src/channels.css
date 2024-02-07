@@ -7,6 +7,9 @@
   --main-color: #1976d2;
   --sub-color: #1a699e;
   --sec-color: #2c9aff;
+  --1-color: #f2f4f5;
+  --2-color: #f2f4f5;
+  --3-color: #f2f4f5;
 }
 
 html {
@@ -29,7 +32,7 @@ body {
   overflow-y: scroll;
   position: relative;
   padding: 0;
-  background-color: #f2f4f5;
+  background: linear-gradient(var(--1-color), var(--2-color), var(--3-color));
   background-size: 100% 100%;
   background-attachment: fixed;
 }
@@ -324,7 +327,7 @@ input:checked + .slider:before {
 }
 div.switchForm {
   position: relative;
-  left: 15vw;
+  left: 20vw;
   top: 1vh;
 }
 div.preview-images > img {

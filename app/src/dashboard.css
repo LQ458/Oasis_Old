@@ -58,6 +58,7 @@ a.title {
 section.secd {
   position: relative;
   overflow-y: scroll;
+  background-color: #f2f4f5;
   overflow-x: hidden;
   padding: 2rem;
   color: #374151;
