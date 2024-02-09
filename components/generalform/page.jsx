@@ -31,6 +31,9 @@ function Generalform({ admin, username }) {
   const [likeloads, setLikeloads] = useState(true);
   const [likeload, setLikeload] = useState([]);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
+  const [commentOpen, setCommentOpen] = useState(false);
+  const [titleWords, setTitleWords] = useState(0);
+  const [contentWords, setContentWords] = useState(0);
   let newArray;
 
   const getPosts = async () => {
@@ -72,14 +75,14 @@ function Generalform({ admin, username }) {
     const colorThief = new ColorThief();
     const image = new Image();
     image.crossOrigin = "Anonymous";
-    image.src = path.join('/', img.filename); // Use the path from your img object
+    image.src = path.join("/", img.filename); // Use the path from your img object
 
     image.onload = async function () {
       const colors = await colorThief.getPalette(image, 2);
-      const rgbColors = colors.map(color => `rgb(${color.join(', ')})`);
-      document.documentElement.style.setProperty('--1-color', rgbColors[0]);
-      document.documentElement.style.setProperty('--2-color', rgbColors[1]);
-      document.documentElement.style.setProperty('--3-color', rgbColors[2]);
+      const rgbColors = colors.map((color) => `rgb(${color.join(", ")})`);
+      document.documentElement.style.setProperty("--1-color", rgbColors[0]);
+      document.documentElement.style.setProperty("--2-color", rgbColors[1]);
+      document.documentElement.style.setProperty("--3-color", rgbColors[2]);
     };
 
     let Array = [...imgCheck]; // create a copy of the current state
@@ -96,14 +99,14 @@ function Generalform({ admin, username }) {
     const colorThief = new ColorThief();
     const image = new Image();
     image.crossOrigin = "Anonymous";
-    image.src = path.join('/', img.filename); // Use the path from your img object
+    image.src = path.join("/", img.filename); // Use the path from your img object
 
     image.onload = async function () {
       const colors = await colorThief.getPalette(image, 2);
-      const rgbColors = colors.map(color => `rgb(${color.join(', ')})`);
-      document.documentElement.style.setProperty('--1-color', rgbColors[0]);
-      document.documentElement.style.setProperty('--2-color', rgbColors[1]);
-      document.documentElement.style.setProperty('--3-color', rgbColors[2]);
+      const rgbColors = colors.map((color) => `rgb(${color.join(", ")})`);
+      document.documentElement.style.setProperty("--1-color", rgbColors[0]);
+      document.documentElement.style.setProperty("--2-color", rgbColors[1]);
+      document.documentElement.style.setProperty("--3-color", rgbColors[2]);
     };
     let Array = [...imgCheck]; // create a copy of the current state
     Array[postIndex] = true; // set the first element to false
@@ -128,9 +131,34 @@ function Generalform({ admin, username }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setContentWords(0);
+    setTitleWords(0);
 
     if (username === undefined && username === null) {
       alert("You must login to post");
+      return;
+    }
+
+    if (
+      title === null ||
+      title === undefined ||
+      title === "Enter title (20 words max)"
+    ) {
+      alert("Title cannot be empty");
+      return;
+    } else if (
+      content === null ||
+      content === undefined ||
+      content === "Write sth..."
+    ) {
+      alert("Content cannot be empty");
+      return;
+    } else if (title.split(" ").filter((word) => word).length > 20) {
+      alert("Title cannot be more than 20 words");
+      return;
+    } else if (content.split(" ").filter((word) => word).length > 1000) {
+      console.log(content.split(" ").length);
+      alert("Content cannot be more than 1000 words");
       return;
     }
 
@@ -145,8 +173,6 @@ function Generalform({ admin, username }) {
     formData.append("title", title);
     formData.append("content", content);
     formData.append("postAnonymous", postAnonymous);
-    console.log(postAnonymous);
-    console.log("--------------------");
     formData.append("group", "general");
     formData.append("username", username);
 
@@ -184,7 +210,7 @@ function Generalform({ admin, username }) {
   };
 
   const handleAddPostClick = () => {
-    setInputBoxHidden(false);
+    setInputBoxHidden(!inputBoxHidden);
   };
 
   const handleCloseFormClick = () => {
@@ -199,9 +225,9 @@ function Generalform({ admin, username }) {
     newArray[index] = false; // set the first element to false
     setCheck(newArray); // update the state
     setBackCheck(false);
-    document.documentElement.style.setProperty('--1-color', "#f2f4f5");
-    document.documentElement.style.setProperty('--2-color', "#f2f4f5");
-    document.documentElement.style.setProperty('--3-color', "#f2f4f5");
+    document.documentElement.style.setProperty("--1-color", "#f2f4f5");
+    document.documentElement.style.setProperty("--2-color", "#f2f4f5");
+    document.documentElement.style.setProperty("--3-color", "#f2f4f5");
     document.body.style.overflowY = "scroll";
   };
 
@@ -210,9 +236,9 @@ function Generalform({ admin, username }) {
     let newArray = [...imgCheck]; // create a copy of the current state
     newArray[index] = false; // set the first element to false
     setImgCheck(newArray); // update the state
-    document.documentElement.style.setProperty('--1-color', "#f2f4f5");
-    document.documentElement.style.setProperty('--2-color', "#f2f4f5");
-    document.documentElement.style.setProperty('--3-color', "#f2f4f5");
+    document.documentElement.style.setProperty("--1-color", "#f2f4f5");
+    document.documentElement.style.setProperty("--2-color", "#f2f4f5");
+    document.documentElement.style.setProperty("--3-color", "#f2f4f5");
     document.body.style.overflowY = "scroll";
   };
 
@@ -297,6 +323,10 @@ function Generalform({ admin, username }) {
     await fetchLikes();
   };
 
+  const handleComment = () => {
+    setCommentOpen(!commentOpen);
+  };
+
   useEffect(() => {
     getPosts();
     fetchLikes();
@@ -330,26 +360,80 @@ function Generalform({ admin, username }) {
             id="postForm"
             encType="multipart/form-data"
           >
-            <label htmlFor="title">Title:</label>
-            <input
-              type="text"
-              className="title"
+            <div
+              contentEditable
+              required
               id="title"
               name="title"
+              onInput={(e) => {
+                const value = e.target.textContent;
+                setTitleWords(value.split(" ").filter((word) => word).length);
+              }}
+              onFocus={(e) => {
+                if (e.target.textContent === "Enter title (20 words max)") {
+                  e.target.textContent = "";
+                  e.target.style.color = "black";
+                }
+              }}
+              onBlur={(e) => {
+                if (e.target.textContent === "") {
+                  e.target.textContent = "Enter title (20 words max)";
+                  e.target.style.color = "gray";
+                }
+              }}
+            >
+              {title === "" ? "Enter title (20 words max)" : title}
+            </div>
+            <div style={{ position: "relative" }}>
+              <span
+                style={{
+                  position: "absolute",
+                  fontSize: "0.85rem",
+                  right: "12vw",
+                  bottom: "0vh",
+                }}
+              >
+                {titleWords}
+              </span>
+            </div>
+            <br />
+            <br />
+            <div
+              contentEditable
               required
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <br />
-            <br />
-            <label htmlFor="content">Write sth: </label>
-            <textarea
               id="content"
-              required
               name="content"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            ></textarea>
+              onInput={(e) => {
+                const value = e.target.textContent;
+                setContentWords(value.split(" ").filter((word) => word).length);
+              }}
+              onFocus={(e) => {
+                if (e.target.textContent === "Write sth...") {
+                  e.target.textContent = "";
+                  e.target.style.color = "black";
+                }
+              }}
+              onBlur={(e) => {
+                if (e.target.textContent === "") {
+                  e.target.textContent = "Write sth...";
+                  e.target.style.color = "gray";
+                }
+              }}
+            >
+              {content === "" ? "Write sth..." : content}
+            </div>
+            <div style={{ position: "relative" }}>
+              <span
+                style={{
+                  position: "absolute",
+                  fontSize: "0.85rem",
+                  right: "1.8vw",
+                  bottom: "0vh",
+                }}
+              >
+                {contentWords}
+              </span>
+            </div>
             <br />
             <br />
             <label htmlFor="input-files">
@@ -363,7 +447,15 @@ function Generalform({ admin, username }) {
               />
             </label>
             <div className="formBottom">
-              <button type="submit" className="postBtn" disabled={load}>
+              <button
+                type="submit"
+                className="postBtn"
+                disabled={load}
+                onClick={() => {
+                  setContent(document.getElementById("content").textContent),
+                    setTitle(document.getElementById("title").textContent);
+                }}
+              >
                 {!load && <p className="ldd">Post</p>}
                 {load && (
                   <div className="load">
@@ -478,7 +570,9 @@ function Generalform({ admin, username }) {
                     {post.pictureUrl.length === 1 &&
                       post.pictureUrl.map((image, index) => (
                         <>
-                          <button onClick={() => imagePreview1(postIndex, image)}>
+                          <button
+                            onClick={() => imagePreview1(postIndex, image)}
+                          >
                             <img
                               src={`/${image.filename}`}
                               key={index}
@@ -607,77 +701,95 @@ function Generalform({ admin, username }) {
                       </>
                     ))}
                   </div>
-                  {/* <button onClick={openCommentForm}>
-                      Add a Comment
-                    </button>
-                    <form
-          onSubmit={(e) => {
-            handleSubmit(e);
-          }}
-          id="postForm"
-          encType="multipart/form-data"
-        >
-          <button onClick={closeCommentForm}>
-            <Image src={Cancel} alt="cancel" height="40" width="40" />
-          </button>
-          <input
-            type="text"
-            className="title"
-            id="title"
-            name="title"
-            placeholder="Title:/optional"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <br />
-          <br />
-          <textarea
-            required
-            name="content"
-            placeholder="Comment on this post:"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          ></textarea>
-          <br />
-          <br />
-          <label htmlFor="input-files">Pictures:</label>
-          <input
-            type="file"
-            onChange={handleFileChange}
-            multiple
-          />
-          <div className="switchForm">
-            <label className="switch">
-              <input
-                type="checkbox"
-                name="postAnonymous"
-                checked={postAnonymous}
-                onChange={() => setPostAnonymous(!postAnonymous)}
-              />
-              <span className="slider round">
-                <h6 className="posta">
-                  Anonymously?
-                  <p />
-                </h6>
-              </span>
-            </label>
-          </div>
-          <button type="submit" className="postBtn" disabled={load}>
-            {!load && <p className="ldd">Post</p>}
-            {load && (
-              <div className="load">
-                <TailSpin
-                  type="ThreeDots"
-                  color="white"
-                  height={20}
-                  width={40}
-                  style={{ marginRight: "5px" }}
-                />
-                <span className="ld">Loading...</span>
-              </div>
-            )}
-          </button>
-        </form> */}
+
+                  {/* Comment Section */}
+                  <button onClick={handleComment}>Comments</button>
+                  {commentOpen && (
+                    <div className="commentForm">
+                      <form
+                        onSubmit={(e) => {
+                          handleSubmit(e);
+                        }}
+                        id="postForm"
+                        encType="multipart/form-data"
+                      >
+                        <div
+                          contentEditable
+                          required
+                          name="content"
+                          onFocus={(e) => {
+                            if (
+                              e.target.textContent === "Comment on this post"
+                            ) {
+                              e.target.textContent = "";
+                              e.target.style.color = "black";
+                            }
+                          }}
+                          onBlur={(e) => {
+                            if (e.target.textContent === "") {
+                              e.target.textContent = "Comment on this post";
+                              e.target.style.color = "gray";
+                            }
+                          }}
+                          value={content}
+                          onChange={(e) => setContent(e.target.textContent)}
+                          style={{
+                            border: "1px solid #ccc",
+                            borderRadius: "4px",
+                            padding: "6px 12px",
+                            minHeight: "34px",
+                            width: "94.5%",
+                            overflow: "auto",
+                            resize: "none",
+                            outline: "none",
+                            whiteSpace: "pre-wrap",
+                            wordWrap: "break-word",
+                            color: content ? "black" : "gray",
+                          }}
+                        >
+                          {content === "" ? "Comment on this post" : content}
+                        </div>
+                        <button
+                          type="submit"
+                          className="postBtn"
+                          disabled={load}
+                        >
+                          {!load && <p className="ldd">Post</p>}
+                          {load && (
+                            <div className="load">
+                              <TailSpin
+                                type="ThreeDots"
+                                color="white"
+                                height={20}
+                                width={40}
+                                style={{ marginRight: "5px" }}
+                              />
+                              <span className="ld">Loading...</span>
+                            </div>
+                          )}
+                        </button>
+                      </form>
+                    </div>
+                  )}
+
+                  {/* Array.from({ length: 15 }).map((_, i) => (
+                <div className="borderClass" key={i}>
+                  <React.Fragment>
+                    <Skeleton classes="title width-40" />
+                    <Skeleton classes="text width-70" />
+                    <Skeleton classes="text width-70" />
+                    <Skeleton classes="text width-70" />
+                    <br />
+                    <Skeleton classes="text width-pic" />
+                    <br />
+                    <Skeleton classes="text width-user" />
+                    <br />
+                    <Skeleton classes="text width-40" />
+                    <Skeleton classes="text width-delete" />
+                    <br />
+                  </React.Fragment>
+                </div>
+              )) */}
                   <br />
                   {post.username === username && !admin && (
                     <div className="deleteForm">

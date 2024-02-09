@@ -363,16 +363,45 @@ img {
   position: relative;
   left: 1.7rem;
 }
-.title {
+#title {
   border: 1px solid rgb(148, 148, 148);
   border-radius: 2px;
+  padding: 6px 12px;
+  min-height: 34px;
+  width: 60%;
+  overflow: auto;
+  resize: none;
+  outline: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: gray; /* default color, replace with the actual color when title is not empty */
 }
-.title:focus {
+#title.empty {
+  color: gray; /* color when title is empty */
+}
+#title:focus {
   border-color: var(--black-color);
 }
 #content {
   border: 1px solid rgb(148, 148, 148);
   border-radius: 2px;
+  padding: 6px 12px;
+  min-height: 34px;
+  width: 94.5%;
+  overflow: auto;
+  resize: none;
+  outline: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: gray; /* default color, replace with the actual color when content is not empty */
+}
+
+#content.empty {
+  color: gray; /* color when content is empty */
+}
+
+#content:focus {
+  border-color: var(--black-color);
 }
 button.postBtn {
   border: 1px solid transparent;
@@ -531,4 +560,10 @@ label[for="input-files"]:hover {
 div.formBottom {
   position: relative;
   top: 6vh;
+}
+
+div.commentForm {
+  position: relative;
+  border: 1px solid var(--black-color);
+  border-radius: 5px;
 }
