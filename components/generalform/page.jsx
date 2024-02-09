@@ -8,7 +8,7 @@ import { TailSpin } from "react-loader-spinner";
 import { Picker } from "emoji-mart";
 import ColorThief from "colorthief";
 import { useEffect } from "react";
-import path, { dirname } from "path";
+import path from "path";
 
 function Generalform({ admin, username }) {
   const [loading, setLoading] = useState(true);
@@ -334,6 +334,13 @@ function Generalform({ admin, username }) {
   const handleComment = (index) => {
     const newArray = [...commentOpen];
     newArray[index] = !newArray[index];
+    if (newArray[index] === true) {
+      setCommentDisplay(false);
+      setTemp(false);
+      setComment("");
+      setCommentFiles([]);
+      setAnonymous(false);
+    }
     setCommentOpen(newArray);
   };
 
