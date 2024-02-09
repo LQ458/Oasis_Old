@@ -39,7 +39,8 @@ function Generalform({ admin, username }) {
   const [commentFiles, setCommentFiles] = useState([]);
   const [anonymous, setAnonymous] = useState(false);
   const [commentUploadLoad, setCommentUploadLoad] = useState(false);
-  // const [commentDisplay, setCommentDisplay] = useState(false);
+  const [commentDisplay, setCommentDisplay] = useState(false);
+  const [temp, setTemp] = useState(false);
   // The commentDisplay function is for showing the comment post button and the picturen upload button. If the content is focused, or in other words, the user is writing or editing the comment, it shows, else, we need to make space for showing other comments.
   let newArray;
 
@@ -803,16 +804,26 @@ function Generalform({ admin, username }) {
                           encType="multipart/form-data"
                         >
                           <input
-                                  type="hidden"
-                                  name="id"
-                                  id="id"
-                                  value={post._id}
-                                />
+                            type="hidden"
+                            name="id"
+                            id="id"
+                            value={post._id}
+                          />
                           <div
                             contentEditable
                             required
                             id="comment"
                             name="comment"
+                            style={{
+                              borderBottomLeftRadius: !(commentDisplay || temp)
+                                ? "5px"
+                                : "0",
+                              borderBottomRightRadius: !(commentDisplay || temp)
+                                ? "5px"
+                                : "0",
+                              borderBottom:
+                                commentDisplay || temp ? "none" : "",
+                            }}
                             onInput={(e) => {
                               const value = e.target.textContent;
                               setCommentWords(
@@ -827,6 +838,7 @@ function Generalform({ admin, username }) {
                                 e.target.textContent = "";
                                 e.target.style.color = "black";
                               }
+                              setCommentDisplay(true);
                             }}
                             onBlur={(e) => {
                               if (e.target.textContent === "") {
@@ -834,6 +846,7 @@ function Generalform({ admin, username }) {
                                   "Comment on this post...";
                                 e.target.style.color = "gray";
                               }
+                              setCommentDisplay(false);
                             }}
                           >
                             {comment === ""
@@ -854,71 +867,82 @@ function Generalform({ admin, username }) {
                           </div>
                           {/* This hr is not needed for now. */}
                           {/* <hr width="97%" style={{margin: "0 auto", marginBottom: "1vh"}}/> */}
-                          <label
-                            className="picUpload"
-                            htmlFor="input-files"
-                            style={{
-                              borderRadius: "0",
-                              marginBottom: "0",
-                              textAlign: "center",
-                              fontWeight: "600",
-                            }}
-                          >
-                            Pictures
-                            <input
-                              type="file"
-                              id="input-files"
-                              className="form-control-file border"
-                              onChange={(e) => setCommentFiles(e.target.files)}
-                              multiple
-                            />
-                          </label>
-                          <div
-                            onClick={() => setAnonymous(!anonymous)}
-                            style={{
-                              backgroundColor: anonymous
-                                ? "#3AA138"
-                                : "#EF5C5C",
-                              color: "white",
-                              fontWeight: "600",
-                              textAlign: "center",
-                              padding: "10px",
-                              cursor: "pointer",
-                            }}
-                          >
-                            {anonymous ? "Anonymous" : "Not Anonymous"}
-                          </div>
-                          <button
-                            type="submit"
-                            className="postCommentBtn"
-                            disabled={commentUploadLoad}
-                            onClick={() => {
-                              setComment(
-                                document.getElementById("comment").textContent,
-                              );
-                            }}
-                          >
-                            {commentUploadLoad ? (
-                              <div className="load">
-                                <TailSpin
-                                  type="ThreeDots"
-                                  color="white"
-                                  height={20}
-                                  width={40}
-                                  style={{ marginRight: "5px" }}
+                          {(commentDisplay || temp) && (
+                            <div
+                              tabIndex={0}
+                              onMouseDown={() => setTemp(true)}
+                              onBlur={() => setTemp(false)}
+                            >
+                              <label
+                                className="picUpload"
+                                htmlFor="input-files"
+                                style={{
+                                  borderRadius: "0",
+                                  marginBottom: "0",
+                                  textAlign: "center",
+                                  fontWeight: "600",
+                                }}
+                              >
+                                Pictures
+                                <input
+                                  type="file"
+                                  id="input-files"
+                                  className="form-control-file border"
+                                  onChange={(e) =>
+                                    setCommentFiles(e.target.files)
+                                  }
+                                  multiple
                                 />
-                                <span className="ld">Loading...</span>
+                              </label>
+                              <div
+                                onClick={() => setAnonymous(!anonymous)}
+                                style={{
+                                  backgroundColor: anonymous
+                                    ? "#3AA138"
+                                    : "#EF5C5C",
+                                  color: "white",
+                                  fontWeight: "600",
+                                  textAlign: "center",
+                                  padding: "10px",
+                                  cursor: "pointer",
+                                }}
+                              >
+                                {anonymous ? "Anonymous" : "Not Anonymous"}
                               </div>
-                            ) : (
-                              <p className="ldd">Post</p>
-                            )}
-                          </button>
+                              <button
+                                type="submit"
+                                className="postCommentBtn"
+                                disabled={commentUploadLoad}
+                                onClick={() => {
+                                  setComment(
+                                    document.getElementById("comment")
+                                      .textContent,
+                                  );
+                                }}
+                              >
+                                {commentUploadLoad ? (
+                                  <div className="load">
+                                    <TailSpin
+                                      type="ThreeDots"
+                                      color="white"
+                                      height={20}
+                                      width={40}
+                                      style={{ marginRight: "5px" }}
+                                    />
+                                    <span className="ld">Loading...</span>
+                                  </div>
+                                ) : (
+                                  <p className="ldd">Post</p>
+                                )}
+                              </button>
+                            </div>
+                          )}
                         </form>
                       </div>
                     </>
                   )}
 
-                  {/* picture upload svg */}
+                  {/* picture upload svg (no need for now) */}
                   {/* <?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="149"	 height="132">
 <path d="M143.209,105.968c0,6.25-5.113,11.364-11.363,11.364H18.203c-6.25
