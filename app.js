@@ -88,7 +88,7 @@ app.post("/uploadComment", uploadmiddleware, async function (req, res) {
   const outputFolderPath = path.join(process.cwd(), "/public/");
   const outputFolderPath1 = path.join(process.cwd(), "/app/public/uploads/");
   const comment = new Comment({
-    title: req.body.title,
+    postId: req.body.postId,
     content: req.body.content,
     group: req.body.group,
     username: req.body.username,

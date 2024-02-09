@@ -10,6 +10,7 @@
   --1-color: #f2f4f5;
   --2-color: #f2f4f5;
   --3-color: #f2f4f5;
+  --border-color: #ebeced;
 }
 
 html {
@@ -60,8 +61,8 @@ a.titleg {
 
 #inputBoxGeneral {
   position: absolute;
-  top: 32vh;
-  left: 61vw;
+  top: 28vh;
+  left: 50vw;
   width: 36vw;
   background-color: white;
   padding: 3rem;
@@ -97,8 +98,8 @@ a.titleg {
   justify-content: center;
   background-color: white;
   border: none;
-  left: 61vw;
-  top: 3.2rem;
+  left: 50vw;
+  top: 8vh;
   border-radius: 12px;
   padding: 0.7rem;
   color: var(--black-color);
@@ -222,7 +223,7 @@ button.refreshBtn:active {
   margin-top: 20px;
 }
 
-label {
+label.picUpload {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
@@ -387,7 +388,7 @@ img {
   border-radius: 2px;
   padding: 6px 12px;
   min-height: 34px;
-  width: 94.5%;
+  width: 100%;
   overflow: auto;
   resize: none;
   outline: none;
@@ -402,6 +403,26 @@ img {
 
 #content:focus {
   border-color: var(--black-color);
+}
+
+#comment {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: none !important;
+  border: 0.5px solid gray;
+  min-height: 34px;
+  padding: 10px 10px;
+  width: 100%;
+  overflow: auto;
+  resize: none;
+  outline: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: gray; /* default color, replace with the actual color when comment is not empty */
+}
+
+#comment.empty {
+  color: gray; /* color when comment is empty */
 }
 button.postBtn {
   border: 1px solid transparent;
@@ -442,6 +463,7 @@ button.closeForm:hover {
 
 div.load {
   display: flex;
+  justify-content: center;
 }
 button.deleteBtn {
   border: 1px solid transparent;
@@ -564,6 +586,22 @@ div.formBottom {
 
 div.commentForm {
   position: relative;
-  border: 1px solid var(--black-color);
-  border-radius: 5px;
+}
+
+button.postCommentBtn {
+  padding: 10px;
+  font-weight: 600;
+  position: relative;
+  background-color: #ec3da0;
+  color: white;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 100%;
+  cursor: pointer;
+}
+
+button.postCommentBtn:hover {
+  background-color: #da3492;
 }

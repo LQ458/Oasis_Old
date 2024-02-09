@@ -24,6 +24,7 @@ function Generalform({ admin, username }) {
   const [title, setTitle] = useState("");
   const [likes, setLikes] = useState([]);
   const [content, setContent] = useState("");
+  const [comment, setComment] = useState("");
   const [files, setFiles] = useState([]);
   const [likestatuses, setLikestatuses] = useState([]);
   const [postAnonymous, setPostAnonymous] = useState(false);
@@ -31,9 +32,15 @@ function Generalform({ admin, username }) {
   const [likeloads, setLikeloads] = useState(true);
   const [likeload, setLikeload] = useState([]);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
-  const [commentOpen, setCommentOpen] = useState(false);
+  const [commentOpen, setCommentOpen] = useState([].map(() => false));
   const [titleWords, setTitleWords] = useState(0);
   const [contentWords, setContentWords] = useState(0);
+  const [commentWords, setCommentWords] = useState(0);
+  const [commentFiles, setCommentFiles] = useState([]);
+  const [anonymous, setAnonymous] = useState(false);
+  const [commentUploadLoad, setCommentUploadLoad] = useState(false);
+  // const [commentDisplay, setCommentDisplay] = useState(false);
+  // The commentDisplay function is for showing the comment post button and the picturen upload button. If the content is focused, or in other words, the user is writing or editing the comment, it shows, else, we need to make space for showing other comments.
   let newArray;
 
   const getPosts = async () => {
@@ -323,8 +330,71 @@ function Generalform({ admin, username }) {
     await fetchLikes();
   };
 
-  const handleComment = () => {
-    setCommentOpen(!commentOpen);
+  const handleComment = (index) => {
+    const newArray = [...commentOpen];
+    newArray[index] = !newArray[index];
+    setCommentOpen(newArray);
+  };
+
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    setCommentWords(0);
+
+    if (username === undefined && username === null) {
+      alert("You must login to post");
+      return;
+    }
+
+    if (
+      comment === null ||
+      comment === undefined ||
+      comment === "Comment on this post..."
+    ) {
+      alert("Comment cannot be empty");
+      return;
+    } else if (comment.split(" ").filter((word) => word).length > 500) {
+      alert("Comment cannot be more than 500 words");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("content", comment);
+    formData.append("anonymous", anonymous);
+    formData.append("group", "general");
+    console.log("id" + e.target.id.value);
+    formData.append("postId", e.target.id.value);
+    formData.append("username", username);
+
+    if (commentFiles) {
+      for (let i = 0; i < commentFiles.length; i++) {
+        formData.append("files", commentFiles[i]);
+      }
+    }
+    try {
+      setCommentUploadLoad(true);
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_SOURCE_URL}/uploadComment`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
+      if (res.status === 201) {
+        // await getComments();
+        setCommentUploadLoad(false);
+        // Close the comment
+        setMsg("Comment Saved Successfully");
+        setComment("");
+        setCommentFiles([]);
+        setAnonymous(false);
+      }
+      fetchLikes();
+    } catch (error) {
+      console.log(error);
+      setCommentUploadLoad(false);
+    }
   };
 
   useEffect(() => {
@@ -427,7 +497,7 @@ function Generalform({ admin, username }) {
                 style={{
                   position: "absolute",
                   fontSize: "0.85rem",
-                  right: "1.8vw",
+                  right: "0.5vw",
                   bottom: "0vh",
                 }}
               >
@@ -436,7 +506,7 @@ function Generalform({ admin, username }) {
             </div>
             <br />
             <br />
-            <label htmlFor="input-files">
+            <label htmlFor="input-files" className="picUpload">
               Pictures:
               <input
                 type="file"
@@ -703,75 +773,166 @@ function Generalform({ admin, username }) {
                   </div>
 
                   {/* Comment Section */}
-                  <button onClick={handleComment}>Comments</button>
-                  {commentOpen && (
-                    <div className="commentForm">
-                      <form
-                        onSubmit={(e) => {
-                          handleSubmit(e);
-                        }}
-                        id="postForm"
-                        encType="multipart/form-data"
-                      >
-                        <div
-                          contentEditable
-                          required
-                          name="content"
-                          onFocus={(e) => {
-                            if (
-                              e.target.textContent === "Comment on this post"
-                            ) {
-                              e.target.textContent = "";
-                              e.target.style.color = "black";
-                            }
+                  <button
+                    onClick={() => handleComment(postIndex)}
+                    style={{ display: "flex", alignItems: "flex-end" }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 32 32"
+                      width={40}
+                      height={40}
+                    >
+                      <path
+                        fill="#374151"
+                        strokeWidth={0.5}
+                        d="M25.784 21.017A10.992 10.992 0 0 0 27 16c0-6.065-4.935-11-11-11S5 9.935 5 16s4.935 11 11 11c1.742 0 3.468-.419 5.018-1.215l4.74 1.185a.996.996 0 0 0 .949-.263 1 1 0 0 0 .263-.95l-1.186-4.74zm-2.033.11.874 3.498-3.498-.875a1.006 1.006 0 0 0-.731.098A8.99 8.99 0 0 1 16 25c-4.963 0-9-4.038-9-9s4.037-9 9-9 9 4.038 9 9a8.997 8.997 0 0 1-1.151 4.395.995.995 0 0 0-.098.732z"
+                      ></path>
+                    </svg>
+                    <p style={{ position: "relative", marginBottom: "0.5vh" }}>
+                      Comments
+                    </p>
+                  </button>
+                  {commentOpen[postIndex] && (
+                    <>
+                      <div className="commentForm">
+                        <form
+                          onSubmit={(e) => {
+                            handleCommentSubmit(e);
                           }}
-                          onBlur={(e) => {
-                            if (e.target.textContent === "") {
-                              e.target.textContent = "Comment on this post";
-                              e.target.style.color = "gray";
-                            }
-                          }}
-                          value={content}
-                          onChange={(e) => setContent(e.target.textContent)}
-                          style={{
-                            border: "1px solid #ccc",
-                            borderRadius: "4px",
-                            padding: "6px 12px",
-                            minHeight: "34px",
-                            width: "94.5%",
-                            overflow: "auto",
-                            resize: "none",
-                            outline: "none",
-                            whiteSpace: "pre-wrap",
-                            wordWrap: "break-word",
-                            color: content ? "black" : "gray",
-                          }}
+                          encType="multipart/form-data"
                         >
-                          {content === "" ? "Comment on this post" : content}
-                        </div>
-                        <button
-                          type="submit"
-                          className="postBtn"
-                          disabled={load}
-                        >
-                          {!load && <p className="ldd">Post</p>}
-                          {load && (
-                            <div className="load">
-                              <TailSpin
-                                type="ThreeDots"
-                                color="white"
-                                height={20}
-                                width={40}
-                                style={{ marginRight: "5px" }}
-                              />
-                              <span className="ld">Loading...</span>
-                            </div>
-                          )}
-                        </button>
-                      </form>
-                    </div>
+                          <input
+                                  type="hidden"
+                                  name="id"
+                                  id="id"
+                                  value={post._id}
+                                />
+                          <div
+                            contentEditable
+                            required
+                            id="comment"
+                            name="comment"
+                            onInput={(e) => {
+                              const value = e.target.textContent;
+                              setCommentWords(
+                                value.split(" ").filter((word) => word).length,
+                              );
+                            }}
+                            onFocus={(e) => {
+                              if (
+                                e.target.textContent ===
+                                "Comment on this post..."
+                              ) {
+                                e.target.textContent = "";
+                                e.target.style.color = "black";
+                              }
+                            }}
+                            onBlur={(e) => {
+                              if (e.target.textContent === "") {
+                                e.target.textContent =
+                                  "Comment on this post...";
+                                e.target.style.color = "gray";
+                              }
+                            }}
+                          >
+                            {comment === ""
+                              ? "Comment on this post..."
+                              : comment}
+                          </div>
+                          <div style={{ position: "relative" }}>
+                            <span
+                              style={{
+                                position: "absolute",
+                                fontSize: "0.85rem",
+                                right: "0.7vw",
+                                bottom: "0vh",
+                              }}
+                            >
+                              {commentWords}
+                            </span>
+                          </div>
+                          {/* This hr is not needed for now. */}
+                          {/* <hr width="97%" style={{margin: "0 auto", marginBottom: "1vh"}}/> */}
+                          <label
+                            className="picUpload"
+                            htmlFor="input-files"
+                            style={{
+                              borderRadius: "0",
+                              marginBottom: "0",
+                              textAlign: "center",
+                              fontWeight: "600",
+                            }}
+                          >
+                            Pictures
+                            <input
+                              type="file"
+                              id="input-files"
+                              className="form-control-file border"
+                              onChange={(e) => setCommentFiles(e.target.files)}
+                              multiple
+                            />
+                          </label>
+                          <div
+                            onClick={() => setAnonymous(!anonymous)}
+                            style={{
+                              backgroundColor: anonymous
+                                ? "#3AA138"
+                                : "#EF5C5C",
+                              color: "white",
+                              fontWeight: "600",
+                              textAlign: "center",
+                              padding: "10px",
+                              cursor: "pointer",
+                            }}
+                          >
+                            {anonymous ? "Anonymous" : "Not Anonymous"}
+                          </div>
+                          <button
+                            type="submit"
+                            className="postCommentBtn"
+                            disabled={commentUploadLoad}
+                            onClick={() => {
+                              setComment(
+                                document.getElementById("comment").textContent,
+                              );
+                            }}
+                          >
+                            {commentUploadLoad ? (
+                              <div className="load">
+                                <TailSpin
+                                  type="ThreeDots"
+                                  color="white"
+                                  height={20}
+                                  width={40}
+                                  style={{ marginRight: "5px" }}
+                                />
+                                <span className="ld">Loading...</span>
+                              </div>
+                            ) : (
+                              <p className="ldd">Post</p>
+                            )}
+                          </button>
+                        </form>
+                      </div>
+                    </>
                   )}
 
+                  {/* picture upload svg */}
+                  {/* <?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="149"	 height="132">
+<path d="M143.209,105.968c0,6.25-5.113,11.364-11.363,11.364H18.203c-6.25
+0-11.363-5.113-11.363-11.364v-86.37c0-6.25,5.113-11.363
+11.363-11.363h113.643c6.25,0,11.363,5.113,11.363,11.363V105.968z
+M18.203,17.326c-1.207,0-2.271,1.068-2.271,2.271v86.37c0,1.207,1.065
+2.271,2.271,2.271h113.643c1.203,0,2.274-1.064
+2.274-2.271v-86.37c0-1.203-1.071-2.271-2.274-2.271H18.203z
+M38.661,53.691c-7.529,0-13.641-6.108-13.641-13.635s6.112-13.638,13.641-13.638
+c7.526,0,13.632,6.111,13.632,13.638S46.188,53.691,38.661,53.691z
+M125.025,99.15H25.02V85.51l22.73-22.724l11.363,11.36l36.365-36.361l29.547,29.547V99.15z"/>
+</svg> */}
+
+                  {/* loading state for comments (have not editted) */}
                   {/* Array.from({ length: 15 }).map((_, i) => (
                 <div className="borderClass" key={i}>
                   <React.Fragment>
