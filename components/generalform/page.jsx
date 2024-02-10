@@ -41,6 +41,7 @@ function Generalform({ admin, username }) {
   const [commentUploadLoad, setCommentUploadLoad] = useState(false);
   const [commentDisplay, setCommentDisplay] = useState(false);
   const [temp, setTemp] = useState(false);
+  const [comments, setComments] = useState([]);
   // The commentDisplay function is for showing the comment post button and the picturen upload button. If the content is focused, or in other words, the user is writing or editing the comment, it shows, else, we need to make space for showing other comments.
   let newArray;
 
@@ -77,6 +78,22 @@ function Generalform({ admin, username }) {
       console.log(error);
     }
   };
+
+  const getComments = async(index, id) => {
+    try{
+      const response = await axios.get('/api/fetchComments',
+      {
+        params:{
+          postId: id
+        }
+      });
+      const newArray = [...comments];
+      newArray[index] = response.data.comments;
+      setComments(newArray);
+    } catch(error){
+      console.log(error);
+    }
+  }
 
   const imagePreview = (index, postIndex, img) => {
     document.body.style.overflowY = "hidden";
@@ -331,10 +348,11 @@ function Generalform({ admin, username }) {
     await fetchLikes();
   };
 
-  const handleComment = (index) => {
+  const handleComment = async(index, postId) => {
     const newArray = [...commentOpen];
     newArray[index] = !newArray[index];
-    if (newArray[index] === true) {
+    const ind = newArray[index] === true;
+    if (ind) {
       setCommentDisplay(false);
       setTemp(false);
       setComment("");
@@ -342,9 +360,10 @@ function Generalform({ admin, username }) {
       setAnonymous(false);
     }
     setCommentOpen(newArray);
+    if(ind) await getComments(index, postId);
   };
 
-  const handleCommentSubmit = async (e) => {
+  const handleCommentSubmit = async (index, e) => {
     e.preventDefault();
     setCommentWords(0);
 
@@ -390,9 +409,10 @@ function Generalform({ admin, username }) {
         },
       );
       if (res.status === 201) {
-        // await getComments();
+        await getComments(index, e.target.id.value)
         setCommentUploadLoad(false);
-        // Close the comment
+        setCommentDisplay(false);
+        setTemp(false);
         setMsg("Comment Saved Successfully");
         setComment("");
         setCommentFiles([]);
@@ -782,7 +802,7 @@ function Generalform({ admin, username }) {
 
                   {/* Comment Section */}
                   <button
-                    onClick={() => handleComment(postIndex)}
+                    onClick={() => handleComment(postIndex, post._id)}
                     style={{ display: "flex", alignItems: "flex-end" }}
                   >
                     <svg
@@ -806,7 +826,7 @@ function Generalform({ admin, username }) {
                       <div className="commentForm">
                         <form
                           onSubmit={(e) => {
-                            handleCommentSubmit(e);
+                            handleCommentSubmit(postIndex, e);
                           }}
                           encType="multipart/form-data"
                         >
@@ -945,6 +965,10 @@ function Generalform({ admin, username }) {
                             </div>
                           )}
                         </form>
+                      </div>
+
+                      <div className="commentSection">
+                        
                       </div>
                     </>
                   )}
