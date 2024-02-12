@@ -606,3 +606,8 @@ button.postCommentBtn {
 button.postCommentBtn:hover {
   background-color: #da3492;
 }
+
+div.commentSection {
+  border: 1px solid #C4C4C4;
+  border-radius: 5px;
+}

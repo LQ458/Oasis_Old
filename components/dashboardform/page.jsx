@@ -105,11 +105,11 @@ export default function Dashboardform({ username }) {
     } else {
       setLshow(false);
     }
-  }, [currentIndex, posts]);
+  }, [currentIndex, posts, leftover]);
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [getPosts]);
 
   const handleNav = () => {
     setNavVisible(!navVisible);

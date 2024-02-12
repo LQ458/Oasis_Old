@@ -21,7 +21,7 @@ const LoginForm = () => {
   useEffect(() => {
     window.onload = function () {};
     setLoad(false);
-  });
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -22,7 +22,7 @@ const Registerform = () => {
   useEffect(() => {
     window.onload = function () {};
     setLoad(false);
-  });
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -42,6 +42,7 @@ function Generalform({ admin, username }) {
   const [commentDisplay, setCommentDisplay] = useState(false);
   const [temp, setTemp] = useState(false);
   const [comments, setComments] = useState([]);
+  const [commentNumber, setCommentNumber] = useState([]);
   // The commentDisplay function is for showing the comment post button and the picturen upload button. If the content is focused, or in other words, the user is writing or editing the comment, it shows, else, we need to make space for showing other comments.
   let newArray;
 
@@ -79,21 +80,34 @@ function Generalform({ admin, username }) {
     }
   };
 
-  const getComments = async(index, id) => {
-    try{
-      const response = await axios.get('/api/fetchComments',
-      {
-        params:{
-          postId: id
-        }
+  const getComments = async (index, id) => {
+    try {
+      const response = await axios.get("/api/fetchComments", {
+        params: {
+          postId: id,
+        },
       });
       const newArray = [...comments];
       newArray[index] = response.data.comments;
       setComments(newArray);
-    } catch(error){
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
+  // for future use to get number of comments
+  // const getCommentNumber = async (index, id) => {
+  //   try{
+  //     const response = await axios.post('/api/fetchComments',
+  //     {
+  //       postId: id
+  //     });
+  //     const newArray = [...commentNumber];
+  //     newArray[index] = response.data.commentNumber;
+  //     setCommentNumber(newArray);
+  //   } catch(error){
+  //     console.log(error);
+  //   }
+  // }
 
   const imagePreview = (index, postIndex, img) => {
     document.body.style.overflowY = "hidden";
@@ -348,7 +362,7 @@ function Generalform({ admin, username }) {
     await fetchLikes();
   };
 
-  const handleComment = async(index, postId) => {
+  const handleComment = async (index, postId) => {
     const newArray = [...commentOpen];
     newArray[index] = !newArray[index];
     const ind = newArray[index] === true;
@@ -360,7 +374,7 @@ function Generalform({ admin, username }) {
       setAnonymous(false);
     }
     setCommentOpen(newArray);
-    if(ind) await getComments(index, postId);
+    if (ind) await getComments(index, postId);
   };
 
   const handleCommentSubmit = async (index, e) => {
@@ -409,7 +423,7 @@ function Generalform({ admin, username }) {
         },
       );
       if (res.status === 201) {
-        await getComments(index, e.target.id.value)
+        await getComments(index, e.target.id.value);
         setCommentUploadLoad(false);
         setCommentDisplay(false);
         setTemp(false);
@@ -600,7 +614,7 @@ function Generalform({ admin, username }) {
         <div id="posts" className="word-box">
           {loading
             ? Array.from({ length: 15 }).map((_, i) => (
-                <div className="borderClass" key={i}>
+                <div className="borderClass" key={`Skeletons${i}`}>
                   <React.Fragment>
                     <Skeleton classes="title width-40" />
                     <Skeleton classes="text width-70" />
@@ -618,7 +632,7 @@ function Generalform({ admin, username }) {
                 </div>
               ))
             : posts.map((post, postIndex) => (
-                <div className="postsG" key={postIndex}>
+                <div className="postsG" key={post._id}>
                   <h3 className="ptitle">{post.title}</h3>
                   <br />
                   <div className="contents">{post.content}</div>
@@ -627,7 +641,7 @@ function Generalform({ admin, username }) {
                   <div className="imgs">
                     {post.pictureUrl.length > 1 &&
                       post.pictureUrl.map((image, index) => (
-                        <>
+                        <section key={image.filename}>
                           <button
                             onClick={() =>
                               imagePreview(index, postIndex, image)
@@ -635,7 +649,6 @@ function Generalform({ admin, username }) {
                           >
                             <img
                               src={`/${image.filename}`}
-                              key={index}
                               alt={image.filename}
                               width="300"
                               height="300"
@@ -645,7 +658,6 @@ function Generalform({ admin, username }) {
                           {check[index] && imgCheck[postIndex] && (
                             <img
                               src={`/${image.filename}`}
-                              key={index}
                               alt={image.filename}
                               id={`${post._id}-${index}`}
                               width={300 * scale}
@@ -663,17 +675,16 @@ function Generalform({ admin, username }) {
                             </button>
                           )}
                           {backCheck && <div className="blocks" />}
-                        </>
+                        </section>
                       ))}
                     {post.pictureUrl.length === 1 &&
                       post.pictureUrl.map((image, index) => (
-                        <>
+                        <section key={image.filename}>
                           <button
                             onClick={() => imagePreview1(postIndex, image)}
                           >
                             <img
                               src={`/${image.filename}`}
-                              key={index}
                               alt={image.filename}
                               width="300"
                               height="300"
@@ -683,7 +694,6 @@ function Generalform({ admin, username }) {
                           {ok && imgCheck[postIndex] && (
                             <img
                               src={`/${image.filename}`}
-                              key={index}
                               alt={image.filename}
                               width={300 * scale}
                               height={300 * scale}
@@ -704,7 +714,7 @@ function Generalform({ admin, username }) {
                           {ok && imgCheck[postIndex] && (
                             <div className="blocks" />
                           )}
-                        </>
+                        </section>
                       ))}
                   </div>
                   <br />
@@ -720,11 +730,13 @@ function Generalform({ admin, username }) {
                       <>
                         {like.postId === post._id &&
                           !(likeloads || likeload[likeIndex]) && (
-                            <>
+                            <section
+                              style={{ display: "flex" }}
+                              key={like.postId}
+                            >
                               <form
                                 onSubmit={(e) => sendLike("post", likeIndex, e)}
                                 disabled={likeloads || likeload[likeIndex]}
-                                key={likeIndex}
                               >
                                 <input
                                   type="hidden"
@@ -775,10 +787,8 @@ function Generalform({ admin, username }) {
                                   })()}
                                 </button>
                               </form>
-                              <p key={like.number} className="postlike">
-                                {like.number}
-                              </p>
-                            </>
+                              <p className="postlike">{like.number}</p>
+                            </section>
                           )}
 
                         {like.postId === post._id &&
@@ -966,10 +976,40 @@ function Generalform({ admin, username }) {
                           )}
                         </form>
                       </div>
-
-                      <div className="commentSection">
-                        
-                      </div>
+                      <br />
+                      {comments[postIndex] && (
+                        <div className="commentSection">
+                          <div style={{ display: "flex", padding: "8px" }}>
+                            <p>{comments[postIndex].length}</p>{" "}
+                            <p
+                              style={{
+                                position: "relative",
+                                top: "0.25vh",
+                                marginLeft: "0.25vw",
+                              }}
+                            >
+                              Comments
+                            </p>
+                          </div>
+                          <hr
+                            width="97%"
+                            style={{
+                              margin: "0 auto",
+                              marginBottom: "1vh",
+                              borderColor: "#C4C4C4"
+                            }}
+                          />
+                          {comments[postIndex].map((comment, index) => (
+                            <div key={comment._id} style={{padding: "8px"}}>
+                              <h2 style={{ fontWeight: "700"}}>{comment.username}</h2>
+                              <h2 style={{}}>{comment.content}</h2>
+                              <div style={{display: "flex"}}>
+                                <h2 style={{}}>{comment.postingtime}</h2>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </>
                   )}
 
