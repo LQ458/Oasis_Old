@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const moment = require("moment-timezone");
-const { Module } = require("module");
 
 const Schema = mongoose.Schema;
 
