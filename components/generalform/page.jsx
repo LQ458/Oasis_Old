@@ -31,6 +31,7 @@ function Generalform({ admin, username }) {
   const [inputBoxHidden, setInputBoxHidden] = useState(true);
   const [likeloads, setLikeloads] = useState(true);
   const [likeload, setLikeload] = useState([]);
+  const [commentLikeLoad, setCommentLikeLoad] = useState(null);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
   const [commentOpen, setCommentOpen] = useState([].map(() => false));
   const [titleWords, setTitleWords] = useState(0);
@@ -45,6 +46,7 @@ function Generalform({ admin, username }) {
   const [commentNumber, setCommentNumber] = useState([]);
   // The commentDisplay function is for showing the comment post button and the picturen upload button. If the content is focused, or in other words, the user is writing or editing the comment, it shows, else, we need to make space for showing other comments.
   let newArray;
+  let Array1;
 
   const getPosts = async () => {
     try {
@@ -108,6 +110,10 @@ function Generalform({ admin, username }) {
   //     console.log(error);
   //   }
   // }
+
+  const handleCommentLikeLoad = (id) => {
+    setCommentLikeLoad(id);
+  }
 
   const imagePreview = (index, postIndex, img) => {
     document.body.style.overflowY = "hidden";
@@ -352,6 +358,29 @@ function Generalform({ admin, username }) {
       setLikes(res.data.likes);
       newArray[likeIndex] = false;
       setLikeload(newArray);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const sendCommentLike = async (category, id, e) => {
+    e.preventDefault();
+    try {
+      setCommentLikeLoad(id);
+      const postId = e.target.id.value;
+      const likestatus = likestatuses?.find(
+        (likestatus) => likestatus.postId === postId,
+      );
+      const currentStatus = likestatus?.status ?? false;
+      const res = await axios.post("/api/fetchLike", {
+        postId,
+        sendUsername: username,
+        status: !currentStatus,
+        category,
+      });
+      setLikestatuses(res.data.likestatuses);
+      setLikes(res.data.likes);
+      setCommentLikeLoad(null);
     } catch (error) {
       console.log(error);
     }
@@ -996,15 +1025,114 @@ function Generalform({ admin, username }) {
                             style={{
                               margin: "0 auto",
                               marginBottom: "1vh",
-                              borderColor: "#C4C4C4"
+                              borderColor: "#C4C4C4",
                             }}
                           />
                           {comments[postIndex].map((comment, index) => (
-                            <div key={comment._id} style={{padding: "8px"}}>
-                              <h2 style={{ fontWeight: "700"}}>{comment.username}</h2>
+                            <div key={comment._id} style={{ padding: "8px" }}>
+                              <h2 style={{ fontWeight: "700" }}>
+                                {comment.username}
+                              </h2>
                               <h2 style={{}}>{comment.content}</h2>
-                              <div style={{display: "flex"}}>
+                              <div style={{ display: "flex" }}>
                                 <h2 style={{}}>{comment.postingtime}</h2>
+                                <div style={{position: "relative", left: "23vw"}} className="likeContainer">
+                                  {likes.map((like, likeIndex) => (
+                                    <>
+                                      {like.postId === comment._id &&
+                                        !(likeloads || (comment._id === commentLikeLoad)) && (
+                                          <section
+                                            style={{ display: "flex" }}
+                                            key={like.postId}
+                                          >
+                                            <form
+                                              onSubmit={(e) =>
+                                                sendCommentLike("comment", comment._id, e)
+                                              }
+                                              disabled={
+                                                likeloads || (comment._id === commentLikeLoad)
+                                              }
+                                            >
+                                              <input
+                                                type="hidden"
+                                                name="id"
+                                                id="id"
+                                                value={comment._id}
+                                              />
+                                              <button
+                                                className="likeBtn"
+                                                type="submit"
+                                                id={`like${comment._id}`}
+                                              >
+                                                {(() => {
+                                                  const likestatus =
+                                                    likestatuses.find(
+                                                      (likestatus) =>
+                                                        likestatus.postId ===
+                                                          comment._id &&
+                                                        likestatus.username ===
+                                                          username,
+                                                    );
+                                                  return likestatus &&
+                                                    likestatus.status ? (
+                                                    <svg
+                                                      xmlns="http://www.w3.org/2000/svg"
+                                                      fill="red"
+                                                      width={30}
+                                                      height={30}
+                                                      className="heart"
+                                                      viewBox="0 0 512 512"
+                                                    >
+                                                      <path d="M256 448a32 32 0 01-18-5.57c-78.59-53.35-112.62-89.93-131.39-112.8-40-48.75-59.15-98.8-58.61-153C48.63 114.52 98.46 64 159.08 64c44.08 0 74.61 24.83 92.39 45.51a6 6 0 009.06 0C278.31 88.81 308.84 64 352.92 64c60.62 0 110.45 50.52 111.08 112.64.54 54.21-18.63 104.26-58.61 153-18.77 22.87-52.8 59.45-131.39 112.8a32 32 0 01-18 5.56z" />
+                                                    </svg>
+                                                  ) : (
+                                                    <svg
+                                                      xmlns="http://www.w3.org/2000/svg"
+                                                      width={30}
+                                                      className="heart"
+                                                      height={30}
+                                                      viewBox="0 0 512 512"
+                                                    >
+                                                      <path
+                                                        d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z"
+                                                        fill="none"
+                                                        stroke="black"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth={20}
+                                                      />
+                                                    </svg>
+                                                  );
+                                                })()}
+                                              </button>
+                                            </form>
+                                            <p style={{fontSize: "1.5rem", bottom: "0.4vh", position: "relative"}}>
+                                              {like.number}
+                                            </p>
+                                          </section>
+                                        )}
+
+                                      {like.postId === comment._id &&
+                                        (likeloads || (comment._id === commentLikeLoad)) && (
+                                          <div
+                                            className="likeLoad"
+                                            key={comment._id}
+                                          >
+                                            <svg
+                                              xmlns="http://www.w3.org/2000/svg"
+                                              fill="red"
+                                              width={30}
+                                              height={30}
+                                              className="loadHeart"
+                                              viewBox="0 0 512 512"
+                                            >
+                                              <path d="M256 448a32 32 0 01-18-5.57c-78.59-53.35-112.62-89.93-131.39-112.8-40-48.75-59.15-98.8-58.61-153C48.63 114.52 98.46 64 159.08 64c44.08 0 74.61 24.83 92.39 45.51a6 6 0 009.06 0C278.31 88.81 308.84 64 352.92 64c60.62 0 110.45 50.52 111.08 112.64.54 54.21-18.63 104.26-58.61 153-18.77 22.87-52.8 59.45-131.39 112.8a32 32 0 01-18 5.56z" />
+                                            </svg>
+                                          </div>
+                                        )}
+                                    </>
+                                  ))}
+                                </div>
                               </div>
                             </div>
                           ))}
