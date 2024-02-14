@@ -6,10 +6,10 @@ import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 
 const commentUpload = ({
-  getComments,
   postIndex,
+  getComments,
   commentOpen,
-  postId,
+  commentId,
   username,
 }) => {
   const [comment, setComment] = useState("");
@@ -32,7 +32,7 @@ const commentUpload = ({
     if (
       comment === null ||
       comment === undefined ||
-      comment === "Comment on this post..."
+      comment === "Comment on this..."
     ) {
       alert("Comment cannot be empty");
       return;
@@ -82,15 +82,14 @@ const commentUpload = ({
   };
 
   useEffect(() => {
-    const ind = commentOpen[postIndex] === true;
-    if (ind) {
+    if (commentOpen) {
       setCommentDisplay(false);
       setTemp(false);
       setComment("");
       setCommentFiles([]);
       setAnonymous(false);
     }
-  }, [commentOpen[postIndex]]);
+  }, [commentOpen]);
   return (
     <div className="commentForm">
       <form
@@ -99,7 +98,7 @@ const commentUpload = ({
         }}
         encType="multipart/form-data"
       >
-        <input type="hidden" name="id" id="id" value={postId} />
+        <input type="hidden" name="id" id="id" value={commentId} />
         <div
           contentEditable
           required
@@ -115,7 +114,7 @@ const commentUpload = ({
             setCommentWords(value.split(" ").filter((word) => word).length);
           }}
           onFocus={(e) => {
-            if (e.target.textContent === "Comment on this post...") {
+            if (e.target.textContent === "Comment on this...") {
               e.target.textContent = "";
               e.target.style.color = "black";
             }
@@ -123,13 +122,13 @@ const commentUpload = ({
           }}
           onBlur={(e) => {
             if (e.target.textContent === "") {
-              e.target.textContent = "Comment on this post...";
+              e.target.textContent = "Comment on this...";
               e.target.style.color = "gray";
             }
             setCommentDisplay(false);
           }}
         >
-          {(comment === "") ? "Comment on this post..." : comment}
+          {comment === "" ? "Comment on this..." : comment}
         </div>
         <div style={{ position: "relative" }}>
           <span
@@ -188,8 +187,7 @@ const commentUpload = ({
               className="postCommentBtn"
               disabled={commentUploadLoad}
               onClick={() => {
-                setComment(document.getElementById("comment").textContent),
-                document.getElementById("comment").textContent = "Comment on this post...";
+                setComment(document.getElementById("comment").textContent);
               }}
             >
               {commentUploadLoad ? (
