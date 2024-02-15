@@ -8,7 +8,7 @@ import { mailOutline, lockClosedOutline } from "ionicons/icons";
 import styles from "@/app/src/login.css";
 import { signIn } from "next-auth/react";
 
-const loginForm = () => {
+const LoginForm = () => {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +21,7 @@ const loginForm = () => {
   useEffect(() => {
     window.onload = function () {};
     setLoad(false);
-  });
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,10 +54,21 @@ const loginForm = () => {
     <>
       <title>Login</title>
       <body className="loginbd">
+        <div className="box1" />
+        <div className="box2" />
+        <div className="box3" />
+        <div className="box4" />
+        <div className="box5" />
+        <div className="box6" />
+        <div className="box7" />
+        <div className="box8" />
+        <div className="box9" />
+        <div className="box10" />
+        <div className="box11" />
         <div className="form-box">
           <div className="form-value">
             <form onSubmit={handleSubmit} id="loginForm">
-              <h2>Login</h2>
+              <h2 className="LogTitle">Login</h2>
               <div className="inputbox">
                 <IonIcon icon={mailOutline} />
                 <input
@@ -115,4 +126,4 @@ const loginForm = () => {
   );
 };
 
-export default loginForm;
+export default LoginForm;

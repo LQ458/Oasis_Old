@@ -24,7 +24,10 @@ const SocialMedia = () => {
             <FontAwesomeIcon icon={["fab", "twitter"]} />
           </i>
         </a>
-        <a href="https://www.youtube.com/channel/UCxfAOHhw3eAXNsgu3dVHGkQ">
+        <a
+          target="_blank"
+          href="https://www.youtube.com/channel/UCxfAOHhw3eAXNsgu3dVHGkQ"
+        >
           <i>
             <FontAwesomeIcon icon={["fab", "youtube"]} />
           </i>

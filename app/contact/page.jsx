@@ -20,7 +20,7 @@ const Contact = () => {
         </li>
       </nav>
       <section>
-        <h2>We’d love to hear from you</h2>
+        <h2 className="contact">We&apos;d love to hear from you</h2>
         <br />
         <hr />
         <p className="curious">
@@ -33,14 +33,14 @@ const Contact = () => {
             <div className="icon">
               <PeopleCircle />
             </div>
-            <h3>Admin</h3>
+            <h3 className="username">Admin</h3>
             <p className="email">lqn458@gmail.com</p>
           </div>
           <div className="block">
             <div className="icon">
               <PeopleCircle />
             </div>
-            <h3>Admin1</h3>
+            <h3 className="username">Admin1</h3>
             <p className="email">aiercroft2007@gmail.com</p>
           </div>
         </div>

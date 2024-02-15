@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const likeSchema = new Schema({
@@ -11,6 +11,20 @@ const likeSchema = new Schema({
   forum: {
     type: String,
   },
+  category: {
+    type: String,
+  },
+  number: {
+    type: Number,
+    min: [0, "Negative numbers are not allowed"],
+    validate: {
+      validator: Number.isInteger,
+      message: "{VALUE} is not an integer value",
+    },
+  },
+  postingtime: {
+    type: String,
+  },
 });
 
-export default mongoose.models.Like || mongoose.model("Like", likeSchema);
+module.exports = mongoose.models.Like || mongoose.model("Like", likeSchema);

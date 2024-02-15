@@ -28,11 +28,14 @@ function compressImages(inputFiles, outputFolderPath) {
     compressImage()
       .then((data) => {
         fs.writeFile(outputFilePath, data, (err) => {
-          if (err) {
-            console.error("Error writing output file:", err);
-            return;
-          }
-          console.log("Output file successfully written:", outputFilePath);
+          if (err) throw err;
+
+          setImmediate(() => {
+            fs.unlink(`${path.join(process.cwd(), "/app/public/uploads/")}${fileName}`, (err) => {
+              if (err) throw err;
+              console.log('File was deleted');
+            });
+          });
         });
       })
       .catch((err) => console.error("Error processing image:", err));

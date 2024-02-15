@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { mailOutline, lockClosedOutline, diamondOutline } from "ionicons/icons";
 import Link from "next/link";
 
-const registerform = () => {
+const Registerform = () => {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +22,7 @@ const registerform = () => {
   useEffect(() => {
     window.onload = function () {};
     setLoad(false);
-  });
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,12 +48,15 @@ const registerform = () => {
   return (
     <>
       <title>Register</title>
-      <section>
-        <div className="form-box">
+      <section className="Reg">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div className="form-boxR">
           <div className="form-value">
             <form onSubmit={handleSubmit}>
-              <h2 className="reg">Register</h2>
-              <div className="inputbox">
+              <h2 className="regU">Register</h2>
+              <div className="inputboxR">
                 <IonIcon icon={mailOutline} />
                 <input
                   type="username"
@@ -63,7 +66,7 @@ const registerform = () => {
                 />
                 <label htmlFor="username">Username:</label>
               </div>
-              <div className="inputbox">
+              <div className="inputboxR">
                 <IonIcon icon={lockClosedOutline} />
                 <input
                   type="password"
@@ -102,7 +105,10 @@ const registerform = () => {
                 {error && <p className="error">Username has been registered</p>}
                 {!error && (
                   <p>
-                    Already have an account? <Link href="/login">Login</Link>
+                    Already have an account?{" "}
+                    <Link href="/login" style={{ color: "black" }}>
+                      Login
+                    </Link>
                   </p>
                 )}
                 <br />
@@ -116,4 +122,4 @@ const registerform = () => {
   );
 };
 
-export default registerform;
+export default Registerform;

@@ -1,7 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+:root {
+  --width: 100vw;
+}
+
 h1.h11 {
   font-size: 2rem;
   position: relative;
@@ -12,79 +12,13 @@ h1,
 p {
   margin: 0;
   padding: 0;
-  font-family: "poppins", sans-serif;
 }
 body.dash {
-  overflow-y: hidden;
-  font-family: Arial, sans-serif;
+  overflow: hidden;
   display: flex;
   flex-direction: row;
   height: 100vh;
-  background: linear-gradient(
-    -55deg,
-    #ee7752,
-    #e73c7e,
-    rgb(180, 180, 36),
-    #257fa0,
-    #1d9f80
-  );
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-#topBardash {
-  padding: 5px 0;
-  width: 100%;
-  height: 4.5rem;
-  background-color: transparent;
-  position: absolute;
-  display: flex;
-  top: 0;
-  left: 0;
-  z-index: 2;
-}
-.channels {
-  display: flex;
-  align-items: center;
-}
-.channel {
-  text-decoration: none;
-  position: relative;
-  transition: color 0.5s;
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
-.channel:hover {
-  text-decoration: none;
-  color: rgb(15, 185, 185);
-}
-
-.channel:active {
-  animation: click-effect 0.3s ease-in-out;
-}
-
-@keyframes click-effect {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.9);
-  }
-  100% {
-    transform: scale(1);
-  }
+  background-color: #f2f4f5;
 }
 li {
   list-style: none;
@@ -98,25 +32,6 @@ ul li {
   display: inline-block;
   margin-right: 10px;
 }
-.container {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.75);
-  border-right: 1.5px solid #fff;
-  color: white;
-  justify-content: left;
-  width: 6vw;
-}
-.icon-container {
-  position: relative;
-  left: 15px;
-  margin-top: -16px;
-}
-nav.dash {
-  flex-grow: 1;
-}
 p {
   text-align: left;
 }
@@ -126,28 +41,6 @@ p {
   align-items: center;
 }
 
-.index .icon-container {
-  margin-right: 1rem;
-}
-
-div.dblock {
-  position: relative;
-  top: 5vh;
-  text-align: center;
-  height: 20vh;
-  color: white;
-}
-.icon {
-  display: inline-block;
-  position: relative;
-  font-weight: 50;
-  transition: transform 0.2s ease-in-out;
-}
-.lift {
-  transform: translateY(-15px);
-  color: white;
-  transition: transform 0.2s ease-in-out;
-}
 a.title {
   font-size: 2rem;
   position: relative;
@@ -155,39 +48,47 @@ a.title {
   top: 0.7rem;
   font-weight: 600;
   font-weight: 550;
-  color: aliceblue;
   text-decoration: none;
-}
-#adminPage {
-  text-align: center;
-  text-decoration: none;
-  position: relative;
-  right: 100px;
-  color: white;
-  width: 200px;
-  border: white 2px solid;
-  height: 20px;
 }
 .profile {
   position: relative;
-  color: white;
   left: 70rem;
   bottom: 0;
 }
 section.secd {
   position: relative;
+  overflow-y: scroll;
+  background-color: #f2f4f5;
+  overflow-x: hidden;
   padding: 2rem;
-  color: white;
+  color: #374151;
   font-size: 1.2rem;
-  background-color: rgba(120, 120, 120, 0.5);
   height: 100vh;
-  width: 94vw;
+  width: var(--width);
+}
+section.secd::-webkit-scrollbar {
+  width: 10px;
+  background-color: transparent;
+}
+
+/* This is the handle (or thumb) */
+section.secd::-webkit-scrollbar-thumb {
+  background-color: rgb(166, 166, 166);
+  border-radius: 10px;
+}
+
+/* This is the handle on hover */
+section.secd::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(56, 239, 208);
 }
 h1.dashh1 {
-  font-size: 2rem;
-  position: relative;
-  font-weight: 550;
+  top: 1.7vh;
+  left: 50%;
   color: white;
+  transform: translateX(-50%);
+  font-size: 1.4rem;
+  position: absolute;
+  font-weight: 550;
 }
 div.comments {
   padding: 3rem;
@@ -204,4 +105,109 @@ div.like {
 }
 h2.dashh2 {
   position: relative;
+  left: 4vw;
+}
+div.dashpost {
+  display: flex;
+}
+div.myPost {
+  border: #e5e7eb solid 1px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  background-color: white;
+  color: #22a0ce;
+  padding: 0.5rem;
+  width: 10vw;
+}
+div.myPosts {
+  display: flex;
+  gap: 6.5vw;
+}
+.item-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.item-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition:
+    opacity 500ms,
+    transform 500ms;
+}
+
+.item-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.item-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition:
+    opacity 500ms,
+    transform 500ms;
+}
+div.postBtns {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  left: 1vw;
+}
+button.postBtns {
+  top: 2.5vw;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  left: 1vw;
+}
+p.dashp {
+  position: relative;
+  left: 4vw;
+}
+.postsvgs {
+  height: 40px !important;
+  width: 40px !important;
+}
+@media screen and (max-width: 1600px) {
+}
+top.dash {
+  position: fixed;
+  z-index: 100;
+  display: flex;
+  top: 0;
+  left: 0;
+  text-align: center;
+  background-color: #133153;
+  height: 8vh;
+  width: var(--width);
+}
+button.menuBtn {
+  top: 1.5vh;
+  color: white;
+  left: 4vw;
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+button.menuBtn:hover {
+  color: rgb(183, 183, 183);
+}
+
+.toIntro {
+  position: relative;
+  display: flex;
+  top: 0.4vh;
+  left: 1vw;
+  color: white;
+  font-size: 1.2rem;
+}
+span.intro {
+  position: relative;
+  top: 1.7vh;
+}
+
+div.nav {
+  position: relative;
+  margin-top: auto;
 }

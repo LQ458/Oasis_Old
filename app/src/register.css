@@ -1,52 +1,72 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
 * {
   margin: 0;
   padding: 0;
-  font-family: "poppins", sans-serif;
 }
-section {
+section.Reg {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   width: 100%;
 
-  background: url("../public/register.webp") no-repeat;
-  background-position: center;
-  background-size: cover;
+  background: linear-gradient(
+    30deg,
+    rgb(79, 255, 252),
+    rgb(255, 241, 84),
+    rgb(255, 0, 93)
+  );
+  background-size: 400% 400%;
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(150px);
+  backdrop-filter: blur(300px);
+  animation: gradient 8s ease infinite;
 }
-.form-box {
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.form-boxR {
   position: relative;
   width: 28rem;
+  color: black;
   height: 32rem;
-  background: transparent;
+  background-color: rgba(255, 255, 255, 0.253);
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 20px;
+  -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
   display: flex;
   justify-content: center;
   align-items: center;
 }
-h2 {
-  font-size: 2em;
-  color: #fff;
+h2.regU {
+  font-size: 2rem;
+  color: black;
+  position: relative;
+  bottom: 3vh;
   text-align: center;
 }
-.inputbox {
+.inputboxR {
   position: relative;
   margin: 30px 0;
   width: 310px;
-  border-bottom: 2px solid #fff;
+  border-bottom: 2px solid black;
 }
-.inputbox label {
+.inputboxR label {
   position: absolute;
   top: 50%;
   left: 5px;
   transform: translateY(-50%);
-  color: #fff;
   font-size: 1em;
   pointer-events: none;
   transition: 0.5s;
@@ -55,7 +75,7 @@ input:focus ~ label,
 input:valid ~ label {
   top: -5px;
 }
-.inputbox input {
+.inputboxR input {
   width: 100%;
   height: 50px;
   background: transparent;
@@ -63,19 +83,16 @@ input:valid ~ label {
   outline: none;
   font-size: 1em;
   padding: 0 35px 0 5px;
-  color: #fff;
 }
-.inputbox ion-icon {
+.inputboxR ion-icon {
   position: absolute;
   right: 8px;
-  color: #fff;
   font-size: 1.2em;
   top: 20px;
 }
 .forget {
   margin: -15px 0 15px;
   font-size: 0.9em;
-  color: #fff;
   display: flex;
   justify-content: space-between;
 }
@@ -84,7 +101,6 @@ input:valid ~ label {
   margin-right: 3px;
 }
 .forget label a {
-  color: #fff;
   text-decoration: none;
 }
 .forget label a:hover {
@@ -106,21 +122,15 @@ input:valid ~ label {
 }
 .register {
   font-size: 0.9em;
-  color: #fff;
   text-align: center;
   margin: 25px 0 10px;
 }
 .register p a {
   text-decoration: none;
-  color: #fff;
   font-weight: 600;
 }
 .register p a:hover {
   text-decoration: underline;
-}
-.reg {
-  top: 0.5em;
-  position: relative;
 }
 
 .loader {
@@ -130,5 +140,53 @@ p.error {
   padding: 0.5rem;
   font-size: 1rem;
   background-color: #af325c;
+  color: white;
   border-radius: 10px;
+}
+div.wave {
+  background: rgba(255, 255, 255, 0.397);
+  border-radius: 1000% 1000% 0 0;
+  position: fixed;
+  width: 200%;
+  height: 50vh;
+  animation: wave 10s -3s linear infinite;
+  transform: translate3d(0, 0, 0);
+  opacity: 0.8;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.wave:nth-of-type(2) {
+  bottom: -1.25em;
+  animation: wave 18s linear reverse infinite;
+  opacity: 0.8;
+}
+
+.wave:nth-of-type(3) {
+  bottom: -2.5em;
+  animation: wave 20s -1s reverse infinite;
+  opacity: 0.9;
+}
+
+@keyframes wave {
+  2% {
+    transform: translateX(1);
+  }
+
+  25% {
+    transform: translateX(-25%);
+  }
+
+  50% {
+    transform: translateX(-50%);
+  }
+
+  75% {
+    transform: translateX(-25%);
+  }
+
+  100% {
+    transform: translateX(1);
+  }
 }
