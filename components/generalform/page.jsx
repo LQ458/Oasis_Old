@@ -3,7 +3,7 @@ import "@/app/src/channels.css";
 import React from "react";
 import axios from "axios";
 import Skeleton from "../skeletons/Skeleton";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 import { Picker } from "emoji-mart";
 import SubCommentUpload from "../subCommentUpload";
@@ -11,7 +11,6 @@ import ColorThief from "colorthief";
 import CommentUpload from "../commentUpload";
 import { useEffect } from "react";
 import path from "path";
-import { set } from "mongoose";
 
 function Generalform({ admin, username }) {
   const [loading, setLoading] = useState(true);
@@ -95,6 +94,7 @@ function Generalform({ admin, username }) {
       const newArray = [...comments];
       newArray[index] = response.data.comments;
       setComments(newArray);
+      console.log(newArray);
     } catch (error) {
       console.log(error);
     }
@@ -388,6 +388,7 @@ function Generalform({ admin, username }) {
   const handleRefresh = async () => {
     await getPosts();
     await fetchLikes();
+    setCommentOpen([].map(() => false));
   };
 
   const handleComment = async (index, postId) => {
@@ -867,6 +868,7 @@ function Generalform({ admin, username }) {
                   {commentOpen[postIndex] && (
                     <>
                       <CommentUpload
+                        fetchLikes={fetchLikes}
                         username={username}
                         postId={post._id}
                         commentOpen={commentOpen}
@@ -1055,7 +1057,9 @@ function Generalform({ admin, username }) {
                               </div>
                               {addCommentDisplay.includes(com._id) && (
                                 <SubCommentUpload
+                                  fetchLikes={fetchLikes}
                                   postIndex={postIndex}
+                                  postId={post._id}
                                   username={username}
                                   commentId={com._id}
                                   commentOpen={addCommentDisplay.includes(

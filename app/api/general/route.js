@@ -2,6 +2,8 @@ import DBconnect from "@/libs/mongodb";
 import Post from "@/models/post";
 import Like from "@/models/like";
 import fs from "fs";
+import { promisify } from "util";
+const unlinkAsync = promisify(fs.unlink);
 import path from "path";
 import Likestatus from "@/models/likestatus";
 import { NextResponse } from "next/server";
@@ -18,13 +20,13 @@ export async function DELETE(req) {
   const post = await Post.findById(id);
   if (post && post.pictureUrl && post.pictureUrl.path) {
     try {
-      fs.unlink(path.join(__dirname, post.pictureUrl.path));
-      fs.unlink(path.join(__dirname, post.pictureUrl.filename));
+      await unlinkAsync(path.join(__dirname, post.pictureUrl.filename));
+      console.log("File deleted successfully");
     } catch (err) {
       console.error(`Failed to delete local image: ${err}`);
     }
   }
-  Promise.all([
+  await Promise.all([
     Post.findByIdAndDelete(id),
     Like.findOneAndDelete({ postId: id }),
     Likestatus.deleteMany({ postId: id }),

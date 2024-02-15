@@ -5,6 +5,7 @@ const Post = require("./models/post");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const path = require("path");
+const fs = require("fs");
 const Like = require("./models/like");
 const Comment = require("./models/comment");
 const uploadmiddleware = uploadutils.middleware;
