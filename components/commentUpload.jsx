@@ -11,6 +11,7 @@ const commentUpload = ({
   commentOpen,
   postId,
   username,
+  fetchLikes,
 }) => {
   const [comment, setComment] = useState("");
   const [commentFiles, setCommentFiles] = useState([]);
@@ -129,7 +130,7 @@ const commentUpload = ({
             setCommentDisplay(false);
           }}
         >
-          {(comment === "") ? "Comment on this post..." : comment}
+          {comment === "" ? "Comment on this post..." : comment}
         </div>
         <div style={{ position: "relative" }}>
           <span
@@ -188,8 +189,7 @@ const commentUpload = ({
               className="postCommentBtn"
               disabled={commentUploadLoad}
               onClick={() => {
-                setComment(document.getElementById("comment").textContent),
-                document.getElementById("comment").textContent = "Comment on this post...";
+                setComment(document.getElementById("comment").textContent);
               }}
             >
               {commentUploadLoad ? (

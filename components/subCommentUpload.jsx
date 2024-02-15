@@ -5,12 +5,14 @@ import { useEffect } from "react";
 import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 
-const commentUpload = ({
+const subCommentUpload = ({
   postIndex,
   getComments,
   commentOpen,
   commentId,
   username,
+  fetchLikes,
+  postId,
 }) => {
   const [comment, setComment] = useState("");
   const [commentFiles, setCommentFiles] = useState([]);
@@ -20,7 +22,7 @@ const commentUpload = ({
   const [temp, setTemp] = useState(false);
   const [anonymous, setAnonymous] = useState(false);
 
-  const handleCommentSubmit = async (index, e) => {
+  const handleCommentSubmit = async (e) => {
     e.preventDefault();
     setCommentWords(0);
 
@@ -65,7 +67,7 @@ const commentUpload = ({
         },
       );
       if (res.status === 201) {
-        await getComments(index, e.target.id.value);
+        await getComments(postIndex, postId);
         setCommentUploadLoad(false);
         setCommentDisplay(false);
         setTemp(false);
@@ -94,7 +96,7 @@ const commentUpload = ({
     <div className="commentForm">
       <form
         onSubmit={(e) => {
-          handleCommentSubmit(postIndex, e);
+          handleCommentSubmit(e);
         }}
         encType="multipart/form-data"
       >
@@ -212,4 +214,4 @@ const commentUpload = ({
   );
 };
 
-export default commentUpload;
+export default subCommentUpload;
