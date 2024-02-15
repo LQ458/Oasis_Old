@@ -20,7 +20,7 @@ export default async function general() {
 
   return (
     <main>
-      <Generalform admin={admin} />
+      <Generalform admin={admin} username={session?.user?.name} />
     </main>
   );
 }

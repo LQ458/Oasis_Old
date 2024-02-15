@@ -20,7 +20,7 @@ const UserInfo = () => {
     if (session) {
       setLoad(false);
     }
-  });
+  }, [session]);
 
   return (
     <main className="background">

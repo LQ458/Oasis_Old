@@ -18,41 +18,31 @@ const Intro = () => {
         <div className="icon-container">
           <Chatbubbles />
         </div>
-        <li>
-          <a className="webicon" href="intro">
-            Oasis
+        <a className="webicon" href="intro">
+          Oasis
+        </a>
+        <div className="gradient-text">
+          <a className="channel c1" href="login">
+            Login
           </a>
-        </li>
-        <ul className="gradient-text">
-          <li>
-            <a className="channel" href="login">
-              Login
-            </a>
-          </li>
-          <li>
-            <a className="channel" href="register">
-              Register
-            </a>
-          </li>
-          <li>
-            <a className="channel" href="announcement">
-              Announcement
-            </a>
-          </li>
-          <li>
-            <a className="channel" href="contact">
-              Contact
-            </a>
-          </li>
-        </ul>
+          <a className="channel c2" href="register">
+            Register
+          </a>
+          <a className="channel c3" href="news">
+            News
+          </a>
+          <a className="channel c4" href="contact">
+            Contact
+          </a>
+        </div>
       </nav>
       <header>
-        <h1>Welcome to the Oasis!</h1>
+        <h1 className="intro">Welcome to the Oasis!</h1>
         <hr />
         <p>
           Welcome to our forum website, the ultimate platform for engaging
           discussions and connecting with like-minded individuals. Whether
-          you’re seeking expert advice, sharing your experiences, or simply
+          you&apos;re seeking expert advice, sharing your experiences, or simply
           looking to expand your knowledge, our forum offers a vibrant community
           where you can ask questions, contribute insights, and immerse yourself
           in a diverse range of topics. Join us and be part of the conversation
@@ -60,7 +50,7 @@ const Intro = () => {
         </p>
       </header>
       <section>
-        <h2>About Us</h2>
+        <h1 className="intro">About Us</h1>
         <hr />
         <p>
           At Oasis, we believe in the power of connections and conversations. We
@@ -77,8 +67,8 @@ const Intro = () => {
             </div>
             <h3>Diverse Community</h3>
             <p>
-              Celebrating diversity, embracing perspectives, valuing everyone’s
-              voice
+              Celebrating diversity, embracing perspectives, valuing
+              everyone&apos;s voice
             </p>
           </div>
           <div className="block">
@@ -101,11 +91,6 @@ const Intro = () => {
               constructive discussions
             </p>
           </div>
-        </div>
-        <br />
-        <br />
-        <br />
-        <div className="container">
           <div className="block">
             <div className="icon">
               <ShieldHalf />
