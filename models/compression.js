@@ -29,13 +29,6 @@ function compressImages(inputFiles, outputFolderPath) {
       .then((data) => {
         fs.writeFile(outputFilePath, data, (err) => {
           if (err) throw err;
-
-          setImmediate(() => {
-            fs.unlink(`${path.join(process.cwd(), "/app/public/uploads/")}${fileName}`, (err) => {
-              if (err) throw err;
-              console.log('File was deleted');
-            });
-          });
         });
       })
       .catch((err) => console.error("Error processing image:", err));

@@ -72,7 +72,7 @@ const subCommentUpload = ({
         setCommentDisplay(false);
         setTemp(false);
         setComment("");
-        document.getElementById("comment").style.color = "gray";
+        document.getElementById("subComment").style.color = "gray";
         setCommentFiles([]);
         setAnonymous(false);
       }
@@ -104,8 +104,8 @@ const subCommentUpload = ({
         <div
           contentEditable
           required
-          id="comment"
-          name="comment"
+          id="subComment"
+          name="subComment"
           style={{
             borderBottomLeftRadius: !(commentDisplay || temp) ? "5px" : "0",
             borderBottomRightRadius: !(commentDisplay || temp) ? "5px" : "0",
@@ -189,7 +189,7 @@ const subCommentUpload = ({
               className="postCommentBtn"
               disabled={commentUploadLoad}
               onClick={() => {
-                setComment(document.getElementById("comment").textContent);
+                setComment(document.getElementById("subComment").textContent);
               }}
             >
               {commentUploadLoad ? (
