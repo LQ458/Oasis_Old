@@ -411,68 +411,6 @@ function Generalform({ admin, username }) {
     }
   };
 
-  const handleCommentSubmit = async (index, e) => {
-    e.preventDefault();
-    setCommentWords(0);
-
-    if (username === undefined && username === null) {
-      alert("You must login to post");
-      return;
-    }
-
-    if (
-      comment === null ||
-      comment === undefined ||
-      comment === "Comment on this post..."
-    ) {
-      alert("Comment cannot be empty");
-      return;
-    } else if (comment.split(" ").filter((word) => word).length > 500) {
-      alert("Comment cannot be more than 500 words");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("content", comment);
-    formData.append("anonymous", anonymous);
-    formData.append("group", "general");
-    console.log("id" + e.target.id.value);
-    formData.append("postId", e.target.id.value);
-    formData.append("username", username);
-
-    if (commentFiles) {
-      for (let i = 0; i < commentFiles.length; i++) {
-        formData.append("files", commentFiles[i]);
-      }
-    }
-    try {
-      setCommentUploadLoad(true);
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_SOURCE_URL}/uploadComment`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        },
-      );
-      if (res.status === 201) {
-        await getComments(index, e.target.id.value);
-        setCommentUploadLoad(false);
-        setCommentDisplay(false);
-        setTemp(false);
-        setMsg("Comment Saved Successfully");
-        setComment("");
-        setCommentFiles([]);
-        setAnonymous(false);
-      }
-      fetchLikes();
-    } catch (error) {
-      console.log(error);
-      setCommentUploadLoad(false);
-    }
-  };
-
   useEffect(() => {
     getPosts();
     fetchLikes();

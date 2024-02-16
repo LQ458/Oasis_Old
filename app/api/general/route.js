@@ -17,15 +17,14 @@ export async function GET() {
 export async function DELETE(req) {
   const { id } = await req.json();
   await DBconnect();
-  const post = await Post.findById(id);
-  if (post && post.pictureUrl && post.pictureUrl.path) {
-    try {
-      await unlinkAsync(path.join(__dirname, post.pictureUrl.filename));
-      console.log("File deleted successfully");
-    } catch (err) {
-      console.error(`Failed to delete local image: ${err}`);
-    }
-  }
+  // if (post && post.pictureUrl && post.pictureUrl.path) {
+  //   try {
+  //     await unlinkAsync(path.join(__dirname, post.pictureUrl.filename));
+  //     console.log("File deleted successfully");
+  //   } catch (err) {
+  //     console.error(`Failed to delete local image: ${err}`);
+  //   }
+  // }
   await Promise.all([
     Post.findByIdAndDelete(id),
     Like.findOneAndDelete({ postId: id }),
