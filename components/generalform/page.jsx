@@ -10,7 +10,6 @@ import SubCommentUpload from "../subCommentUpload";
 import ColorThief from "colorthief";
 import CommentUpload from "../commentUpload";
 import { useEffect } from "react";
-import path from "path";
 
 function Generalform({ admin, username }) {
   const [loading, setLoading] = useState(true);
@@ -119,7 +118,8 @@ function Generalform({ admin, username }) {
     const colorThief = new ColorThief();
     const image = new Image();
     image.crossOrigin = "Anonymous";
-    image.src = path.join("/", img.filename); // Use the path from your img object
+    image.src = `${process.env.NEXT_PUBLIC_SOURCE_URL}/public/${img.filename}`;
+    console.log(image.src);
 
     image.onload = async function () {
       const colors = await colorThief.getPalette(image, 2);
@@ -143,7 +143,7 @@ function Generalform({ admin, username }) {
     const colorThief = new ColorThief();
     const image = new Image();
     image.crossOrigin = "Anonymous";
-    image.src = path.join("/", img.filename); // Use the path from your img object
+    image.src = `${process.env.NEXT_PUBLIC_SOURCE_URL}/public/${img.filename}`;
 
     image.onload = async function () {
       const colors = await colorThief.getPalette(image, 2);
@@ -620,7 +620,7 @@ function Generalform({ admin, username }) {
                             }
                           >
                             <img
-                              src={`/${image.filename}`}
+                              src={`${process.env.NEXT_PUBLIC_SOURCE_URL}/public/${image.filename}`}
                               alt={image.filename}
                               width="300"
                               height="300"
@@ -629,7 +629,7 @@ function Generalform({ admin, username }) {
                           </button>
                           {check[index] && imgCheck[postIndex] && (
                             <img
-                              src={`/${image.filename}`}
+                              src={`${process.env.NEXT_PUBLIC_SOURCE_URL}/public/${image.filename}`}
                               alt={image.filename}
                               id={`${post._id}-${index}`}
                               width={300 * scale}
@@ -656,7 +656,7 @@ function Generalform({ admin, username }) {
                             onClick={() => imagePreview1(postIndex, image)}
                           >
                             <img
-                              src={`/${image.filename}`}
+                              src={`${process.env.NEXT_PUBLIC_SOURCE_URL}/public/${image.filename}`}
                               alt={image.filename}
                               width="300"
                               height="300"
@@ -665,7 +665,7 @@ function Generalform({ admin, username }) {
                           </button>
                           {ok && imgCheck[postIndex] && (
                             <img
-                              src={`/${image.filename}`}
+                              src={`${process.env.NEXT_PUBLIC_SOURCE_URL}/public/${image.filename}`}
                               alt={image.filename}
                               width={300 * scale}
                               height={300 * scale}
