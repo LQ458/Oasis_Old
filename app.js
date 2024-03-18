@@ -51,7 +51,7 @@ app.post("/upload", uploadmiddleware, async function (req, res) {
     pictureUrl: [],
   });
 
-  if (req.files && req.files.length >= 1) {
+  if (req.files) {
     req.files.forEach(function (file) {
       post.pictureUrl.push({
         filename: file.filename,
